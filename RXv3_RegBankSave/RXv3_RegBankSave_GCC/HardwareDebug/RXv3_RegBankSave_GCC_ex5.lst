@@ -1,0 +1,1034 @@
+   1                             		.file	"RXv3_RegBankSave_GCC_ex5.c"
+   2                             		.section P,"ax"
+   3                             	.Ltext0:
+   4                             		.section	.text.i_hdr_5_3,"ax",@progbits
+   6                             	_i_hdr_5_3:
+   7                             	.LFB9:
+   8                             		.file 1 "../src/RXv3_RegBankSave_GCC_ex5.c"
+   1:../src/RXv3_RegBankSave_GCC_ex5.c **** #include <stdio.h>
+   2:../src/RXv3_RegBankSave_GCC_ex5.c **** //#include <math.h>
+   3:../src/RXv3_RegBankSave_GCC_ex5.c **** #include <stdlib.h>
+   4:../src/RXv3_RegBankSave_GCC_ex5.c **** #include <ctype.h>
+   5:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+   6:../src/RXv3_RegBankSave_GCC_ex5.c **** /* Special character code */
+   7:../src/RXv3_RegBankSave_GCC_ex5.c **** #define LF 0x0a                     /* Line feed       */
+   8:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+   9:../src/RXv3_RegBankSave_GCC_ex5.c **** /* Flag */
+  10:../src/RXv3_RegBankSave_GCC_ex5.c **** #define FALSE 0x00
+  11:../src/RXv3_RegBankSave_GCC_ex5.c **** #define TRUE  0x01
+  12:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  13:../src/RXv3_RegBankSave_GCC_ex5.c **** //void main(void);
+  14:../src/RXv3_RegBankSave_GCC_ex5.c **** void sort_(long *a);
+  15:../src/RXv3_RegBankSave_GCC_ex5.c **** void change_(long *a);
+  16:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  17:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_1_(void);
+  18:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_1(void);
+  19:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  20:../src/RXv3_RegBankSave_GCC_ex5.c **** __attribute__((naked))
+  21:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_1(void)
+  22:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+  23:../src/RXv3_RegBankSave_GCC_ex5.c ****     //__asm volatile ("SETPSW I");
+  24:../src/RXv3_RegBankSave_GCC_ex5.c ****     //__asm volatile ("SAVE #0");
+  25:../src/RXv3_RegBankSave_GCC_ex5.c ****     //__asm volatile ("BSR _i_hdr_5_1_");
+  26:../src/RXv3_RegBankSave_GCC_ex5.c ****     //__asm volatile ("RSTR #0");
+  27:../src/RXv3_RegBankSave_GCC_ex5.c **** 	__builtin_rx_setpsw('I');
+  28:../src/RXv3_RegBankSave_GCC_ex5.c ****     __builtin_rx_save(0);
+  29:../src/RXv3_RegBankSave_GCC_ex5.c ****     i_hdr_5_1_();
+  30:../src/RXv3_RegBankSave_GCC_ex5.c ****     __builtin_rx_rstr(0);
+  31:../src/RXv3_RegBankSave_GCC_ex5.c ****     __asm__ volatile ("RTE");
+  32:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+  33:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  34:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_1_(void)
+  35:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+  36:../src/RXv3_RegBankSave_GCC_ex5.c ****     long data[10];
+  37:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i;
+  38:../src/RXv3_RegBankSave_GCC_ex5.c ****     char tmp[2];
+  39:../src/RXv3_RegBankSave_GCC_ex5.c ****     int ret;
+  40:../src/RXv3_RegBankSave_GCC_ex5.c ****     char isnuminput;
+  41:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  42:../src/RXv3_RegBankSave_GCC_ex5.c **** //    while(1){
+  43:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  44:../src/RXv3_RegBankSave_GCC_ex5.c ****         printf("### Data Input ###\n");
+  45:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( i=0; i<10; i++ ){
+  47:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+  48:../src/RXv3_RegBankSave_GCC_ex5.c ****             data[i]= 0;
+  49:../src/RXv3_RegBankSave_GCC_ex5.c ****             isnuminput = FALSE;
+  50:../src/RXv3_RegBankSave_GCC_ex5.c ****             while(1){
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 ret = scanf("%c",&tmp);
+  52:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+  53:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if( tmp[0] != LF ){
+  54:../src/RXv3_RegBankSave_GCC_ex5.c ****                         if( isdigit(tmp[0])!=0 ){
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = data[i]*10 + atoi(tmp);
+  56:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+  57:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }else{
+  58:../src/RXv3_RegBankSave_GCC_ex5.c ****                             printf("\n+++You can input only the decimal number.+++\n");
+  59:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = 0;
+  60:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = FALSE;
+  61:../src/RXv3_RegBankSave_GCC_ex5.c ****                             printf("data[%d]=",i);
+  62:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }
+  63:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }else{
+  64:../src/RXv3_RegBankSave_GCC_ex5.c ****                         if(isnuminput != FALSE){
+  65:../src/RXv3_RegBankSave_GCC_ex5.c ****                             break;
+  66:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }else{
+  67:../src/RXv3_RegBankSave_GCC_ex5.c ****                             printf("\n+++You can input only the decimal number.+++\n");
+  68:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = 0;
+  69:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = FALSE;
+  70:../src/RXv3_RegBankSave_GCC_ex5.c ****                             printf("data[%d]=",i);
+  71:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }
+  72:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+  73:../src/RXv3_RegBankSave_GCC_ex5.c ****                 }else{
+  74:../src/RXv3_RegBankSave_GCC_ex5.c ****                     printf("\n+++You can input only the decimal number.+++\n");
+  75:../src/RXv3_RegBankSave_GCC_ex5.c ****                     data[i] = 0;
+  76:../src/RXv3_RegBankSave_GCC_ex5.c ****                     isnuminput = FALSE;
+  77:../src/RXv3_RegBankSave_GCC_ex5.c ****                     printf("data[%d]=",i);
+  78:../src/RXv3_RegBankSave_GCC_ex5.c ****                 }
+  79:../src/RXv3_RegBankSave_GCC_ex5.c ****             }
+  80:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+  81:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  82:../src/RXv3_RegBankSave_GCC_ex5.c ****         sort_(data);
+  83:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  84:../src/RXv3_RegBankSave_GCC_ex5.c ****         printf("*** Sorting results ***\n");
+  85:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  86:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( i=0; i<10; i++ ){
+  87:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=%ld\n",i,data[i]);
+  88:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+  89:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  90:../src/RXv3_RegBankSave_GCC_ex5.c ****         change_(data);
+  91:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  92:../src/RXv3_RegBankSave_GCC_ex5.c **** //    }
+  93:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+  94:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+  95:../src/RXv3_RegBankSave_GCC_ex5.c **** void sort_(long *data)
+  96:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+  97:../src/RXv3_RegBankSave_GCC_ex5.c ****     long t;
+  98:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i, j, k, gap;
+  99:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     gap = 5;
+ 101:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( k=0; k<gap; k++){
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 106:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 107:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j] = data[j+gap];
+ 108:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j+gap] = t;
+ 109:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+ 110:../src/RXv3_RegBankSave_GCC_ex5.c ****                     else
+ 111:../src/RXv3_RegBankSave_GCC_ex5.c ****                         break;
+ 112:../src/RXv3_RegBankSave_GCC_ex5.c ****                 }
+ 113:../src/RXv3_RegBankSave_GCC_ex5.c ****             }
+ 114:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+ 115:../src/RXv3_RegBankSave_GCC_ex5.c ****         gap = gap/2;
+ 116:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 117:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+ 118:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 119:../src/RXv3_RegBankSave_GCC_ex5.c **** void change_(long *data)
+ 120:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+ 121:../src/RXv3_RegBankSave_GCC_ex5.c ****     long tmp[10];
+ 122:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i;
+ 123:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 124:../src/RXv3_RegBankSave_GCC_ex5.c ****     for(i=0; i<10; i++){
+ 125:../src/RXv3_RegBankSave_GCC_ex5.c ****         tmp[i] = data[i];
+ 126:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 127:../src/RXv3_RegBankSave_GCC_ex5.c ****     for(i=0; i<10; i++){
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****         data[i] = tmp[9 - i];
+ 129:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 130:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+ 131:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 132:../src/RXv3_RegBankSave_GCC_ex5.c **** void *i_debug_ex5_1 = (void *)i_hdr_5_1;
+ 133:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 134:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 135:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 136:../src/RXv3_RegBankSave_GCC_ex5.c **** extern void i_fnc_4_2(void);
+ 137:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_2(void);
+ 138:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 139:../src/RXv3_RegBankSave_GCC_ex5.c **** __attribute__((interrupt))
+ 140:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_2(void)
+ 141:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+ 142:../src/RXv3_RegBankSave_GCC_ex5.c ****    i_fnc_4_2();
+ 143:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+ 144:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 145:../src/RXv3_RegBankSave_GCC_ex5.c **** void *i_debug_ex5_2 = (void *)i_hdr_5_2;
+ 146:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 147:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 148:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 149:../src/RXv3_RegBankSave_GCC_ex5.c **** extern unsigned int cnt;
+ 150:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_3(void);
+ 151:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 152:../src/RXv3_RegBankSave_GCC_ex5.c **** __attribute__((interrupt))
+ 153:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_3(void)
+ 154:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+   9                             		.loc 1 154 1 view -0
+  10                             		; Note: Interrupt Handler
+  11 0000 6E 45                   		pushm	r4-r5
+  12                             	.LCFI0:
+  13 0002 FD 1F 14                		mvfaclo	#0, A0, r4
+  14 0005 FD 1F 05                		mvfachi	r5
+  15 0008 6E 45                   		pushm	r4-r5
+  16 000a FD 1F 34                		mvfacgu	#0, A0, r4
+  17 000d FD 1F 95                		mvfaclo	#0, A1, r5
+  18 0010 6E 45                   		pushm	r4-r5
+  19 0012 FD 1F 84                		mvfachi	#0, A1, r4
+  20 0015 FD 1F B5                		mvfacgu	#0, A1, r5
+  21 0018 6E 45                   		pushm	r4-r5
+ 155:../src/RXv3_RegBankSave_GCC_ex5.c ****     cnt = cnt * cnt;
+  22                             		.loc 1 155 5 view .LVU1
+  23                             		.loc 1 155 15 is_stmt 0 view .LVU2
+  24 001a FB 42 00 00 00 00       		mov.L	#_cnt, r4
+  25 0020 EC 45                   		mov.L	[r4], r5
+  26 0022 4F 55                   		mul	r5, r5
+  27                             		.loc 1 155 9 view .LVU3
+  28 0024 E3 45                   		mov.L	r5, [r4]
+ 156:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+  29                             		.loc 1 156 1 view .LVU4
+  30 0026 6F 45                   		popm	r4-r5
+  31 0028 FD 17 84                		mvtachi	r4, A1
+  32 002b FD 17 B5                		mvtacgu	r5, A1
+  33 002e 6F 45                   		popm	r4-r5
+  34 0030 FD 17 34                		mvtacgu	r4, A0
+  35 0033 FD 17 95                		mvtaclo	r5, A1
+  36 0036 6F 45                   		popm	r4-r5
+  37 0038 FD 17 14                		mvtaclo	r4
+  38 003b FD 17 05                		mvtachi	r5
+  39 003e 6F 45                   		popm	r4-r5
+  40 0040 7F 95                   		rte
+  41                             	.LFE9:
+  43                             		.section	.text.i_hdr_5_4,"ax",@progbits
+  45                             	_i_hdr_5_4:
+  46                             	.LFB10:
+ 157:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 158:../src/RXv3_RegBankSave_GCC_ex5.c **** void *i_debug_ex5_3 = (void *)i_hdr_5_3;
+ 159:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 160:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 161:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 162:../src/RXv3_RegBankSave_GCC_ex5.c **** extern unsigned int cnt;
+ 163:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_4(void);
+ 164:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 165:../src/RXv3_RegBankSave_GCC_ex5.c **** __attribute__((interrupt))
+ 166:../src/RXv3_RegBankSave_GCC_ex5.c **** static void i_hdr_5_4(void)
+ 167:../src/RXv3_RegBankSave_GCC_ex5.c **** {
+  47                             		.loc 1 167 1 is_stmt 1 view -0
+  48                             		; Note: Interrupt Handler
+  49 0000 6E 45                   		pushm	r4-r5
+  50                             	.LCFI1:
+  51 0002 FD 1F 14                		mvfaclo	#0, A0, r4
+  52 0005 FD 1F 05                		mvfachi	r5
+  53 0008 6E 45                   		pushm	r4-r5
+  54 000a FD 1F 34                		mvfacgu	#0, A0, r4
+  55 000d FD 1F 95                		mvfaclo	#0, A1, r5
+  56 0010 6E 45                   		pushm	r4-r5
+  57 0012 FD 1F 84                		mvfachi	#0, A1, r4
+  58 0015 FD 1F B5                		mvfacgu	#0, A1, r5
+  59 0018 6E 45                   		pushm	r4-r5
+ 168:../src/RXv3_RegBankSave_GCC_ex5.c ****    cnt++;
+  60                             		.loc 1 168 4 view .LVU6
+  61                             		.loc 1 168 7 is_stmt 0 view .LVU7
+  62 001a FB 42 00 00 00 00       		mov.L	#_cnt, r4
+  63 0020 EC 45                   		mov.L	[r4], r5
+  64 0022 62 15                   		add	#1, r5
+  65 0024 E3 45                   		mov.L	r5, [r4]
+ 169:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+  66                             		.loc 1 169 1 view .LVU8
+  67 0026 6F 45                   		popm	r4-r5
+  68 0028 FD 17 84                		mvtachi	r4, A1
+  69 002b FD 17 B5                		mvtacgu	r5, A1
+  70 002e 6F 45                   		popm	r4-r5
+  71 0030 FD 17 34                		mvtacgu	r4, A0
+  72 0033 FD 17 95                		mvtaclo	r5, A1
+  73 0036 6F 45                   		popm	r4-r5
+  74 0038 FD 17 14                		mvtaclo	r4
+  75 003b FD 17 05                		mvtachi	r5
+  76 003e 6F 45                   		popm	r4-r5
+  77 0040 7F 95                   		rte
+  78                             	.LFE10:
+  80                             		.section	.text.i_hdr_5_2,"ax",@progbits
+  82                             	_i_hdr_5_2:
+  83                             	.LFB8:
+ 141:../src/RXv3_RegBankSave_GCC_ex5.c ****    i_fnc_4_2();
+  84                             		.loc 1 141 1 is_stmt 1 view -0
+  85                             		; Note: Interrupt Handler
+  86 0000 6E EF                   		pushm	r14-r15
+  87                             	.LCFI2:
+  88 0002 6E 15                   		pushm	r1-r5
+  89                             	.LCFI3:
+  90 0004 FD 1F 11                		mvfaclo	#0, A0, r1
+  91 0007 FD 1F 02                		mvfachi	r2
+  92 000a 7E A1                   		push.l	r1
+  93 000c 7E A2                   		push.l	r2
+  94 000e FD 1F 31                		mvfacgu	#0, A0, r1
+  95 0011 FD 1F 92                		mvfaclo	#0, A1, r2
+  96 0014 7E A1                   		push.l	r1
+  97 0016 7E A2                   		push.l	r2
+  98 0018 FD 1F 81                		mvfachi	#0, A1, r1
+  99 001b FD 1F B2                		mvfacgu	#0, A1, r2
+ 100 001e 7E A1                   		push.l	r1
+ 101 0020 7E A2                   		push.l	r2
+ 142:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+ 102                             		.loc 1 142 4 view .LVU10
+ 103 0022 05 00 00 00             		bsr	_i_fnc_4_2
+ 104                             	.LVL0:
+ 143:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 105                             		.loc 1 143 1 is_stmt 0 view .LVU11
+ 106 0026 7E B2                   		pop	r2
+ 107 0028 7E B1                   		pop	r1
+ 108 002a FD 17 81                		mvtachi	r1, A1
+ 109 002d FD 17 B2                		mvtacgu	r2, A1
+ 110 0030 7E B2                   		pop	r2
+ 111 0032 7E B1                   		pop	r1
+ 112 0034 FD 17 31                		mvtacgu	r1, A0
+ 113 0037 FD 17 92                		mvtaclo	r2, A1
+ 114 003a 7E B2                   		pop	r2
+ 115 003c 7E B1                   		pop	r1
+ 116 003e FD 17 11                		mvtaclo	r1
+ 117 0041 FD 17 02                		mvtachi	r2
+ 118 0044 6F 15                   		popm	r1-r5
+ 119 0046 6F EF                   		popm	r14-r15
+ 120 0048 7F 95                   		rte
+ 121                             	.LFE8:
+ 123                             		.section	.rodata.i_hdr_5_1_.str1.1,"aMS",@progbits,1
+ 124                             	.LC0:
+ 125 0000 23 23 23 20 44 61 74 61 		.string	"### Data Input ###"
+ 125      20 49 6E 70 75 74 20 23 
+ 125      23 23 00 
+ 126                             	.LC1:
+ 127 0013 64 61 74 61 5B 25 64 5D 		.string	"data[%d]="
+ 127      3D 00 
+ 128                             	.LC2:
+ 129 001d 25 63 00                		.string	"%c"
+ 130                             	.LC3:
+ 131 0020 0A 2B 2B 2B 59 6F 75 20 		.string	"\n+++You can input only the decimal number.+++"
+ 131      63 61 6E 20 69 6E 70 75 
+ 131      74 20 6F 6E 6C 79 20 74 
+ 131      68 65 20 64 65 63 69 6D 
+ 131      61 6C 20 6E 75 6D 62 65 
+ 132                             	.LC4:
+ 133 004e 2A 2A 2A 20 53 6F 72 74 		.string	"*** Sorting results ***"
+ 133      69 6E 67 20 72 65 73 75 
+ 133      6C 74 73 20 2A 2A 2A 00 
+ 134                             	.LC5:
+ 135 0066 64 61 74 61 5B 25 64 5D 		.string	"data[%d]=%ld\n"
+ 135      3D 25 6C 64 0A 00 
+ 136                             		.section	.text.i_hdr_5_1_,"ax",@progbits
+ 138                             	_i_hdr_5_1_:
+ 139                             	.LFB5:
+  35:../src/RXv3_RegBankSave_GCC_ex5.c ****     long data[10];
+ 140                             		.loc 1 35 1 is_stmt 1 view -0
+ 141 0000 6E 6D                   		pushm	r6-r13
+ 142                             	.LCFI4:
+ 143 0002 71 00 C0                		add	#-64, r0
+ 144                             	.LCFI5:
+  36:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i;
+ 145                             		.loc 1 36 5 view .LVU13
+  37:../src/RXv3_RegBankSave_GCC_ex5.c ****     char tmp[2];
+ 146                             		.loc 1 37 5 view .LVU14
+  38:../src/RXv3_RegBankSave_GCC_ex5.c ****     int ret;
+ 147                             		.loc 1 38 5 view .LVU15
+  39:../src/RXv3_RegBankSave_GCC_ex5.c ****     char isnuminput;
+ 148                             		.loc 1 39 5 view .LVU16
+  40:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 149                             		.loc 1 40 5 view .LVU17
+  44:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 150                             		.loc 1 44 9 view .LVU18
+ 151 0005 FB 12 00 00 00 00       		mov.L	#.LC0, r1
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 152                             		.loc 1 46 15 is_stmt 0 view .LVU19
+ 153 000b 66 0B                   		mov.L	#0, r11
+  54:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = data[i]*10 + atoi(tmp);
+ 154                             		.loc 1 54 29 view .LVU20
+ 155 000d FB C2 00 00 00 00       		mov.L	#__ctype_+1, r12
+  44:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 156                             		.loc 1 44 9 view .LVU21
+ 157 0013 05 00 00 00             		bsr	_puts
+ 158                             	.LVL1:
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 159                             		.loc 1 46 9 is_stmt 1 view .LVU22
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 160                             		.loc 1 46 9 is_stmt 0 view .LVU23
+ 161 0017 66 C4                   		mov.L	#12, r4
+ 162 0019 4B 04                   		add	r0, r4
+ 163 001b A3 84                   		mov.L	r4, 56[r0]
+  44:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 164                             		.loc 1 44 9 view .LVU24
+ 165 001d EF 4A                   		mov.L	r4, r10
+  56:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }else{
+ 166                             		.loc 1 56 40 view .LVU25
+ 167 001f 66 19                   		mov	#1, r9
+ 168                             	.LVL2:
+ 169                             		.balign 8,3,5
+ 170                             	.L15:
+  47:../src/RXv3_RegBankSave_GCC_ex5.c ****             data[i]= 0;
+ 171                             		.loc 1 47 13 is_stmt 1 view .LVU26
+ 172 0021 E7 0B 01                		mov.L	r11, 4[r0]
+  49:../src/RXv3_RegBankSave_GCC_ex5.c ****             while(1){
+ 173                             		.loc 1 49 24 is_stmt 0 view .LVU27
+ 174 0024 66 08                   		mov	#0, r8
+  47:../src/RXv3_RegBankSave_GCC_ex5.c ****             data[i]= 0;
+ 175                             		.loc 1 47 13 view .LVU28
+ 176 0026 F8 02 13 00 00 00       		mov.L	#.LC1, [r0]
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+ 177                             		.loc 1 51 23 view .LVU29
+ 178 002c 71 06 34                		add	#52, r0, r6
+  47:../src/RXv3_RegBankSave_GCC_ex5.c ****             data[i]= 0;
+ 179                             		.loc 1 47 13 view .LVU30
+ 180 002f 05 00 00 00             		bsr	_printf
+ 181                             	.LVL3:
+  48:../src/RXv3_RegBankSave_GCC_ex5.c ****             isnuminput = FALSE;
+ 182                             		.loc 1 48 13 is_stmt 1 view .LVU31
+  48:../src/RXv3_RegBankSave_GCC_ex5.c ****             isnuminput = FALSE;
+ 183                             		.loc 1 48 20 is_stmt 0 view .LVU32
+ 184 0033 F8 A6 00                		mov.L	#0, [r10]
+  49:../src/RXv3_RegBankSave_GCC_ex5.c ****             while(1){
+ 185                             		.loc 1 49 13 is_stmt 1 view .LVU33
+ 186                             	.LVL4:
+ 187 0036 EF 00                   		.balign 8,3,5
+ 188                             	.L9:
+  50:../src/RXv3_RegBankSave_GCC_ex5.c ****                 ret = scanf("%c",&tmp);
+ 189                             		.loc 1 50 13 view .LVU34
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+ 190                             		.loc 1 51 17 view .LVU35
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+ 191                             		.loc 1 51 23 is_stmt 0 view .LVU36
+ 192 0038 A0 0E                   		mov.L	r6, 4[r0]
+ 193 003a F8 02 1D 00 00 00       		mov.L	#.LC2, [r0]
+ 194 0040 05 00 00 00             		bsr	_scanf
+ 195                             	.LVL5:
+  52:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if( tmp[0] != LF ){
+ 196                             		.loc 1 52 17 is_stmt 1 view .LVU37
+  53:../src/RXv3_RegBankSave_GCC_ex5.c ****                         if( isdigit(tmp[0])!=0 ){
+ 197                             		.loc 1 53 21 view .LVU38
+  54:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = data[i]*10 + atoi(tmp);
+ 198                             		.loc 1 54 25 view .LVU39
+  52:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if( tmp[0] != LF ){
+ 199                             		.loc 1 52 19 is_stmt 0 view .LVU40
+ 200 0044 75 01 FF                		cmp	#-1, r1
+ 201 0047 20 39                   		beq	.L10
+ 202                             		.balign 8,3,3
+ 203                             	.L33:
+  53:../src/RXv3_RegBankSave_GCC_ex5.c ****                         if( isdigit(tmp[0])!=0 ){
+ 204                             		.loc 1 53 23 view .LVU41
+ 205 0049 59 07 34                		movu.B	52[r0], r7
+ 206 004c 61 A7                   		cmp	#10, r7
+ 207 004e 20 50                   		beq	.L11
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 208                             		.loc 1 55 29 is_stmt 1 view .LVU42
+  58:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = 0;
+ 209                             		.loc 1 58 29 view .LVU43
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 210                             		.loc 1 55 52 is_stmt 0 view .LVU44
+ 211 0050 EF 61                   		mov.L	r6, r1
+ 212                             	.LVL6:
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 213                             		.loc 1 55 52 view .LVU45
+ 214 0052 FE 4C 75                		mov.B	[r12,r7], r5
+ 215 0055 66 47                   		mov.L	#4, r7
+ 216 0057 53 57                   		and	r5, r7
+ 217 0059 CF 78                   		mov.B	r7, r8
+ 218                             	.LVL7:
+  54:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = data[i]*10 + atoi(tmp);
+ 219                             		.loc 1 54 27 view .LVU46
+ 220 005b 3A F5 00                		beq	.L12
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 221                             		.loc 1 55 46 view .LVU47
+ 222 005e EC A7                   		mov.L	[r10], r7
+  56:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }else{
+ 223                             		.loc 1 56 40 view .LVU48
+ 224 0060 CF 98                   		mov.B	r9, r8
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 225                             		.loc 1 55 46 view .LVU49
+ 226 0062 63 A7                   		mul	#10, r7
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 227                             		.loc 1 55 52 view .LVU50
+ 228 0064 05 00 00 00             		bsr	_atoi
+ 229                             	.LVL8:
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 230                             		.loc 1 55 50 view .LVU51
+ 231 0068 4B 71                   		add	r7, r1
+  55:../src/RXv3_RegBankSave_GCC_ex5.c ****                             isnuminput = TRUE;
+ 232                             		.loc 1 55 37 view .LVU52
+ 233 006a E3 A1                   		mov.L	r1, [r10]
+  56:../src/RXv3_RegBankSave_GCC_ex5.c ****                         }else{
+ 234                             		.loc 1 56 29 is_stmt 1 view .LVU53
+ 235                             	.LVL9:
+  50:../src/RXv3_RegBankSave_GCC_ex5.c ****                 ret = scanf("%c",&tmp);
+ 236                             		.loc 1 50 13 view .LVU54
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+ 237                             		.loc 1 51 17 view .LVU55
+  51:../src/RXv3_RegBankSave_GCC_ex5.c ****                 if(ret != EOF){
+ 238                             		.loc 1 51 23 is_stmt 0 view .LVU56
+ 239 006c A0 0E                   		mov.L	r6, 4[r0]
+ 240 006e F8 02 1D 00 00 00       		mov.L	#.LC2, [r0]
+ 241 0074 05 00 00 00             		bsr	_scanf
+ 242                             	.LVL10:
+  52:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if( tmp[0] != LF ){
+ 243                             		.loc 1 52 17 is_stmt 1 view .LVU57
+  53:../src/RXv3_RegBankSave_GCC_ex5.c ****                         if( isdigit(tmp[0])!=0 ){
+ 244                             		.loc 1 53 21 view .LVU58
+  54:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = data[i]*10 + atoi(tmp);
+ 245                             		.loc 1 54 25 view .LVU59
+  52:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if( tmp[0] != LF ){
+ 246                             		.loc 1 52 19 is_stmt 0 view .LVU60
+ 247 0078 75 01 FF                		cmp	#-1, r1
+ 248 007b 21 CE                   		bne	.L33
+ 249 007d FC 13 00                		.balign 8,3,5
+ 250                             	.L10:
+  74:../src/RXv3_RegBankSave_GCC_ex5.c ****                     data[i] = 0;
+ 251                             		.loc 1 74 21 is_stmt 1 view .LVU61
+ 252 0080 FB 12 20 00 00 00       		mov.L	#.LC3, r1
+ 253                             	.LVL11:
+  76:../src/RXv3_RegBankSave_GCC_ex5.c ****                     printf("data[%d]=",i);
+ 254                             		.loc 1 76 32 is_stmt 0 view .LVU62
+ 255 0086 66 08                   		mov	#0, r8
+ 256                             	.LVL12:
+ 257                             		.balign 8,3,3
+ 258                             	.L32:
+  74:../src/RXv3_RegBankSave_GCC_ex5.c ****                     data[i] = 0;
+ 259                             		.loc 1 74 21 view .LVU63
+ 260 0088 05 00 00 00             		bsr	_puts
+ 261                             	.LVL13:
+  75:../src/RXv3_RegBankSave_GCC_ex5.c ****                     isnuminput = FALSE;
+ 262                             		.loc 1 75 21 is_stmt 1 view .LVU64
+  75:../src/RXv3_RegBankSave_GCC_ex5.c ****                     isnuminput = FALSE;
+ 263                             		.loc 1 75 29 is_stmt 0 view .LVU65
+ 264 008c F8 A6 00                		mov.L	#0, [r10]
+  76:../src/RXv3_RegBankSave_GCC_ex5.c ****                     printf("data[%d]=",i);
+ 265                             		.loc 1 76 21 is_stmt 1 view .LVU66
+ 266                             	.LVL14:
+  77:../src/RXv3_RegBankSave_GCC_ex5.c ****                 }
+ 267                             		.loc 1 77 21 view .LVU67
+ 268 008f E7 0B 01                		mov.L	r11, 4[r0]
+ 269 0092 F8 02 13 00 00 00       		mov.L	#.LC1, [r0]
+ 270 0098 05 00 00 00             		bsr	_printf
+ 271                             	.LVL15:
+ 272 009c 2E 9C                   		bra	.L9
+ 273                             	.LVL16:
+ 274                             	.L11:
+  64:../src/RXv3_RegBankSave_GCC_ex5.c ****                             break;
+ 275                             		.loc 1 64 25 view .LVU68
+  67:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = 0;
+ 276                             		.loc 1 67 29 view .LVU69
+ 277 009e FB 12 20 00 00 00       		mov.L	#.LC3, r1
+ 278                             	.LVL17:
+  64:../src/RXv3_RegBankSave_GCC_ex5.c ****                             break;
+ 279                             		.loc 1 64 27 is_stmt 0 view .LVU70
+ 280 00a4 5B 87                   		movu.B	r8, r7
+ 281 00a6 61 07                   		cmp	#0, r7
+ 282 00a8 20 E0                   		beq	.L32
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 283                             		.loc 1 46 26 discriminator 2 view .LVU71
+ 284 00aa 62 1B                   		add	#1, r11
+ 285                             	.LVL18:
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 286                             		.loc 1 46 26 discriminator 2 view .LVU72
+ 287 00ac 62 4A                   		add	#4, r10
+  46:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=",i);
+ 288                             		.loc 1 46 9 discriminator 2 view .LVU73
+ 289 00ae 61 AB                   		cmp	#10, r11
+ 290 00b0 3B 71 FF                		bne	.L15
+ 291 00b3 3E 0F 03                		mov.L	#3, 60[r0]
+ 292                             	.LBB6:
+ 293                             	.LBB7:
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 294                             		.loc 1 100 9 view .LVU74
+ 295 00b6 66 5B                   		mov.L	#5, r11
+ 296                             	.LVL19:
+ 297                             		.balign 8,3,2
+ 298                             	.L16:
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 299                             		.loc 1 100 9 view .LVU75
+ 300 00b8 FD C2 B9                		shll	#2, r11, r9
+ 301 00bb FB A6 FC                		mov.L	#-4, r10
+ 302 00be 4F BA                   		mul	r11, r10
+ 303 00c0 66 C8                   		mov.L	#12, r8
+ 304 00c2 4B 08                   		add	r0, r8
+ 305 00c4 4B 98                   		add	r9, r8
+ 306                             	.LBE7:
+ 307                             	.LBE6:
+  49:../src/RXv3_RegBankSave_GCC_ex5.c ****             while(1){
+ 308                             		.loc 1 49 24 view .LVU76
+ 309 00c6 ED 0D 0E                		mov.L	56[r0], r13
+ 310                             	.LBB9:
+ 311                             	.LBB8:
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 312                             		.loc 1 102 15 view .LVU77
+ 313 00c9 66 0C                   		mov.L	#0, r12
+ 314                             	.LVL20:
+ 315                             		.balign 8,3,1
+ 316                             	.L23:
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 317                             		.loc 1 103 13 is_stmt 1 view .LVU78
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 318                             		.loc 1 103 13 is_stmt 0 view .LVU79
+ 319 00cb EF C2                   		mov.L	r12, r2
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 320                             		.loc 1 102 15 view .LVU80
+ 321 00cd EF D7                   		mov.L	r13, r7
+ 322                             	.LVL21:
+ 323 00cf 03                      		.balign 8,3,1
+ 324                             	.L18:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 325                             		.loc 1 104 17 is_stmt 1 view .LVU81
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 326                             		.loc 1 104 22 is_stmt 0 view .LVU82
+ 327 00d0 EF 23                   		mov.L	r2, r3
+ 328                             	.LVL22:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 329                             		.loc 1 104 17 view .LVU83
+ 330 00d2 47 C2                   		cmp	r12, r2
+ 331 00d4 29 31                   		blt	.L20
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 332                             		.loc 1 105 21 is_stmt 1 view .LVU84
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 333                             		.loc 1 105 28 is_stmt 0 view .LVU85
+ 334 00d6 EC 74                   		mov.L	[r7], r4
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 335                             		.loc 1 105 36 view .LVU86
+ 336 00d8 FE 62 85                		mov.L	[r2,r8], r5
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 337                             		.loc 1 105 23 view .LVU87
+ 338 00db 47 54                   		cmp	r5, r4
+ 339 00dd 2B 28                   		ble	.L20
+ 340 00df FF 2F 97                		add	r9, r7, r15
+ 341 00e2 EF 7E                   		mov.L	r7, r14
+ 342 00e4 EF 71                   		mov.L	r7, r1
+ 343 00e6 2E 12                   		bra	.L21
+ 344                             	.LVL23:
+ 345                             	.L22:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 346                             		.loc 1 105 36 view .LVU88
+ 347 00e8 EC 15                   		mov.L	[r1], r5
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 348                             		.loc 1 105 28 view .LVU89
+ 349 00ea EC 64                   		mov.L	[r6], r4
+ 350                             	.LVL24:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 351                             		.loc 1 105 28 view .LVU90
+ 352 00ec EF 61                   		mov.L	r6, r1
+ 353 00ee 4B AF                   		add	r10, r15
+ 354                             	.LVL25:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 355                             		.loc 1 105 28 view .LVU91
+ 356 00f0 4B AE                   		add	r10, r14
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 357                             		.loc 1 105 23 view .LVU92
+ 358 00f2 47 54                   		cmp	r5, r4
+ 359 00f4 2B 11                   		ble	.L20
+ 360 00f6 EF 00                   		.balign 8,3,2
+ 361                             	.L21:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 362                             		.loc 1 105 21 is_stmt 1 view .LVU93
+ 106:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j] = data[j+gap];
+ 363                             		.loc 1 106 25 view .LVU94
+ 364                             	.LVL26:
+ 107:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j+gap] = t;
+ 365                             		.loc 1 107 25 view .LVU95
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 366                             		.loc 1 105 28 is_stmt 0 view .LVU96
+ 367 00f8 FF 26 A1                		add	r10, r1, r6
+ 107:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j+gap] = t;
+ 368                             		.loc 1 107 33 view .LVU97
+ 369 00fb E3 E5                   		mov.L	r5, [r14]
+ 108:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+ 370                             		.loc 1 108 25 is_stmt 1 view .LVU98
+ 108:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+ 371                             		.loc 1 108 37 is_stmt 0 view .LVU99
+ 372 00fd E3 F4                   		mov.L	r4, [r15]
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 373                             		.loc 1 104 37 view .LVU100
+ 374 00ff 43 B3                   		sub	r11, r3
+ 375                             	.LVL27:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 376                             		.loc 1 104 17 view .LVU101
+ 377 0101 47 C3                   		cmp	r12, r3
+ 378 0103 28 E5                   		bge	.L22
+ 379                             	.LVL28:
+ 380                             		.balign 8,3,1
+ 381                             	.L20:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 382                             		.loc 1 104 17 view .LVU102
+ 383 0105 4B B2                   		add	r11, r2
+ 384                             	.LVL29:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 385                             		.loc 1 104 17 view .LVU103
+ 386 0107 4B 97                   		add	r9, r7
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 387                             		.loc 1 103 13 view .LVU104
+ 388 0109 FF 25 B2                		add	r11, r2, r5
+ 389 010c 61 95                   		cmp	#9, r5
+ 390 010e 2B C2                   		ble	.L18
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 391                             		.loc 1 102 27 view .LVU105
+ 392 0110 62 1C                   		add	#1, r12
+ 393                             	.LVL30:
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 394                             		.loc 1 102 27 view .LVU106
+ 395 0112 62 4D                   		add	#4, r13
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 396                             		.loc 1 102 9 view .LVU107
+ 397 0114 47 BC                   		cmp	r11, r12
+ 398 0116 29 B5                   		blt	.L23
+ 115:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 399                             		.loc 1 115 9 is_stmt 1 view .LVU108
+ 400 0118 AB 8D                   		mov.L	60[r0], r5
+ 401 011a 60 15                   		sub	#1, r5
+ 402 011c A3 8D                   		mov.L	r5, 60[r0]
+ 115:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 403                             		.loc 1 115 13 is_stmt 0 view .LVU109
+ 404 011e 6A 1B                   		shar	#1, r11
+ 405                             	.LVL31:
+ 101:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( k=0; k<gap; k++){
+ 406                             		.loc 1 101 10 view .LVU110
+ 407 0120 61 05                   		cmp	#0, r5
+ 408 0122 21 96                   		bne	.L16
+ 409                             	.LVL32:
+ 101:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( k=0; k<gap; k++){
+ 410                             		.loc 1 101 10 view .LVU111
+ 411                             	.LBE8:
+ 412                             	.LBE9:
+  84:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 413                             		.loc 1 84 9 is_stmt 1 view .LVU112
+ 414 0124 FB 12 4E 00 00 00       		mov.L	#.LC4, r1
+  86:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=%ld\n",i,data[i]);
+ 415                             		.loc 1 86 15 is_stmt 0 view .LVU113
+ 416 012a 66 07                   		mov.L	#0, r7
+  87:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+ 417                             		.loc 1 87 13 view .LVU114
+ 418 012c FB A2 66 00 00 00       		mov.L	#.LC5, r10
+  84:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 419                             		.loc 1 84 9 view .LVU115
+ 420 0132 05 00 00 00             		bsr	_puts
+ 421                             	.LVL33:
+  86:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=%ld\n",i,data[i]);
+ 422                             		.loc 1 86 9 is_stmt 1 view .LVU116
+ 423                             		.balign 8,3,1
+ 424                             	.L25:
+  87:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+ 425                             		.loc 1 87 13 discriminator 3 view .LVU117
+ 426 0136 AB 84                   		mov.L	56[r0], r4
+ 427 0138 FD 2A 45                		mov.L	[r4+], r5
+ 428 013b A0 85                   		mov.L	r5, 8[r0]
+ 429 013d A3 84                   		mov.L	r4, 56[r0]
+ 430 013f E3 0A                   		mov.L	r10, [r0]
+ 431 0141 A0 0F                   		mov.L	r7, 4[r0]
+  86:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=%ld\n",i,data[i]);
+ 432                             		.loc 1 86 26 is_stmt 0 discriminator 3 view .LVU118
+ 433 0143 62 17                   		add	#1, r7
+ 434                             	.LVL34:
+  87:../src/RXv3_RegBankSave_GCC_ex5.c ****         }
+ 435                             		.loc 1 87 13 discriminator 3 view .LVU119
+ 436 0145 05 00 00 00             		bsr	_printf
+ 437                             	.LVL35:
+  86:../src/RXv3_RegBankSave_GCC_ex5.c ****             printf("data[%d]=%ld\n",i,data[i]);
+ 438                             		.loc 1 86 9 discriminator 3 view .LVU120
+ 439 0149 61 A7                   		cmp	#10, r7
+ 440 014b 21 EB                   		bne	.L25
+  93:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 441                             		.loc 1 93 1 view .LVU121
+ 442 014d 3F 6D 18                		rtsd	#96, r6-r13
+ 443                             	.LVL36:
+ 444                             	.L12:
+  58:../src/RXv3_RegBankSave_GCC_ex5.c ****                             data[i] = 0;
+ 445                             		.loc 1 58 29 view .LVU122
+ 446 0150 FB 12 20 00 00 00       		mov.L	#.LC3, r1
+ 447 0156 38 32 FF                		bra	.L32
+ 448                             	.LFE5:
+ 450 0159 FD 70 40 00 00 00 80    		.section	.text.i_hdr_5_1,"ax",@progbits
+ 452                             	_i_hdr_5_1:
+ 453                             	.LFB4:
+  22:../src/RXv3_RegBankSave_GCC_ex5.c ****     //__asm volatile ("SETPSW I");
+ 454                             		.loc 1 22 1 is_stmt 1 view -0
+ 455                             		; Note: Naked Function
+  27:../src/RXv3_RegBankSave_GCC_ex5.c ****     __builtin_rx_save(0);
+ 456                             		.loc 1 27 2 view .LVU124
+ 457 0000 7F A8                   		setpsw	I
+  28:../src/RXv3_RegBankSave_GCC_ex5.c ****     i_hdr_5_1_();
+ 458                             		.loc 1 28 5 view .LVU125
+ 459 0002 FD 76 E0 00             		save	#0
+  29:../src/RXv3_RegBankSave_GCC_ex5.c ****     __builtin_rx_rstr(0);
+ 460                             		.loc 1 29 5 view .LVU126
+ 461 0006 05 00 00 00             		bsr	_i_hdr_5_1_
+ 462                             	.LVL37:
+  30:../src/RXv3_RegBankSave_GCC_ex5.c ****     __asm__ volatile ("RTE");
+ 463                             		.loc 1 30 5 view .LVU127
+ 464 000a FD 76 F0 00             		rstr	#0
+  31:../src/RXv3_RegBankSave_GCC_ex5.c **** }
+ 465                             		.loc 1 31 5 view .LVU128
+ 466                             	 ; 31 "../src/RXv3_RegBankSave_GCC_ex5.c" 1
+ 467 000e 7F 95                   		RTE
+ 468                             	 ; 0 "" 2
+  32:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 469                             		.loc 1 32 1 is_stmt 0 view .LVU129
+ 470                             		; Naked function: epilogue provided by programmer.
+ 471                             	.LFE4:
+ 473                             		.section	.text.sort_,"ax",@progbits
+ 474                             		.global	_sort_
+ 476                             	_sort_:
+ 477                             	.LVL38:
+ 478                             	.LFB6:
+  96:../src/RXv3_RegBankSave_GCC_ex5.c ****     long t;
+ 479                             		.loc 1 96 1 is_stmt 1 view -0
+  96:../src/RXv3_RegBankSave_GCC_ex5.c ****     long t;
+ 480                             		.loc 1 96 1 is_stmt 0 view .LVU131
+ 481 0000 6E 6D                   		pushm	r6-r13
+ 482                             	.LCFI6:
+ 483 0002 60 80                   		sub	#8, r0
+ 484                             	.LCFI7:
+  97:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i, j, k, gap;
+ 485                             		.loc 1 97 5 is_stmt 1 view .LVU132
+  98:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 486                             		.loc 1 98 5 view .LVU133
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 487                             		.loc 1 100 5 view .LVU134
+ 488                             	.LVL39:
+ 101:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( k=0; k<gap; k++){
+ 489                             		.loc 1 101 5 view .LVU135
+  96:../src/RXv3_RegBankSave_GCC_ex5.c ****     long t;
+ 490                             		.loc 1 96 1 is_stmt 0 view .LVU136
+ 491 0004 A0 09                   		mov.L	r1, 4[r0]
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 492                             		.loc 1 105 23 view .LVU137
+ 493 0006 F8 06 03                		mov.L	#3, [r0]
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 494                             		.loc 1 100 9 view .LVU138
+ 495 0009 66 5A                   		mov.L	#5, r10
+ 496                             	.LVL40:
+ 497                             		.balign 8,3,1
+ 498                             	.L36:
+ 100:../src/RXv3_RegBankSave_GCC_ex5.c ****     while( gap > 0 ){
+ 499                             		.loc 1 100 9 view .LVU139
+ 500 000b ED 0D 01                		mov.L	4[r0], r13
+ 501 000e FD C2 A8                		shll	#2, r10, r8
+ 502 0011 FB F6 FC                		mov.L	#-4, r15
+ 503 0014 4F AF                   		mul	r10, r15
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 504                             		.loc 1 102 15 view .LVU140
+ 505 0016 66 06                   		mov.L	#0, r6
+ 506                             	.LVL41:
+ 507                             		.balign 8,3,1
+ 508                             	.L43:
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 509                             		.loc 1 103 13 is_stmt 1 view .LVU141
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 510                             		.loc 1 103 13 is_stmt 0 view .LVU142
+ 511 0018 EF 6B                   		mov.L	r6, r11
+ 512 001a FF 29 D8                		add	r13, r8, r9
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 513                             		.loc 1 102 15 view .LVU143
+ 514 001d EF DC                   		mov.L	r13, r12
+ 515                             	.LVL42:
+ 516 001f 03                      		.balign 8,3,1
+ 517                             	.L38:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 518                             		.loc 1 104 17 is_stmt 1 view .LVU144
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 519                             		.loc 1 104 22 is_stmt 0 view .LVU145
+ 520 0020 EF B5                   		mov.L	r11, r5
+ 521                             	.LVL43:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 522                             		.loc 1 104 17 view .LVU146
+ 523 0022 47 6B                   		cmp	r6, r11
+ 524 0024 29 2D                   		blt	.L41
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 525                             		.loc 1 105 21 is_stmt 1 view .LVU147
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 526                             		.loc 1 105 28 is_stmt 0 view .LVU148
+ 527 0026 EC C4                   		mov.L	[r12], r4
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 528                             		.loc 1 105 36 view .LVU149
+ 529 0028 EC 93                   		mov.L	[r9], r3
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 530                             		.loc 1 105 23 view .LVU150
+ 531 002a 47 43                   		cmp	r4, r3
+ 532 002c 28 25                   		bge	.L41
+ 533 002e EF 9E                   		mov.L	r9, r14
+ 534 0030 EF C1                   		mov.L	r12, r1
+ 535 0032 EF C2                   		mov.L	r12, r2
+ 536 0034 2E 10                   		bra	.L40
+ 537                             	.LVL44:
+ 538                             	.L42:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 539                             		.loc 1 105 36 view .LVU151
+ 540 0036 EC 23                   		mov.L	[r2], r3
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 541                             		.loc 1 105 28 view .LVU152
+ 542 0038 EC 74                   		mov.L	[r7], r4
+ 543                             	.LVL45:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 544                             		.loc 1 105 28 view .LVU153
+ 545 003a EF 72                   		mov.L	r7, r2
+ 546 003c 4B F1                   		add	r15, r1
+ 547 003e 4B FE                   		add	r15, r14
+ 548                             	.LVL46:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 549                             		.loc 1 105 23 view .LVU154
+ 550 0040 47 34                   		cmp	r3, r4
+ 551 0042 2B 0F                   		ble	.L41
+ 552                             		.balign 8,3,2
+ 553                             	.L40:
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 554                             		.loc 1 105 21 is_stmt 1 discriminator 2 view .LVU155
+ 106:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j] = data[j+gap];
+ 555                             		.loc 1 106 25 discriminator 2 view .LVU156
+ 556                             	.LVL47:
+ 107:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j+gap] = t;
+ 557                             		.loc 1 107 25 discriminator 2 view .LVU157
+ 105:../src/RXv3_RegBankSave_GCC_ex5.c ****                         t = data[j];
+ 558                             		.loc 1 105 28 is_stmt 0 discriminator 2 view .LVU158
+ 559 0044 FF 27 F2                		add	r15, r2, r7
+ 107:../src/RXv3_RegBankSave_GCC_ex5.c ****                         data[j+gap] = t;
+ 560                             		.loc 1 107 33 discriminator 2 view .LVU159
+ 561 0047 E3 13                   		mov.L	r3, [r1]
+ 108:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+ 562                             		.loc 1 108 25 is_stmt 1 discriminator 2 view .LVU160
+ 108:../src/RXv3_RegBankSave_GCC_ex5.c ****                     }
+ 563                             		.loc 1 108 37 is_stmt 0 discriminator 2 view .LVU161
+ 564 0049 E3 E4                   		mov.L	r4, [r14]
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 565                             		.loc 1 104 37 discriminator 2 view .LVU162
+ 566 004b 43 A5                   		sub	r10, r5
+ 567                             	.LVL48:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 568                             		.loc 1 104 17 discriminator 2 view .LVU163
+ 569 004d 47 65                   		cmp	r6, r5
+ 570 004f 28 E7                   		bge	.L42
+ 571                             	.LVL49:
+ 572                             		.balign 8,3,1
+ 573                             	.L41:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 574                             		.loc 1 104 17 discriminator 2 view .LVU164
+ 575 0051 4B AB                   		add	r10, r11
+ 576                             	.LVL50:
+ 104:../src/RXv3_RegBankSave_GCC_ex5.c ****                     if(data[j]>data[j+gap]){
+ 577                             		.loc 1 104 17 discriminator 2 view .LVU165
+ 578 0053 4B 8C                   		add	r8, r12
+ 103:../src/RXv3_RegBankSave_GCC_ex5.c ****                 for(j=i-gap; j>=k; j=j-gap){
+ 579                             		.loc 1 103 13 view .LVU166
+ 580 0055 FF 27 AB                		add	r10, r11, r7
+ 581 0058 4B 89                   		add	r8, r9
+ 582 005a 61 97                   		cmp	#9, r7
+ 583 005c 2B C4                   		ble	.L38
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 584                             		.loc 1 102 27 discriminator 2 view .LVU167
+ 585 005e 62 16                   		add	#1, r6
+ 586                             	.LVL51:
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 587                             		.loc 1 102 27 discriminator 2 view .LVU168
+ 588 0060 62 4D                   		add	#4, r13
+ 102:../src/RXv3_RegBankSave_GCC_ex5.c ****             for( i=k+gap; i<10; i=i+gap ){
+ 589                             		.loc 1 102 9 discriminator 2 view .LVU169
+ 590 0062 47 A6                   		cmp	r10, r6
+ 591 0064 29 B4                   		blt	.L43
+ 115:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 592                             		.loc 1 115 9 is_stmt 1 view .LVU170
+ 593 0066 EC 07                   		mov.L	[r0], r7
+ 594 0068 60 17                   		sub	#1, r7
+ 595 006a E3 07                   		mov.L	r7, [r0]
+ 115:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 596                             		.loc 1 115 13 is_stmt 0 view .LVU171
+ 597 006c 6A 1A                   		shar	#1, r10
+ 598                             	.LVL52:
+ 101:../src/RXv3_RegBankSave_GCC_ex5.c ****         for( k=0; k<gap; k++){
+ 599                             		.loc 1 101 10 view .LVU172
+ 600 006e 61 07                   		cmp	#0, r7
+ 601 0070 21 9B                   		bne	.L36
+ 117:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 602                             		.loc 1 117 1 view .LVU173
+ 603 0072 3F 6D 0A                		rtsd	#40, r6-r13
+ 117:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 604                             		.loc 1 117 1 view .LVU174
+ 605                             	.LFE6:
+ 607 0075 FC 13 00                		.section	.text.change_,"ax",@progbits
+ 608                             		.global	_change_
+ 610                             	_change_:
+ 611                             	.LVL53:
+ 612                             	.LFB7:
+ 120:../src/RXv3_RegBankSave_GCC_ex5.c ****     long tmp[10];
+ 613                             		.loc 1 120 1 is_stmt 1 view -0
+ 120:../src/RXv3_RegBankSave_GCC_ex5.c ****     long tmp[10];
+ 614                             		.loc 1 120 1 is_stmt 0 view .LVU176
+ 615 0000 71 00 D8                		add	#-40, r0
+ 616                             	.LCFI8:
+ 121:../src/RXv3_RegBankSave_GCC_ex5.c ****     int i;
+ 617                             		.loc 1 121 5 is_stmt 1 view .LVU177
+ 122:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 618                             		.loc 1 122 5 view .LVU178
+ 124:../src/RXv3_RegBankSave_GCC_ex5.c ****         tmp[i] = data[i];
+ 619                             		.loc 1 124 5 view .LVU179
+ 620                             	.LVL54:
+ 120:../src/RXv3_RegBankSave_GCC_ex5.c ****     long tmp[10];
+ 621                             		.loc 1 120 1 is_stmt 0 view .LVU180
+ 622 0003 EF 15                   		mov.L	r1, r5
+ 623 0005 75 43 28                		mov.L	#40, r3
+ 624 0008 EF 01                   		mov.L	r0, r1
+ 625                             	.LVL55:
+ 120:../src/RXv3_RegBankSave_GCC_ex5.c ****     long tmp[10];
+ 626                             		.loc 1 120 1 view .LVU181
+ 627 000a EF 52                   		mov.L	r5, r2
+ 628 000c 7F 8F                   		smovf
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 629                             		.loc 1 128 9 is_stmt 1 view .LVU182
+ 630                             	.LVL56:
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 631                             		.loc 1 128 9 view .LVU183
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 632                             		.loc 1 128 9 view .LVU184
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 633                             		.loc 1 128 9 view .LVU185
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 634                             		.loc 1 128 9 view .LVU186
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 635                             		.loc 1 128 9 view .LVU187
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 636                             		.loc 1 128 9 view .LVU188
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 637                             		.loc 1 128 9 view .LVU189
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 638                             		.loc 1 128 9 view .LVU190
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 639                             		.loc 1 128 9 view .LVU191
+ 128:../src/RXv3_RegBankSave_GCC_ex5.c ****     }
+ 640                             		.loc 1 128 17 is_stmt 0 view .LVU192
+ 641 000e E1 05 09                		mov.L	36[r0], [r5]
+ 642 0011 E5 05 08 01             		mov.L	32[r0], 4[r5]
+ 643 0015 E5 05 07 02             		mov.L	28[r0], 8[r5]
+ 644 0019 E5 05 06 03             		mov.L	24[r0], 12[r5]
+ 645 001d E5 05 05 04             		mov.L	20[r0], 16[r5]
+ 646 0021 E5 05 04 05             		mov.L	16[r0], 20[r5]
+ 647 0025 E5 05 03 06             		mov.L	12[r0], 24[r5]
+ 648 0029 E5 05 02 07             		mov.L	8[r0], 28[r5]
+ 649 002d E5 05 01 08             		mov.L	4[r0], 32[r5]
+ 650 0031 E4 05 09                		mov.L	[r0], 36[r5]
+ 651                             	.LVL57:
+ 130:../src/RXv3_RegBankSave_GCC_ex5.c **** 
+ 652                             		.loc 1 130 1 view .LVU193
+ 653 0034 67 0A                   		rtsd	#40
+ 654                             	.LFE7:
+ 656                             		.global	_i_debug_ex5_4
+ 657                             		.section	.data.i_debug_ex5_4,"aw"
+ 658                             		.balign 4
+ 661                             	_i_debug_ex5_4:
+ 662 0000 00 00 00 00             		.long	_i_hdr_5_4
+ 663                             		.global	_i_debug_ex5_3
+ 664                             		.section	.data.i_debug_ex5_3,"aw"
+ 665                             		.balign 4
+ 668                             	_i_debug_ex5_3:
+ 669 0000 00 00 00 00             		.long	_i_hdr_5_3
+ 670                             		.global	_i_debug_ex5_2
+ 671                             		.section	.data.i_debug_ex5_2,"aw"
+ 672                             		.balign 4
+ 675                             	_i_debug_ex5_2:
+ 676 0000 00 00 00 00             		.long	_i_hdr_5_2
+ 677                             		.global	_i_debug_ex5_1
+ 678                             		.section	.data.i_debug_ex5_1,"aw"
+ 679                             		.balign 4
+ 682                             	_i_debug_ex5_1:
+ 683 0000 00 00 00 00             		.long	_i_hdr_5_1
+ 848                             	.Letext0:
+ 849                             		.file 2 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\lib\\gcc\\rx-elf\\8.3.0.20
+ 850                             		.file 3 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_typ
+ 851                             		.file 4 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\reen
+ 852                             		.file 5 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\lock
+ 853                             		.file 6 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\stdlib.h"
+ 854                             		.file 7 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\ctype.h"
+ 855                             		.file 8 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\stdio.h"
+ 856                             		.file 9 "<built-in>"

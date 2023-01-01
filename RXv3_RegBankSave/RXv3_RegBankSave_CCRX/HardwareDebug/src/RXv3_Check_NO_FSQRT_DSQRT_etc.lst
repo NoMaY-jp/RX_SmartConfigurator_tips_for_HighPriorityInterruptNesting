@@ -1,0 +1,544 @@
+* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Fri Dec 23 10:15:09 2022
+
+LOC.     OBJ.              0XMDA SOURCE STATEMENT
+
+                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  23-Dec-2022 10:15:08
+                                 
+                                 ;*** CPU TYPE ***
+                                 
+                                 ;-ISA=RXV3
+                                 
+                                 ;*** COMMAND PARAMETER ***
+                                 
+                                 ;-library=function
+                                 ;-nouse_div_inst
+                                 ;-isa=rxv3
+                                 ;-fpu
+                                 ;-dpfpu
+                                 ;-save_acc
+                                 ;-MAKEUD=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src
+                                 ;-PARTICULAR
+                                 ;-include=C:\Renesas\CS+\CC\CC-RX\V3.04.00\/include
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_config
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_pincfg
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\general
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_bsp
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_RIIC0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_SCI0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_MTU3_MTU4
+                                 ;-asmopt=-bank
+                                 ;-lang=c99
+                                 ;-utf8
+                                 ;-message
+                                 ;-output=obj
+                                 ;-obj_path=src
+                                 ;-debug
+                                 ;-outcode=utf8
+                                 ;-listfile=src/RXv3_Check_NO_FSQRT_DSQRT_etc.lst
+                                 ;-show=source
+                                 ;-optimize=max
+                                 ;-goptimize
+                                 ;-speed
+                                 ;-type_size_access_to_volatile
+                                 ;-nologo
+                                 ;../src/RXv3_Check_NO_FSQRT_DSQRT_etc.c
+                                 
+                                 		.glb	_m_debug_Check_Not_Using_DSQRT
+                                 		.glb	_m_debug_Check_Not_Using_FSQRT
+                                 		.glb	_d1
+                                 		.glb	_d2
+                                 		.glb	_f1
+                                 		.glb	_f2
+                                 		.glb	_m_debug_Check_Not_Using_DDIV
+                                 		.glb	_m_debug_Check_Not_Using_FDIV
+                                 		.glb	_dA
+                                 		.glb	_dB
+                                 		.glb	_dC
+                                 		.glb	_dD
+                                 		.glb	_m_debug_N_Check_DPUSHM_DPOPM
+                                 		.glb	_m_debug_N_Check_TFU_sinf
+                                 		.glb	_m_debug_N_Check_TFU_cosf
+                                 		.glb	_m_debug_N_Check_TFU_atan2f
+                                 		.glb	_m_debug_N_Check_TFU_hypotf
+                                 		.glb	_m_debug_N_Check_TFU_asinf
+                                 		.glb	_m_debug_N_Check_TFU_acosf
+                                 		.glb	_m_debug_N_Check_TFU_atanf
+                                 		.glb	_m_debug_N_Check_TFU_tanf
+                                 		.glb	_sqrt
+                                 		.glb	_sqrtf
+                                 		.glb	_Check_Not_Using_DSQRT_FSQRT
+                                 		.glb	_sinf
+                                 		.glb	_cosf
+                                 		.glb	_atan2f
+                                 		.glb	_hypotf
+                                 		.glb	_asinf
+                                 		.glb	_acosf
+                                 		.glb	_atanf
+                                 		.glb	_tanf
+                                 ;LineNo. C-SOURCE STATEMENT
+                                 
+                                 		.SECTION	P,CODE
+00000000                         __$Check_Not_Using_DSQRT:
+                                 		.STACK	__$Check_Not_Using_DSQRT=4
+                                 ;       1 #include <math.h>
+                                 ;       2 
+                                 ;       3 #if defined(__CCRX__)
+                                 ;       4 // Use -library=function option for this source file.
+                                 ;       5 // Use -nouse_div_inst option for this source file.
+                                 ;       6 // Don't use -tfu=intrinsic,mathlib option for this file.
+                                 ;       7 #elif defined(__ICCRX__)
+                                 ;       8 // Use --sqrt_must_set_errno option for this source file.
+                                 ;       9 // Don't use --tfu intrinsic_mathlib option for this source file.
+                                 ;      10 #elif defined(__GNUC__)
+                                 ;      11 // Don't use -mrxv2-fsqrt option for this source file.
+                                 ;      12 // Don't use -mtfu=intrinsic,mathlib option for this source file.
+                                 ;      13 #endif
+                                 ;      14 // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+                                 ;      15 //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+                                 ;      16 // Max Operating MHz    160   120   120   120   200   240   240
+                                 ;      17 // Register Bank Save   x     o     o     o     o     o     o
+                                 ;      18 // DPFPU                x     o     o     x     x     o     o
+                                 ;      19 // TFU                  x     x     x     o     o     o     o
+                                 ;      20 
+                                 ;      21 static double Check_Not_Using_DSQRT(double x);
+                                 ;      22 static double Check_Not_Using_DSQRT(double x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",22
+00000000 04rrrrrr             A  		BRA _sqrt
+00000004                         __$Check_Not_Using_FSQRT:
+                                 		.STACK	__$Check_Not_Using_FSQRT=4
+                                 ;      23 {
+                                 ;      24     return sqrt(x);  // DSQRT is used in library.
+                                 ;      25 }
+                                 ;      26 
+                                 ;      27 static float Check_Not_Using_FSQRT(float x);
+                                 ;      28 static float Check_Not_Using_FSQRT(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",28
+00000004 04rrrrrr             A  		BRA _sqrtf
+00000008                         __$Check_Not_Using_DDIV:
+                                 		.STACK	__$Check_Not_Using_DDIV=16
+                                 ;      29 {
+                                 ;      30     return sqrtf(x); // FSQRT is used in library.
+                                 ;      31 }
+                                 ;      32 
+                                 ;      33 void *m_debug_Check_Not_Using_DSQRT = (void *)Check_Not_Using_DSQRT;
+                                 ;      34 void *m_debug_Check_Not_Using_FSQRT = (void *)Check_Not_Using_FSQRT;
+                                 ;      35 
+                                 ;      36 extern double d1, d2;
+                                 ;      37 extern float f1, f2;
+                                 ;      38 
+                                 ;      39 #if defined(__CCRX__)
+                                 ;      40 
+                                 ;      41 static void Check_Not_Using_DDIV(void);
+                                 ;      42 static void Check_Not_Using_DDIV(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",42
+00000008 7EA6                    		PUSH.L R6
+                                 ;      43 {
+                                 ;      44     d2 = d1 / d2;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",44
+0000000A FB62rrrrrrrr            		MOV.L #_d2, R6
+00000010 75B000                  		DPUSHM.D DR0-DR0
+00000013 FCC86800                		DMOV.D [R6], DR0
+00000017 FBE2rrrrrrrr            		MOV.L #_d1, R14
+0000001D FD758402                		DMOV.L DRH0, R4
+00000021 FD758300                		DMOV.L DRL0, R3
+00000025 FCC8E800                		DMOV.D [R14], DR0
+00000029 FD758202                		DMOV.L DRH0, R2
+0000002D FD758100                		DMOV.L DRL0, R1
+00000031 05rrrrrr             A  		BSR __COM_DIVd
+00000035 FD778100                		DMOV.L R1, DRL0
+00000039 FD778202                		DMOV.L R2, DRH0
+0000003D FC786800                		DMOV.D DR0, [R6]
+00000041 75B800                  		DPOPM.D DR0-DR0
+00000044 7EB6                    		POP R6
+00000046 02                      		RTS
+00000047                         __$Check_Not_Using_FDIV:
+                                 		.STACK	__$Check_Not_Using_FDIV=8
+                                 ;      45 }
+                                 ;      46 
+                                 ;      47 static void Check_Not_Using_FDIV(void);
+                                 ;      48 static void Check_Not_Using_FDIV(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",48
+00000047 7EA6                    		PUSH.L R6
+                                 ;      49 {
+                                 ;      50     f2 = f1 / f2;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",50
+00000049 FB62rrrrrrrr            		MOV.L #_f2, R6
+0000004F EC62                    		MOV.L [R6], R2
+00000051 FBE2rrrrrrrr            		MOV.L #_f1, R14
+00000057 ECE1                    		MOV.L [R14], R1
+00000059 05rrrrrr             A  		BSR __COM_DIVf
+0000005D E361                    		MOV.L R1, [R6]
+0000005F 3F6601                  		RTSD #04H, R6-R6
+00000062                         _Check_Not_Using_DSQRT_FSQRT:
+                                 		.STACK	_Check_Not_Using_DSQRT_FSQRT=4
+                                 ;      51 }
+                                 ;      52 
+                                 ;      53 void *m_debug_Check_Not_Using_DDIV = (void *)Check_Not_Using_DDIV;
+                                 ;      54 void *m_debug_Check_Not_Using_FDIV = (void *)Check_Not_Using_FDIV;
+                                 ;      55 
+                                 ;      56 #endif
+                                 ;      57 
+                                 ;      58 void Check_Not_Using_DSQRT_FSQRT(void);
+                                 ;      59 void Check_Not_Using_DSQRT_FSQRT(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",59
+00000062 6601                    		MOV.L #00000000H, R1
+                                 ;      60 {
+                                 ;      61     ((double (*)(double))m_debug_Check_Not_Using_DSQRT)(4.0);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",61
+00000064 FBE2rrrrrrrr            		MOV.L #_m_debug_Check_Not_Using_DSQRT, R14
+0000006A ECEE                    		MOV.L [R14], R14
+0000006C FB2200001040            		MOV.L #40100000H, R2
+00000072 7F1E                    		JSR R14
+                                 ;      62     ((float (*)(float))m_debug_Check_Not_Using_FSQRT)(4.0);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",62
+00000074 FBE2rrrrrrrr            		MOV.L #_m_debug_Check_Not_Using_FSQRT, R14
+0000007A ECEE                    		MOV.L [R14], R14
+0000007C FB1200008040            		MOV.L #40800000H, R1
+00000082 7F1E                    		JSR R14
+00000084 02                      		RTS
+00000085                         __$Check_DPUSHM_DPOPM:
+                                 		.STACK	__$Check_DPUSHM_DPOPM=132
+                                 ;      63 }
+                                 ;      64 
+                                 ;      65 extern double dA, dB, dC, dD;
+                                 ;      66 static void Check_DPUSHM_DPOPM(void);
+                                 ;      67 static void Check_DPUSHM_DPOPM(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",67
+00000085 75B00F                  		DPUSHM.D DR0-DR15
+                                 ;      68 {
+                                 ;      69     double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+                                 ;      70 
+                                 ;      71     d3  = d1 + d2 +  3.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",71
+00000088 FBE2rrrrrrrr            		MOV.L #_d1, R14
+0000008E FCC8E830                		DMOV.D [R14], DR3
+00000092 FBE2rrrrrrrr            		MOV.L #_d2, R14
+00000098 FCC8E810                		DMOV.D [R14], DR1
+0000009C 76903021                		DADD DR1, DR3, DR2
+                                 ;      72     d4  = d1 - d2 +  4.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",72
+000000A0 769031F1                		DSUB DR1, DR3, DR15
+000000A4 F9030300000840          		DMOV.D #40080000H, DRH0
+000000AB F9031300001040          		DMOV.D #40100000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",71
+000000B2 76902000                		DADD DR0, DR2, DR0
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",72
+000000B6 7690F0E1                		DADD DR1, DR15, DR14
+000000BA F9031300001440          		DMOV.D #40140000H, DRH1
+                                 ;      73     d5  = d1 + d2 +  5.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",73
+000000C1 769020D1                		DADD DR1, DR2, DR13
+000000C5 F9031300001840          		DMOV.D #40180000H, DRH1
+                                 ;      74     d6  = d1 - d2 +  6.0;
+                                 ;      75     d7  = d1 + d2 +  7.0;
+                                 ;      76     d8  = d1 - d2 +  8.0;
+                                 ;      77     d9  = d1 + d2 +  9.0;
+                                 ;      78     d10 = d1 - d2 + 10.0;
+                                 ;      79     d11 = d1 + d2 + 11.0;
+                                 ;      80     d12 = d1 - d2 + 12.0;
+                                 ;      81     d13 = d1 + d2 + 13.0;
+                                 ;      82     d14 = d1 - d2 + 14.0;
+                                 ;      83     d15 = d1 + d2 + 15.0;
+                                 ;      84     d16 = d1 - d2 + 16.0;
+                                 ;      85 
+                                 ;      86     dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+000000CC 7690003E                		DADD DR14, DR0, DR3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",74
+000000D0 7690F0C1                		DADD DR1, DR15, DR12
+000000D4 F9031300001C40          		DMOV.D #401C0000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",75
+000000DB 769020B1                		DADD DR1, DR2, DR11
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+000000DF FBE2rrrrrrrr            		MOV.L #_dA, R14
+000000E5 7690303D                		DADD DR13, DR3, DR3
+000000E9 F9031300002040          		DMOV.D #40200000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",76
+000000F0 7690F0A1                		DADD DR1, DR15, DR10
+000000F4 F9031300002240          		DMOV.D #40220000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+000000FB 7690303C                		DADD DR12, DR3, DR3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",77
+000000FF 76902091                		DADD DR1, DR2, DR9
+00000103 F9031300002440          		DMOV.D #40240000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",78
+0000010A 7690F081                		DADD DR1, DR15, DR8
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+0000010E 7690303B                		DADD DR11, DR3, DR3
+00000112 F9031300002640          		DMOV.D #40260000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",79
+00000119 76902071                		DADD DR1, DR2, DR7
+0000011D F9031300002840          		DMOV.D #40280000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+00000124 7690303A                		DADD DR10, DR3, DR3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",80
+00000128 7690F061                		DADD DR1, DR15, DR6
+                                 ;      87     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",87
+0000012C FBF2rrrrrrrr            		MOV.L #_dB, R15
+00000132 F9031300002A40          		DMOV.D #402A0000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",81
+00000139 76902051                		DADD DR1, DR2, DR5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+0000013D 76903039                		DADD DR9, DR3, DR3
+00000141 F9031300002C40          		DMOV.D #402C0000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",82
+00000148 7690F041                		DADD DR1, DR15, DR4
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+0000014C 76903038                		DADD DR8, DR3, DR3
+00000150 76903037                		DADD DR7, DR3, DR3
+00000154 76903036                		DADD DR6, DR3, DR3
+00000158 76903035                		DADD DR5, DR3, DR3
+0000015C 76903014                		DADD DR4, DR3, DR1
+00000160 F9033300002E40          		DMOV.D #402E0000H, DRH3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",83
+00000167 76902033                		DADD DR3, DR2, DR3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+0000016B 76901023                		DADD DR3, DR1, DR2
+0000016F F9031300003040          		DMOV.D #40300000H, DRH1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",84
+00000176 7690F011                		DADD DR1, DR15, DR1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",86
+0000017A 76902021                		DADD DR1, DR2, DR2
+0000017E FC78E820                		DMOV.D DR2, [R14]
+                                 ;      88     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",88
+00000182 FBE2rrrrrrrr            		MOV.L #_dC, R14
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",87
+00000188 7690022E                		DMUL DR14, DR0, DR2
+0000018C 7690222D                		DMUL DR13, DR2, DR2
+00000190 7690222C                		DMUL DR12, DR2, DR2
+00000194 7690222B                		DMUL DR11, DR2, DR2
+00000198 7690222A                		DMUL DR10, DR2, DR2
+0000019C 76902229                		DMUL DR9, DR2, DR2
+000001A0 76902228                		DMUL DR8, DR2, DR2
+000001A4 76902227                		DMUL DR7, DR2, DR2
+000001A8 76902226                		DMUL DR6, DR2, DR2
+000001AC 76902225                		DMUL DR5, DR2, DR2
+000001B0 76902224                		DMUL DR4, DR2, DR2
+000001B4 76902223                		DMUL DR3, DR2, DR2
+000001B8 76902221                		DMUL DR1, DR2, DR2
+                                 ;      89     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",89
+000001BC FD7584E2                		DMOV.L DRH14, R4
+000001C0 FD7583E0                		DMOV.L DRL14, R3
+000001C4 FD758202                		DMOV.L DRH0, R2
+000001C8 FD758100                		DMOV.L DRL0, R1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",87
+000001CC FC78F820                		DMOV.D DR2, [R15]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",88
+000001D0 7690012E                		DSUB DR14, DR0, DR2
+000001D4 7690212D                		DSUB DR13, DR2, DR2
+000001D8 7690212C                		DSUB DR12, DR2, DR2
+000001DC 7690212B                		DSUB DR11, DR2, DR2
+000001E0 7690212A                		DSUB DR10, DR2, DR2
+000001E4 76902129                		DSUB DR9, DR2, DR2
+000001E8 76902128                		DSUB DR8, DR2, DR2
+000001EC 76902127                		DSUB DR7, DR2, DR2
+000001F0 76902126                		DSUB DR6, DR2, DR2
+000001F4 76902125                		DSUB DR5, DR2, DR2
+000001F8 76902124                		DSUB DR4, DR2, DR2
+000001FC 76902123                		DSUB DR3, DR2, DR2
+00000200 76902121                		DSUB DR1, DR2, DR2
+00000204 FC78E820                		DMOV.D DR2, [R14]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",89
+00000208 05rrrrrr             A  		BSR __COM_DIVd
+0000020C FD7584D2                		DMOV.L DRH13, R4
+00000210 FD7583D0                		DMOV.L DRL13, R3
+00000214 05rrrrrr             A  		BSR __COM_DIVd
+00000218 FD7584C2                		DMOV.L DRH12, R4
+0000021C FD7583C0                		DMOV.L DRL12, R3
+00000220 05rrrrrr             A  		BSR __COM_DIVd
+00000224 FD7584B2                		DMOV.L DRH11, R4
+00000228 FD7583B0                		DMOV.L DRL11, R3
+0000022C 05rrrrrr             A  		BSR __COM_DIVd
+00000230 FD7584A2                		DMOV.L DRH10, R4
+00000234 FD7583A0                		DMOV.L DRL10, R3
+00000238 05rrrrrr             A  		BSR __COM_DIVd
+0000023C FD758492                		DMOV.L DRH9, R4
+00000240 FD758390                		DMOV.L DRL9, R3
+00000244 05rrrrrr             A  		BSR __COM_DIVd
+00000248 FD758482                		DMOV.L DRH8, R4
+0000024C FD758380                		DMOV.L DRL8, R3
+00000250 05rrrrrr             A  		BSR __COM_DIVd
+00000254 FD758472                		DMOV.L DRH7, R4
+00000258 FD758370                		DMOV.L DRL7, R3
+0000025C 05rrrrrr             A  		BSR __COM_DIVd
+00000260 FD758462                		DMOV.L DRH6, R4
+00000264 FD758360                		DMOV.L DRL6, R3
+00000268 05rrrrrr             A  		BSR __COM_DIVd
+0000026C FD758452                		DMOV.L DRH5, R4
+00000270 FD758350                		DMOV.L DRL5, R3
+00000274 05rrrrrr             A  		BSR __COM_DIVd
+00000278 FD758442                		DMOV.L DRH4, R4
+0000027C FD758340                		DMOV.L DRL4, R3
+00000280 05rrrrrr             A  		BSR __COM_DIVd
+00000284 FD758432                		DMOV.L DRH3, R4
+00000288 FD758330                		DMOV.L DRL3, R3
+0000028C 05rrrrrr             A  		BSR __COM_DIVd
+00000290 FD758412                		DMOV.L DRH1, R4
+00000294 FD758310                		DMOV.L DRL1, R3
+00000298 05rrrrrr             A  		BSR __COM_DIVd
+0000029C FD778100                		DMOV.L R1, DRL0
+000002A0 FD778202                		DMOV.L R2, DRH0
+000002A4 FBE2rrrrrrrr            		MOV.L #_dD, R14
+000002AA FC78E800                		DMOV.D DR0, [R14]
+000002AE 75B80F                  		DPOPM.D DR0-DR15
+000002B1 02                      		RTS
+000002B2                         __$Check_TFU_sinf:
+                                 		.STACK	__$Check_TFU_sinf=4
+                                 ;      90 }
+                                 ;      91 
+                                 ;      92 void *m_debug_N_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+                                 ;      93 
+                                 ;      94 static float Check_TFU_sinf(float x);
+                                 ;      95 static float Check_TFU_sinf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",95
+000002B2 04rrrrrr             A  		BRA _sinf
+000002B6                         __$Check_TFU_cosf:
+                                 		.STACK	__$Check_TFU_cosf=4
+                                 ;      96 {
+                                 ;      97     return sinf(x);
+                                 ;      98 }
+                                 ;      99 
+                                 ;     100 static float Check_TFU_cosf(float x);
+                                 ;     101 static float Check_TFU_cosf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",101
+000002B6 04rrrrrr             A  		BRA _cosf
+000002BA                         __$Check_TFU_atan2f:
+                                 		.STACK	__$Check_TFU_atan2f=4
+                                 ;     102 {
+                                 ;     103     return cosf(x);
+                                 ;     104 }
+                                 ;     105 
+                                 ;     106 static float Check_TFU_atan2f(float y, float x);
+                                 ;     107 static float Check_TFU_atan2f(float y, float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",107
+000002BA 04rrrrrr             A  		BRA _atan2f
+000002BE                         __$Check_TFU_hypotf:
+                                 		.STACK	__$Check_TFU_hypotf=4
+                                 ;     108 {
+                                 ;     109     return atan2f(y, x);
+                                 ;     110 }
+                                 ;     111 
+                                 ;     112 static float Check_TFU_hypotf(float x, float y);
+                                 ;     113 static float Check_TFU_hypotf(float x, float y)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",113
+000002BE 04rrrrrr             A  		BRA _hypotf
+000002C2                         __$Check_TFU_asinf:
+                                 		.STACK	__$Check_TFU_asinf=4
+                                 ;     114 {
+                                 ;     115     return hypotf(x, y);
+                                 ;     116 }
+                                 ;     117 
+                                 ;     118 static float Check_TFU_asinf(float x);
+                                 ;     119 static float Check_TFU_asinf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",119
+000002C2 04rrrrrr             A  		BRA _asinf
+000002C6                         __$Check_TFU_acosf:
+                                 		.STACK	__$Check_TFU_acosf=4
+                                 ;     120 {
+                                 ;     121     return asinf(x);
+                                 ;     122 }
+                                 ;     123 
+                                 ;     124 static float Check_TFU_acosf(float x);
+                                 ;     125 static float Check_TFU_acosf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",125
+000002C6 04rrrrrr             A  		BRA _acosf
+000002CA                         __$Check_TFU_atanf:
+                                 		.STACK	__$Check_TFU_atanf=4
+                                 ;     126 {
+                                 ;     127     return acosf(x);
+                                 ;     128 }
+                                 ;     129 
+                                 ;     130 static float Check_TFU_atanf(float x);
+                                 ;     131 static float Check_TFU_atanf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",131
+000002CA 04rrrrrr             A  		BRA _atanf
+000002CE                         __$Check_TFU_tanf:
+                                 		.STACK	__$Check_TFU_tanf=4
+                                 ;     132 {
+                                 ;     133     return atanf(x);
+                                 ;     134 }
+                                 ;     135 
+                                 ;     136 static float Check_TFU_tanf(float x);
+                                 ;     137 static float Check_TFU_tanf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c",137
+000002CE 04rrrrrr             A  		BRA _tanf
+                                 ;     138 {
+                                 ;     139     return tanf(x);
+                                 ;     140 }
+                                 ;     141 
+                                 ;     142 void *m_debug_N_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+                                 ;     143 void *m_debug_N_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+                                 ;     144 void *m_debug_N_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+                                 ;     145 void *m_debug_N_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+                                 ;     146 void *m_debug_N_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+                                 ;     147 void *m_debug_N_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+                                 ;     148 void *m_debug_N_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+                                 ;     149 void *m_debug_N_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+                                 		.SECTION	D,ROMDATA,ALIGN=4
+00000000                         _m_debug_Check_Not_Using_DSQRT:
+00000000 rrrrrrrr                		.lword	__$Check_Not_Using_DSQRT
+00000004                         _m_debug_Check_Not_Using_FSQRT:
+00000004 rrrrrrrr                		.lword	__$Check_Not_Using_FSQRT
+00000008                         _m_debug_Check_Not_Using_DDIV:
+00000008 rrrrrrrr                		.lword	__$Check_Not_Using_DDIV
+0000000C                         _m_debug_Check_Not_Using_FDIV:
+0000000C rrrrrrrr                		.lword	__$Check_Not_Using_FDIV
+00000010                         _m_debug_N_Check_DPUSHM_DPOPM:
+00000010 rrrrrrrr                		.lword	__$Check_DPUSHM_DPOPM
+00000014                         _m_debug_N_Check_TFU_sinf:
+00000014 rrrrrrrr                		.lword	__$Check_TFU_sinf
+00000018                         _m_debug_N_Check_TFU_cosf:
+00000018 rrrrrrrr                		.lword	__$Check_TFU_cosf
+0000001C                         _m_debug_N_Check_TFU_atan2f:
+0000001C rrrrrrrr                		.lword	__$Check_TFU_atan2f
+00000020                         _m_debug_N_Check_TFU_hypotf:
+00000020 rrrrrrrr                		.lword	__$Check_TFU_hypotf
+00000024                         _m_debug_N_Check_TFU_asinf:
+00000024 rrrrrrrr                		.lword	__$Check_TFU_asinf
+00000028                         _m_debug_N_Check_TFU_acosf:
+00000028 rrrrrrrr                		.lword	__$Check_TFU_acosf
+0000002C                         _m_debug_N_Check_TFU_atanf:
+0000002C rrrrrrrr                		.lword	__$Check_TFU_atanf
+00000030                         _m_debug_N_Check_TFU_tanf:
+00000030 rrrrrrrr                		.lword	__$Check_TFU_tanf
+                                 		.glb	__COM_DIVd
+                                 		.glb	__COM_DIVf
+                                 		.END
+
+Information List
+
+TOTAL ERROR(S)    00000
+TOTAL WARNING(S)  00000
+TOTAL LINE(S)     00509   LINES
+
+Section List
+
+Attr         Size               Name
+CODE     0000000722(000002D2H)  P
+ROMDATA  0000000052(00000034H)  D
+
+Cpu Type
+
+-ISA=RXV3 -FPU
+
+Command Parameter
+
+-subcommand=C:\Temp\DevTools\$ccrx5B92D88\$ccrx\RXv3_Check_NO_FSQRT_DSQRT_etc.src.cmd
+    -nologo
+    -isa=rxv3
+    -fpu
+    -fint_register=0
+    -endian=little
+    -goptimize
+    -debug
+    -dpfpu
+    -bank
+-listfile=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_Check_NO_FSQRT_DSQRT_etc.lst
+-output=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_Check_NO_FSQRT_DSQRT_etc.obj

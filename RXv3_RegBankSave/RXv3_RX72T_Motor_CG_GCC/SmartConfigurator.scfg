@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<smc>
+    <general version="2.0.0.0">
+        <configuration active="true" id="com.renesas.smc.toolchain.gccrx.configuration.release">
+            <property id="com.renesas.smc.service.project.buildArtefactType" values="com.renesas.smc.service.project.buildArtefactType.exe"/>
+            <toolchain id="com.renesas.smc.toolchain.gccrx.toolchain.gccrx">
+                <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
+                <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
+                <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.none"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
+            </toolchain>
+        </configuration>
+        <platform id="R5F572TKGxFB"/>
+        <option id="board" value="RSKRX72T(TSIP) (V1.01)"/>
+    </general>
+    <tool id="Clock">
+        <option enabled="true" id="vccinput" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="3.3" value="3.3"/>
+        </option>
+        <option enabled="true" id="mainclockenable" selection="check">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="mainsourcebox" selection="srcR">
+            <item enabled="true" id="srcR"/>
+            <item enabled="true" id="srcEOI"/>
+        </option>
+        <option enabled="true" id="mainfrequency" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="8" value="8"/>
+        </option>
+        <option enabled="true" id="mainwaittime" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="9980" value="9980"/>
+        </option>
+        <option enabled="true" id="hococlockenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="hocooscenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="hocofrequency" selection="frq16">
+            <item enabled="true" id="frq16"/>
+            <item enabled="true" id="frq18"/>
+            <item enabled="true" id="frq20"/>
+        </option>
+        <option enabled="true" id="lococlockenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="locofrequency" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="" value="240"/>
+        </option>
+        <option enabled="true" id="iwdtclockenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="iwdtfrequency" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="" value="120"/>
+        </option>
+        <option enabled="true" id="pllswitcher" selection="pllmain">
+            <item enabled="true" id="pllmain" input="" value="8"/>
+            <item enabled="false" id="pllhoco" input="" value="16"/>
+        </option>
+        <option enabled="true" id="plldivider" selection="div1-1">
+            <item enabled="true" id="div1-1"/>
+            <item enabled="false" id="div1-2"/>
+            <item enabled="false" id="div1-3"/>
+        </option>
+        <option enabled="true" id="pllmul" selection="mul25-1">
+            <item enabled="false" id="mul10-1"/>
+            <item enabled="false" id="mul10_5-1"/>
+            <item enabled="false" id="mul11-1"/>
+            <item enabled="false" id="mul11_5-1"/>
+            <item enabled="false" id="mul12-1"/>
+            <item enabled="false" id="mul12_5-1"/>
+            <item enabled="false" id="mul13-1"/>
+            <item enabled="false" id="mul13_5-1"/>
+            <item enabled="false" id="mul14-1"/>
+            <item enabled="false" id="mul14_5-1"/>
+            <item enabled="true" id="mul15-1"/>
+            <item enabled="true" id="mul15_5-1"/>
+            <item enabled="true" id="mul16-1"/>
+            <item enabled="true" id="mul16_5-1"/>
+            <item enabled="true" id="mul17-1"/>
+            <item enabled="true" id="mul17_5-1"/>
+            <item enabled="true" id="mul18-1"/>
+            <item enabled="true" id="mul18_5-1"/>
+            <item enabled="true" id="mul19-1"/>
+            <item enabled="true" id="mul19_5-1"/>
+            <item enabled="true" id="mul20-1"/>
+            <item enabled="true" id="mul20_5-1"/>
+            <item enabled="true" id="mul21-1"/>
+            <item enabled="true" id="mul21_5-1"/>
+            <item enabled="true" id="mul22-1"/>
+            <item enabled="true" id="mul22_5-1"/>
+            <item enabled="true" id="mul23-1"/>
+            <item enabled="true" id="mul23_5-1"/>
+            <item enabled="true" id="mul24-1"/>
+            <item enabled="true" id="mul24_5-1"/>
+            <item enabled="true" id="mul25-1"/>
+            <item enabled="true" id="mul25_5-1"/>
+            <item enabled="true" id="mul26-1"/>
+            <item enabled="true" id="mul26_5-1"/>
+            <item enabled="true" id="mul27-1"/>
+            <item enabled="true" id="mul27_5-1"/>
+            <item enabled="true" id="mul28-1"/>
+            <item enabled="true" id="mul28_5-1"/>
+            <item enabled="true" id="mul29-1"/>
+            <item enabled="true" id="mul29_5-1"/>
+            <item enabled="true" id="mul30-1"/>
+        </option>
+        <option enabled="true" id="sckswitcher" selection="pll">
+            <item enabled="true" id="pll" input="" value="2.0E8"/>
+            <item enabled="true" id="main" input="" value="8000000"/>
+            <item enabled="false" id="hoco" input="" value="16000000"/>
+            <item enabled="false" id="loco" input="" value="240000"/>
+        </option>
+        <option enabled="true" id="fclkdivider" selection="comboBox1-4">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="false" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="true" id="comboBox1-32"/>
+            <item enabled="true" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="iclkdivider" selection="comboBox1-1">
+            <item enabled="true" id="comboBox1-1"/>
+            <item enabled="true" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="true" id="comboBox1-32"/>
+            <item enabled="true" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="pclkadivider" selection="comboBox1-2">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="true" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="true" id="comboBox1-32"/>
+            <item enabled="true" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="pclkbdivider" selection="comboBox1-4">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="false" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="true" id="comboBox1-32"/>
+            <item enabled="true" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="pclkcdivider" selection="comboBox1-1">
+            <item enabled="true" id="comboBox1-1"/>
+            <item enabled="true" id="comboBox1-2"/>
+            <item enabled="false" id="comboBox1-4"/>
+            <item enabled="false" id="comboBox1-8"/>
+            <item enabled="false" id="comboBox1-16"/>
+            <item enabled="false" id="comboBox1-32"/>
+            <item enabled="false" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="pclkddivider" selection="comboBox1-4">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="false" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="false" id="comboBox1-32"/>
+            <item enabled="false" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="bckdivider" selection="comboBox1-4">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="false" id="comboBox1-2"/>
+            <item enabled="true" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-8"/>
+            <item enabled="true" id="comboBox1-16"/>
+            <item enabled="true" id="comboBox1-32"/>
+            <item enabled="true" id="comboBox1-64"/>
+        </option>
+        <option enabled="true" id="bckselectorenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="bckselector" selection="comboBox1-1">
+            <item enabled="false" id="comboBox1-1"/>
+            <item enabled="true" id="comboBox1-2"/>
+        </option>
+        <option enabled="true" id="uckenable" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="false" id="uckdivider" selection="comboBox1-2">
+            <item enabled="false" id="comboBox1-2"/>
+            <item enabled="false" id="comboBox1-3"/>
+            <item enabled="false" id="comboBox1-4"/>
+            <item enabled="true" id="comboBox1-5"/>
+        </option>
+        <option enabled="true" id="fclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="50.0"/>
+        </option>
+        <option enabled="true" id="iclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="200.0"/>
+        </option>
+        <option enabled="true" id="pclka" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="100.0"/>
+        </option>
+        <option enabled="true" id="pclkb" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="50.0"/>
+        </option>
+        <option enabled="true" id="pclkc" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="200.0"/>
+        </option>
+        <option enabled="true" id="pclkd" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="50.0"/>
+        </option>
+        <option enabled="true" id="bck" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="50.0"/>
+        </option>
+        <option enabled="false" id="bckpin" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="50.0"/>
+        </option>
+        <option enabled="false" id="uclk" selection="textoutputitem">
+            <item enabled="false" id="textoutputitem" input="" value="100.0"/>
+        </option>
+        <option enabled="false" id="caclclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="240"/>
+        </option>
+        <option enabled="false" id="cachclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="16"/>
+        </option>
+        <option enabled="false" id="cacilclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="120"/>
+        </option>
+        <option enabled="true" id="cacmclk" selection="textoutputitem">
+            <item enabled="true" id="textoutputitem" input="" value="8"/>
+        </option>
+        <option enabled="true" id="avccinput" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="3.3" value="3.3"/>
+        </option>
+        <option enabled="true" id="an000" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="an001" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="an002" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="pgavss0" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="an100" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="an101" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="an102" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+        <option enabled="true" id="pgavss1" selection="uncheck">
+            <item enabled="true" id="check"/>
+            <item enabled="true" id="uncheck"/>
+        </option>
+    </tool>
+    <tool id="Interrupt">
+        <Item currentVect="16" id="BSC_BUSERR" priority="15" usedState="Not Use"/>
+        <Item currentVect="18" id="RAM_RAMERR" priority="15" usedState="Not Use"/>
+        <Item currentVect="21" id="FCU_FIFERR" priority="15" usedState="Not Use"/>
+        <Item currentVect="23" id="FCU_FRDYI" priority="15" usedState="Not Use"/>
+        <Item currentVect="26" id="ICU_SWINT2" priority="15" usedState="Not Use"/>
+        <Item currentVect="27" id="ICU_SWINT" priority="15" usedState="Not Use"/>
+        <Item currentVect="28" id="CMT0_CMI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="29" id="CMT1_CMI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="30" id="CMT2_CMI2" priority="15" usedState="Not Use"/>
+        <Item currentVect="31" id="CMT3_CMI3" priority="15" usedState="Not Use"/>
+        <Item currentVect="34" id="USB0_D0FIFO0" priority="15" usedState="Not Use"/>
+        <Item currentVect="35" id="USB0_D1FIFO0" priority="15" usedState="Not Use"/>
+        <Item currentVect="38" id="RSPI0_SPRI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="39" id="RSPI0_SPTI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="52" id="RIIC0_RXI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="53" id="RIIC0_TXI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="60" id="SCI1_RXI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="61" id="SCI1_TXI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="64" id="ICU_IRQ0" priority="15" usedState="Not Use"/>
+        <Item currentVect="65" id="ICU_IRQ1" priority="15" usedState="Not Use"/>
+        <Item currentVect="66" id="ICU_IRQ2" priority="15" usedState="Not Use"/>
+        <Item currentVect="67" id="ICU_IRQ3" priority="15" usedState="Not Use"/>
+        <Item currentVect="68" id="ICU_IRQ4" priority="15" usedState="Not Use"/>
+        <Item currentVect="69" id="ICU_IRQ5" priority="15" usedState="Not Use"/>
+        <Item currentVect="70" id="ICU_IRQ6" priority="15" usedState="Not Use"/>
+        <Item currentVect="71" id="ICU_IRQ7" priority="15" usedState="Not Use"/>
+        <Item currentVect="72" id="ICU_IRQ8" priority="15" usedState="Not Use"/>
+        <Item currentVect="73" id="ICU_IRQ9" priority="15" usedState="Not Use"/>
+        <Item currentVect="74" id="ICU_IRQ10" priority="15" usedState="Not Use"/>
+        <Item currentVect="75" id="ICU_IRQ11" priority="15" usedState="Not Use"/>
+        <Item currentVect="76" id="ICU_IRQ12" priority="15" usedState="Not Use"/>
+        <Item currentVect="77" id="ICU_IRQ13" priority="15" usedState="Not Use"/>
+        <Item currentVect="78" id="ICU_IRQ14" priority="15" usedState="Not Use"/>
+        <Item currentVect="79" id="ICU_IRQ15" priority="15" usedState="Not Use"/>
+        <Item currentVect="84" id="SCI5_RXI5" priority="15" usedState="Not Use"/>
+        <Item currentVect="85" id="SCI5_TXI5" priority="15" usedState="Not Use"/>
+        <Item currentVect="86" id="SCI6_RXI6" priority="15" usedState="Not Use"/>
+        <Item currentVect="87" id="SCI6_TXI6" priority="15" usedState="Not Use"/>
+        <Item currentVect="88" id="LVD1_LVD1" priority="15" usedState="Not Use"/>
+        <Item currentVect="89" id="LVD2_LVD2" priority="15" usedState="Not Use"/>
+        <Item currentVect="90" id="USB0_USBR0" priority="15" usedState="Not Use"/>
+        <Item currentVect="95" id="IWDT_IWUNI" priority="15" usedState="Not Use"/>
+        <Item currentVect="96" id="WDT_WUNI" priority="15" usedState="Not Use"/>
+        <Item currentVect="100" id="SCI8_RXI8" priority="15" usedState="Not Use"/>
+        <Item currentVect="101" id="SCI8_TXI8" priority="15" usedState="Not Use"/>
+        <Item currentVect="102" id="SCI9_RXI9" priority="15" usedState="Not Use"/>
+        <Item currentVect="103" id="SCI9_TXI9" priority="15" usedState="Not Use"/>
+        <Item currentVect="106" groupchild="&lt;br&gt;1-ERS0" id="BE0" priority="15" usedState="Not Use"/>
+        <Item currentVect="110" groupchild="&lt;br&gt;1-TEI1&lt;br&gt;2-ERI1&lt;br&gt;3-TEI5&lt;br&gt;4-ERI5&lt;br&gt;5-TEI6&lt;br&gt;6-ERI6&lt;br&gt;7-TEI12&lt;br&gt;8-ERI12&lt;br&gt;9-SCIX0&lt;br&gt;10-SCIX1&lt;br&gt;11-SCIX2&lt;br&gt;12-SCIX3&lt;br&gt;13-FERRI&lt;br&gt;14-MENDI&lt;br&gt;15-OVFI&lt;br&gt;16-DOPCI" id="BL0" priority="15" usedState="Not Use"/>
+        <Item currentVect="111" groupchild="&lt;br&gt;1-POEGGAI&lt;br&gt;2-POEGGBI&lt;br&gt;3-POEGGCI&lt;br&gt;4-POEGGDI&lt;br&gt;5-OEI5&lt;br&gt;6-OEI1&lt;br&gt;7-OEI2&lt;br&gt;8-OEI3&lt;br&gt;9-OEI4&lt;br&gt;10-TEI0&lt;br&gt;11-EEI0&lt;br&gt;12-S12CMPAI2&lt;br&gt;13-S12CMPBI2&lt;br&gt;14-S12CMPAI&lt;br&gt;15-S12CMPBI&lt;br&gt;16-S12CMPAI1&lt;br&gt;17-S12CMPBI1&lt;br&gt;18-TEI8&lt;br&gt;19-ERI8&lt;br&gt;20-TEI9&lt;br&gt;21-ERI9" id="BL1" priority="15" usedState="Not Use"/>
+        <Item currentVect="112" groupchild="&lt;br&gt;1-TEI11&lt;br&gt;2-ERI11&lt;br&gt;3-SPII0&lt;br&gt;4-SPEI0" id="AL0" priority="15" usedState="Not Use"/>
+        <Item currentVect="114" id="SCI11_RXI11" priority="15" usedState="Not Use"/>
+        <Item currentVect="115" id="SCI11_TXI11" priority="15" usedState="Not Use"/>
+        <Item currentVect="116" id="SCI12_RXI12" priority="15" usedState="Not Use"/>
+        <Item currentVect="117" id="SCI12_TXI12" priority="15" usedState="Not Use"/>
+        <Item currentVect="120" id="DMAC_DMAC0I" priority="15" usedState="Not Use"/>
+        <Item currentVect="121" id="DMAC_DMAC1I" priority="15" usedState="Not Use"/>
+        <Item currentVect="122" id="DMAC_DMAC2I" priority="15" usedState="Not Use"/>
+        <Item currentVect="123" id="DMAC_DMAC3I" priority="15" usedState="Not Use"/>
+        <Item currentVect="124" id="DMAC_DMAC74I" priority="15" usedState="Not Use"/>
+        <Item currentVect="125" id="OST_OSTDI" priority="15" usedState="Not Use"/>
+        <Item currentVect="128" id="S12AD_S12ADI" priority="15" usedState="Used"/>
+        <Item currentVect="129" id="S12AD_S12GBADI" priority="15" usedState="Not Use"/>
+        <Item currentVect="130" id="S12AD_S12GCADI" priority="15" usedState="Not Use"/>
+        <Item currentVect="132" id="S12AD1_S12ADI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="133" id="S12AD1_S12GBADI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="134" id="S12AD1_S12GCADI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="136" id="S12AD2_S12ADI2" priority="15" usedState="Not Use"/>
+        <Item currentVect="137" id="S12AD2_S12GBADI2" priority="15" usedState="Not Use"/>
+        <Item currentVect="138" id="S12AD2_S12GCADI2" priority="15" usedState="Not Use"/>
+        <Item currentVect="146" id="TMR0_CMIA0" priority="15" usedState="Not Use"/>
+        <Item currentVect="147" id="TMR0_CMIB0" priority="15" usedState="Not Use"/>
+        <Item currentVect="148" id="TMR0_OVI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="149" id="TMR1_CMIA1" priority="15" usedState="Not Use"/>
+        <Item currentVect="150" id="TMR1_CMIB1" priority="15" usedState="Not Use"/>
+        <Item currentVect="151" id="TMR1_OVI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="152" id="TMR2_CMIA2" priority="15" usedState="Not Use"/>
+        <Item currentVect="153" id="TMR2_CMIB2" priority="15" usedState="Not Use"/>
+        <Item currentVect="154" id="TMR2_OVI2" priority="15" usedState="Not Use"/>
+        <Item currentVect="155" id="TMR3_CMIA3" priority="15" usedState="Not Use"/>
+        <Item currentVect="156" id="TMR3_CMIB3" priority="15" usedState="Not Use"/>
+        <Item currentVect="157" id="TMR3_OVI3" priority="15" usedState="Not Use"/>
+        <Item currentVect="158" id="TMR4_CMIA4" priority="15" usedState="Not Use"/>
+        <Item currentVect="159" id="TMR4_CMIB4" priority="15" usedState="Not Use"/>
+        <Item currentVect="160" id="TMR4_OVI4" priority="15" usedState="Not Use"/>
+        <Item currentVect="161" id="TMR5_CMIA5" priority="15" usedState="Not Use"/>
+        <Item currentVect="162" id="TMR5_CMIB5" priority="15" usedState="Not Use"/>
+        <Item currentVect="163" id="TMR5_OVI5" priority="15" usedState="Not Use"/>
+        <Item currentVect="164" id="TMR6_CMIA6" priority="15" usedState="Not Use"/>
+        <Item currentVect="165" id="TMR6_CMIB6" priority="15" usedState="Not Use"/>
+        <Item currentVect="166" id="TMR6_OVI6" priority="15" usedState="Not Use"/>
+        <Item currentVect="167" id="TMR7_CMIA7" priority="15" usedState="Not Use"/>
+        <Item currentVect="168" id="TMR7_CMIB7" priority="15" usedState="Not Use"/>
+        <Item currentVect="169" id="TMR7_OVI7" priority="15" usedState="Not Use"/>
+        <Item currentVect="170" id="CAN0_RXF0" priority="15" usedState="Not Use"/>
+        <Item currentVect="171" id="CAN0_TXF0" priority="15" usedState="Not Use"/>
+        <Item currentVect="172" id="CAN0_RXM0" priority="15" usedState="Not Use"/>
+        <Item currentVect="173" id="CAN0_TXM0" priority="15" usedState="Not Use"/>
+        <Item currentVect="174" id="USB0_USBI0" priority="15" usedState="Not Use"/>
+        <Item currentVect="175" id="ELC_ELSR18I" priority="15" usedState="Not Use"/>
+        <Item currentVect="176" id="ELC_ELSR19I" priority="15" usedState="Not Use"/>
+        <Item currentVect="177" id="TSIP_RD" priority="15" usedState="Not Use"/>
+        <Item currentVect="178" id="TSIP_WR" priority="15" usedState="Not Use"/>
+        <Item currentVect="179" id="TSIP_ERR" priority="15" usedState="Not Use"/>
+        <Item currentVect="180" id="CMPC0_CMPC0" priority="15" usedState="Not Use"/>
+        <Item currentVect="181" id="CMPC1_CMPC1" priority="15" usedState="Not Use"/>
+        <Item currentVect="182" id="CMPC2_CMPC2" priority="15" usedState="Not Use"/>
+        <Item currentVect="183" id="CMPC3_CMPC3" priority="15" usedState="Not Use"/>
+        <Item currentVect="184" id="CMPC4_CMPC4" priority="15" usedState="Not Use"/>
+        <Item currentVect="185" id="CMPC5_CMPC5" priority="15" usedState="Not Use"/>
+        <Item currentVect="208" defaultVect="208" id="MTU0_TGIA0" priority="15" usedState="Not Use"/>
+        <Item currentVect="209" defaultVect="209" id="MTU0_TGIB0" priority="15" usedState="Not Use"/>
+        <Item currentVect="210" defaultVect="210" id="MTU0_TGIC0" priority="15" usedState="Not Use"/>
+        <Item currentVect="211" defaultVect="211" id="MTU0_TGID0" priority="15" usedState="Not Use"/>
+        <Item currentVect="212" defaultVect="212" id="MTU0_TCIV0" priority="15" usedState="Not Use"/>
+        <Item currentVect="213" defaultVect="213" id="MTU0_TGIE0" priority="15" usedState="Not Use"/>
+        <Item currentVect="214" defaultVect="214" id="MTU0_TGIF0" priority="15" usedState="Not Use"/>
+        <Item currentVect="215" defaultVect="215" id="MTU1_TGIA1" priority="15" usedState="Not Use"/>
+        <Item currentVect="216" defaultVect="216" id="MTU1_TGIB1" priority="15" usedState="Not Use"/>
+        <Item currentVect="217" defaultVect="217" id="MTU1_TCIV1" priority="15" usedState="Not Use"/>
+        <Item currentVect="218" defaultVect="218" id="MTU1_TCIU1" priority="15" usedState="Not Use"/>
+        <Item currentVect="219" defaultVect="219" id="MTU2_TGIA2" priority="15" usedState="Not Use"/>
+        <Item currentVect="220" defaultVect="220" id="MTU2_TGIB2" priority="15" usedState="Not Use"/>
+        <Item currentVect="221" defaultVect="221" id="MTU2_TCIV2" priority="15" usedState="Not Use"/>
+        <Item currentVect="222" defaultVect="222" id="MTU2_TCIU2" priority="15" usedState="Not Use"/>
+        <Item currentVect="223" defaultVect="223" id="MTU3_TGIA3" priority="15" usedState="Used"/>
+        <Item currentVect="224" defaultVect="224" id="MTU3_TGIB3" priority="15" usedState="Not Use"/>
+        <Item currentVect="225" defaultVect="225" id="MTU3_TGIC3" priority="15" usedState="Not Use"/>
+        <Item currentVect="226" defaultVect="226" id="MTU3_TGID3" priority="15" usedState="Not Use"/>
+        <Item currentVect="227" defaultVect="227" id="MTU3_TCIV3" priority="15" usedState="Not Use"/>
+        <Item currentVect="228" defaultVect="228" id="MTU4_TGIA4" priority="15" usedState="Not Use"/>
+        <Item currentVect="229" defaultVect="229" id="MTU4_TGIB4" priority="15" usedState="Not Use"/>
+        <Item currentVect="230" defaultVect="230" id="MTU4_TGIC4" priority="15" usedState="Not Use"/>
+        <Item currentVect="231" defaultVect="231" id="MTU4_TGID4" priority="15" usedState="Not Use"/>
+        <Item currentVect="232" defaultVect="232" id="MTU4_TCIV4" priority="15" usedState="Not Use"/>
+        <Item currentVect="233" defaultVect="233" id="MTU5_TGIU5" priority="15" usedState="Not Use"/>
+        <Item currentVect="234" defaultVect="234" id="MTU5_TGIV5" priority="15" usedState="Not Use"/>
+        <Item currentVect="235" defaultVect="235" id="MTU5_TGIW5" priority="15" usedState="Not Use"/>
+        <Item currentVect="236" defaultVect="236" id="MTU6_TGIA6" priority="15" usedState="Not Use"/>
+        <Item currentVect="237" defaultVect="237" id="MTU6_TGIB6" priority="15" usedState="Not Use"/>
+        <Item currentVect="238" defaultVect="238" id="MTU6_TGIC6" priority="15" usedState="Not Use"/>
+        <Item currentVect="239" defaultVect="239" id="MTU6_TGID6" priority="15" usedState="Not Use"/>
+        <Item currentVect="240" defaultVect="240" id="MTU6_TCIV6" priority="15" usedState="Not Use"/>
+        <Item currentVect="241" defaultVect="241" id="MTU7_TGIA7" priority="15" usedState="Not Use"/>
+        <Item currentVect="242" defaultVect="242" id="MTU7_TGIB7" priority="15" usedState="Not Use"/>
+        <Item currentVect="243" defaultVect="243" id="MTU7_TGIC7" priority="15" usedState="Not Use"/>
+        <Item currentVect="244" defaultVect="244" id="MTU7_TGID7" priority="15" usedState="Not Use"/>
+        <Item currentVect="245" defaultVect="245" id="MTU7_TCIV7" priority="15" usedState="Not Use"/>
+        <Item currentVect="246" defaultVect="246" id="MTU9_TGIA9" priority="15" usedState="Not Use"/>
+        <Item currentVect="247" defaultVect="247" id="MTU9_TGIB9" priority="15" usedState="Not Use"/>
+        <Item currentVect="248" defaultVect="248" id="MTU9_TGIC9" priority="15" usedState="Not Use"/>
+        <Item currentVect="249" defaultVect="249" id="MTU9_TGID9" priority="15" usedState="Not Use"/>
+        <Item currentVect="250" defaultVect="250" id="MTU9_TCIV9" priority="15" usedState="Not Use"/>
+        <Item currentVect="251" defaultVect="251" id="MTU9_TGIE9" priority="15" usedState="Not Use"/>
+        <Item currentVect="252" defaultVect="252" id="MTU9_TGIF9" priority="15" usedState="Not Use"/>
+        <Item currentVect="253" id="PERIA_INTA253" priority="15" usedState="Not Use"/>
+        <Item currentVect="254" id="PERIA_INTA254" priority="15" usedState="Not Use"/>
+        <Item currentVect="255" id="PERIA_INTA255" priority="15" usedState="Not Use"/>
+    </tool>
+    <tool id="Pins" version="1.0.1.0">
+        <pinItem allocation="7" comments="" direction="None" id="EMLE" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="16" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="24" comments="" direction="None" id="TMS" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="3" comments="" direction="None" id="MTIOC3B" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="75" comments="" direction="None" id="MTIOC3D" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="123" comments="" direction="None" id="AN100" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="122" comments="" direction="None" id="AN101" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="121" comments="" direction="None" id="AN102" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="2" comments="" direction="None" id="MTIOC4A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="1" comments="" direction="None" id="MTIOC4B" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="74" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="73" comments="" direction="None" id="MTIOC4D" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="131" comments="" direction="None" id="AN000" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="130" comments="" direction="None" id="AN001" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="129" comments="" direction="None" id="AN002" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="128" comments="" direction="None" id="AN003" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="18" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="23" comments="" direction="None" id="TRST#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="26" comments="" direction="None" id="TCK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="25" comments="" direction="None" id="TDI" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="27" comments="" direction="None" id="TDO" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinnumItem comment="TRST#" id="23"/>
+        <pinnumItem comment="USB0-OVRCURA" id="45"/>
+        <pinnumItem comment="RL78G-RTS" id="89"/>
+        <pinnumItem comment="E1-TMS" id="24"/>
+        <pinnumItem comment="USB0-VBUSEN" id="46"/>
+        <pinnumItem comment="E1-TDI_RXD" id="25"/>
+        <pinnumItem comment="E1-TCK" id="26"/>
+        <pinnumItem comment="SW2" id="48"/>
+        <pinnumItem comment="E1-TDO_TXD" id="27"/>
+        <pinnumItem comment="EEPROM-SDA" id="49"/>
+        <pinnumItem comment="USB0-VBUS" id="28"/>
+        <pinnumItem comment="RV1-ADC" id="131"/>
+        <pinnumItem comment="LED2" id="110"/>
+        <pinnumItem comment="LED1" id="111"/>
+        <pinnumItem comment="LED0" id="112"/>
+        <pinnumItem comment="PMOD1-IO3" id="93"/>
+        <pinnumItem comment="EEPROM-SCL" id="50"/>
+        <pinnumItem comment="PMOD1-IO2" id="94"/>
+        <pinnumItem comment="LINNSLP" id="95"/>
+        <pinnumItem comment="PMOD1-MOSI" id="51"/>
+        <pinnumItem comment="LINTXD" id="96"/>
+        <pinnumItem comment="LINRXD" id="97"/>
+        <pinnumItem comment="PMOD1-MISO" id="54"/>
+        <pinnumItem comment="MD_FINED" id="11"/>
+        <pinnumItem comment="RL78G-CTS" id="99"/>
+        <pinnumItem comment="PMOD1-SCK" id="55"/>
+        <pinnumItem comment="PMOD1-CS" id="57"/>
+        <pinnumItem comment="CAN-RXD" id="58"/>
+        <pinnumItem comment="RES#" id="15"/>
+        <pinnumItem comment="CAN-TXD" id="59"/>
+        <pinnumItem comment="XTAL" id="16"/>
+        <pinnumItem comment="EXTAL" id="18"/>
+        <pinnumItem comment="SW1" id="141"/>
+        <pinnumItem comment="SW3" id="101"/>
+        <pinnumItem comment="EMLE" id="7"/>
+        <pinnumItem comment="E1-UB" id="9"/>
+        <pinnumItem comment="LED3" id="109"/>
+        <pinnumItem comment="Serial-RXD" id="40"/>
+        <pinnumItem comment="PMOD1-IO0" id="62"/>
+        <pinnumItem comment="Serial-TXD" id="41"/>
+        <pinnumItem comment="PMOD1-IO1" id="63"/>
+        <pinnumItem comment="NMI" id="20"/>
+    </tool>
+    <tool id="Summary" version="1.0.0.0">
+        <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
+        <option id="com.renesas.smc.code.type" value="Normal Folder"/>
+    </tool>
+    <tool id="SWComponent" version="1.0.0.0">
+        <configuration inuse="true" name="r_bsp">
+            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages." display="r_bsp" id="r_bsp7.20" version="7.20">
+                <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
+                <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
+                <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
+                <gridItem id="BSP_CFG_USER_CHARPUT_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_CHARPUT_FUNCTION" selectedIndex="my_sw_charput_function"/>
+                <gridItem id="BSP_CFG_RUN_IN_USER_MODE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_BOOT_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_1" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_2" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_3" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_4" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_BLOCK_ERASE_CMD_PROTECT_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_PROGRAM_CMD_PROTECT_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_READ_CMD_PROTECT_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SERIAL_PROGRAMMER_CONECT_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_ROM_CACHE_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_TRUSTED_MODE_FUNCTION" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ROMCODE_REG_VALUE" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_TYPE" selectedIndex="bsp_lock_t"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_HW_LOCK_FUNCTION" selectedIndex="my_hw_locking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_HW_UNLOCK_FUNCTION" selectedIndex="my_hw_unlocking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_SW_LOCK_FUNCTION" selectedIndex="my_sw_locking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_SW_UNLOCK_FUNCTION" selectedIndex="my_sw_unlocking_function"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
+                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_ADDR" selectedIndex="0xFFF00000"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_SIZE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_IF_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_OA_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA0_DM_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_ADDR" selectedIndex="0xFFF00000"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_SIZE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_IF_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_OA_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_NONCACHEABLE_AREA1_DM_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_FIT_IPL_MAX" selectedIndex="11"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SWINT_TASK_BUFFER_NUMBER" selectedIndex="8"/>
+                <gridItem id="BSP_CFG_SWINT_IPR_INITIAL_VALUE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_CHANNEL" selectedIndex="5"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_BITRATE" selectedIndex="115200"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY" selectedIndex="15"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="89613d7d-c2d4-4844-b7e0-241baf6528a7" inuse="true" name="Config_MTU3_MTU4">
+            <allocatable id="MTU3">
+                <allocatable id="Timer Setting">
+                    <isocket id="MTU_PCLK" selection="Clock.tool_clock_pclkc" value="2.0E8"/>
+                    <isocket id="CountingClockAD" selection="Clock.tool_clock_pclkd" value="5.0E7"/>
+                    <option enabled="true" id="Up" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Un" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Vp" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Vn" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Wp" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Wn" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="UpOutput" selection="LActiveLH">
+                        <item id="LActiveLH" input="" vlaue="0"/>
+                        <item id="HActiveHL" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="UnOutput" selection="LActiveHL">
+                        <item id="LActiveHL" input="" vlaue="0"/>
+                        <item id="HActiveLH" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="VpOutput" selection="LActiveLH">
+                        <item id="LActiveLH" input="" vlaue="0"/>
+                        <item id="HActiveHL" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="VnOutput" selection="LActiveHL">
+                        <item id="LActiveHL" input="" vlaue="0"/>
+                        <item id="HActiveLH" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="WpOutput" selection="LActiveLH">
+                        <item id="LActiveLH" input="" vlaue="0"/>
+                        <item id="HActiveHL" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="WnOutput" selection="LActiveHL">
+                        <item id="LActiveHL" input="" vlaue="0"/>
+                        <item id="HActiveLH" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="Unit" selection="us">
+                        <item id="ms" input="" vlaue="0"/>
+                        <item id="us" input="" vlaue="0"/>
+                        <item id="ns" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="ClkEdg" selection="Rise">
+                        <item id="Rise" input="" vlaue="0"/>
+                        <item id="Fall" input="" vlaue="0"/>
+                        <item id="Both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="PeriodValue" selection="PeriodValue">
+                        <item id="PeriodValue" input="100" vlaue="20000"/>
+                    </option>
+                    <option enabled="true" id="DdTm" selection="Enable">
+                        <item id="Enable" input="" vlaue="0"/>
+                        <item id="Disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="DdTmValue" selection="DdTmValue">
+                        <item id="DdTmValue" input="10" vlaue="2000"/>
+                    </option>
+                    <option enabled="true" id="Unit1" selection="us">
+                        <item id="ms" input="" vlaue="0"/>
+                        <item id="us" input="" vlaue="0"/>
+                        <item id="ns" input="" vlaue="0"/>
+                        <item id="cnt" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="TGRAValue" selection="TGRAValue">
+                        <item id="TGRAValue" input="100" vlaue="12000"/>
+                    </option>
+                    <option enabled="true" id="TGRBValue" selection="TGRBValue">
+                        <item id="TGRBValue" input="100" vlaue="6000"/>
+                    </option>
+                    <option enabled="true" id="TGRA4Value" selection="TGRA4Value">
+                        <item id="TGRA4Value" input="100" vlaue="6000"/>
+                    </option>
+                    <option enabled="true" id="TGRB4Value" selection="TGRB4Value">
+                        <item id="TGRB4Value" input="100" vlaue="6000"/>
+                    </option>
+                    <option enabled="true" id="UseCrestInt" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="PrioAB36" selection="Level15">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                        <item id="Level4" input="" vlaue="0"/>
+                        <item id="Level5" input="" vlaue="0"/>
+                        <item id="Level6" input="" vlaue="0"/>
+                        <item id="Level7" input="" vlaue="0"/>
+                        <item id="Level8" input="" vlaue="0"/>
+                        <item id="Level9" input="" vlaue="0"/>
+                        <item id="Level10" input="" vlaue="0"/>
+                        <item id="Level11" input="" vlaue="0"/>
+                        <item id="Level12" input="" vlaue="0"/>
+                        <item id="Level13" input="" vlaue="0"/>
+                        <item id="Level14" input="" vlaue="0"/>
+                        <item id="Level15" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdSkip" selection="_00_MTR_MTU_INT_SKIP_DISABLE">
+                        <item id="_00_MTR_MTU_INT_SKIP_DISABLE" input="" vlaue="0"/>
+                        <item id="_09_MTR_MTU_INT_SKIP_COUNT_1" input="" vlaue="0"/>
+                        <item id="_0A_MTR_MTU_INT_SKIP_COUNT_2" input="" vlaue="0"/>
+                        <item id="_0B_MTR_MTU_INT_SKIP_COUNT_3" input="" vlaue="0"/>
+                        <item id="_0C_MTR_MTU_INT_SKIP_COUNT_4" input="" vlaue="0"/>
+                        <item id="_0D_MTR_MTU_INT_SKIP_COUNT_5" input="" vlaue="0"/>
+                        <item id="_0E_MTR_MTU_INT_SKIP_COUNT_6" input="" vlaue="0"/>
+                        <item id="_0F_MTR_MTU_INT_SKIP_COUNT_7" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="CreIntSkip" selection="_00_MTR_MTU_INT_SKIP_DISABLE">
+                        <item id="_00_MTR_MTU_INT_SKIP_DISABLE" input="" vlaue="0"/>
+                        <item id="_09_MTR_MTU_INT_SKIP_COUNT_1" input="" vlaue="0"/>
+                        <item id="_0A_MTR_MTU_INT_SKIP_COUNT_2" input="" vlaue="0"/>
+                        <item id="_0B_MTR_MTU_INT_SKIP_COUNT_3" input="" vlaue="0"/>
+                        <item id="_0C_MTR_MTU_INT_SKIP_COUNT_4" input="" vlaue="0"/>
+                        <item id="_0D_MTR_MTU_INT_SKIP_COUNT_5" input="" vlaue="0"/>
+                        <item id="_0E_MTR_MTU_INT_SKIP_COUNT_6" input="" vlaue="0"/>
+                        <item id="_0F_MTR_MTU_INT_SKIP_COUNT_7" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdConversionInterval" selection="AdConversionInterval">
+                        <item id="AdConversionInterval" input="5" vlaue="20000"/>
+                    </option>
+                    <option enabled="true" id="CrestInterruptInterval" selection="CrestInterruptInterval">
+                        <item id="CrestInterruptInterval" input="5" vlaue="20000"/>
+                    </option>
+                    <option enabled="true" id="ClockDivRate" selection="ClockDivRate">
+                        <item id="ClockDivRate" input="1" vlaue="1"/>
+                    </option>
+                    <option enabled="true" id="optEnaIntFuncCre" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optFuncNameCre" selection="optFuncNameCre">
+                        <item id="optFuncNameCre" input="CrestFunction" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optUPhaseChan" selection="MTU3 B-D">
+                        <item id="MTU3 B-D" input="" vlaue="0"/>
+                        <item id="MTU4 A-C" input="" vlaue="0"/>
+                        <item id="MTU4 B-D" input="" vlaue="0"/>
+                        <item id="MTU6 B-D" input="" vlaue="0"/>
+                        <item id="MTU7 A-C" input="" vlaue="0"/>
+                        <item id="MTU7 B-D" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optVPhaseChan" selection="MTU4 A-C">
+                        <item id="MTU3 B-D" input="" vlaue="0"/>
+                        <item id="MTU4 A-C" input="" vlaue="0"/>
+                        <item id="MTU4 B-D" input="" vlaue="0"/>
+                        <item id="MTU6 B-D" input="" vlaue="0"/>
+                        <item id="MTU7 A-C" input="" vlaue="0"/>
+                        <item id="MTU7 B-D" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optWPhaseChan" selection="MTU4 B-D">
+                        <item id="MTU3 B-D" input="" vlaue="0"/>
+                        <item id="MTU4 A-C" input="" vlaue="0"/>
+                        <item id="MTU4 B-D" input="" vlaue="0"/>
+                        <item id="MTU6 B-D" input="" vlaue="0"/>
+                        <item id="MTU7 A-C" input="" vlaue="0"/>
+                        <item id="MTU7 B-D" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="AD Converter Settings">
+                    <option enabled="true" id="AdEnaIu" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaIv" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaIw" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaVdc" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaVu" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaVv" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdEnaVw" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinIu" selection="_0001_MTR_AD_AN000_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinIv" selection="_0002_MTR_AD_AN001_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinIw" selection="_0004_MTR_AD_AN002_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinVdc" selection="_0008_MTR_AD_AN003_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinVu" selection="_0001_MTR_AD_AN100_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinVv" selection="_0002_MTR_AD_AN101_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="AdPinVw" selection="_0004_MTR_AD_AN102_USED">
+                        <item id="_0001_MTR_AD_AN000_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN001_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN002_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN003_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN004_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN005_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN006_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN007_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN100_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN101_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN102_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN103_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN104_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN105_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN106_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN107_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN200_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN201_USED" input="" vlaue="0"/>
+                        <item id="_0004_MTR_AD_AN202_USED" input="" vlaue="0"/>
+                        <item id="_0008_MTR_AD_AN203_USED" input="" vlaue="0"/>
+                        <item id="_0010_MTR_AD_AN204_USED" input="" vlaue="0"/>
+                        <item id="_0020_MTR_AD_AN205_USED" input="" vlaue="0"/>
+                        <item id="_0040_MTR_AD_AN206_USED" input="" vlaue="0"/>
+                        <item id="_0080_MTR_AD_AN207_USED" input="" vlaue="0"/>
+                        <item id="_0100_MTR_AD_AN208_USED" input="" vlaue="0"/>
+                        <item id="_0200_MTR_AD_AN209_USED" input="" vlaue="0"/>
+                        <item id="_0400_MTR_AD_AN210_USED" input="" vlaue="0"/>
+                        <item id="_0800_MTR_AD_AN211_USED" input="" vlaue="0"/>
+                        <item id="_0001_MTR_AD_AN216_USED" input="" vlaue="0"/>
+                        <item id="_0002_MTR_AD_AN217_USED" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="PrioAd" selection="Level15">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                        <item id="Level4" input="" vlaue="0"/>
+                        <item id="Level5" input="" vlaue="0"/>
+                        <item id="Level6" input="" vlaue="0"/>
+                        <item id="Level7" input="" vlaue="0"/>
+                        <item id="Level8" input="" vlaue="0"/>
+                        <item id="Level9" input="" vlaue="0"/>
+                        <item id="Level10" input="" vlaue="0"/>
+                        <item id="Level11" input="" vlaue="0"/>
+                        <item id="Level12" input="" vlaue="0"/>
+                        <item id="Level13" input="" vlaue="0"/>
+                        <item id="Level14" input="" vlaue="0"/>
+                        <item id="Level15" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optEnaIntFuncAd" selection="Use">
+                        <item id="Use" input="" vlaue="0"/>
+                        <item id="Unuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="optFuncNameAd" selection="optFuncNameAd">
+                        <item id="optFuncNameAd" input="AdFunction" vlaue="0"/>
+                    </option>
+                </allocatable>
+            </allocatable>
+            <component description="This software component provides driver configuration of multi-function timer pulse unit (MTU) and 12-bit A/D converter (S12AD) for basic motor control." detailDescription="" display="Motor" id="com.renesas.smc.tools.swcomponent.codegenerator.motor" version="1.0.1"/>
+            <allocator channelLevel0="3" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="MTU3_MTU4" display="MTU3_MTU4" id="com.renesas.smc.tools.swcomponent.codegenerator.motor.rx72t.motorbldc3" type="bldc">
+                <context>
+                    <option enabled="true" id="MotorType" selection="FilterItemBldc3ph">
+                        <item enabled="true" id="FilterItemBldc3ph"/>
+                        <item enabled="true" id="FilterItemStmFast"/>
+                        <item enabled="true" id="FilterItemStmSlow"/>
+                    </option>
+                </context>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+    </tool>
+    <tool id="System">
+        <section id="ocd">
+            <option enabled="true" id="debugIF" selection="jtag">
+                <item enabled="true" id="unused"/>
+                <item enabled="true" id="fine"/>
+                <item enabled="true" id="jtag"/>
+                <item enabled="true" id="jtagTrace"/>
+            </option>
+        </section>
+    </tool>
+</smc>

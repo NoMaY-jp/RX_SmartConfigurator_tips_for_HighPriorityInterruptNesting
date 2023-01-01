@@ -1,0 +1,675 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:19:01
+# Copyright 2009-2020 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
+#
+#    Source file       =  ..\src\RXv3_Check_FSQRT_DSQRT_etc.c
+#    Command line      =
+#        ..\src\RXv3_Check_FSQRT_DSQRT_etc.c -o
+#        src\RXv3_Check_FSQRT_DSQRT_etc.o --no_wrap_diagnostics -e
+#        --align_func=1 --tfu=intrinsic_mathlib -Ohs --no_size_constraints
+#        --no_cross_call --debug -lC ./ -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_config/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_pincfg/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\general/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_bsp/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_RIIC0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_SCI0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_MTU3_MTU4/
+#        --remarks --save_acc --endian l --core rxv3 --fpu=64 --data_model=f
+#        --double=64 --int=32 --dlib_config
+#        C:/Renesas/EWB/8.4/rx/LIB/dlrxdlln.h
+#    Locale            =  C
+#    List file         =  ./RXv3_Check_FSQRT_DSQRT_etc.lst
+#    Object file       =  src\RXv3_Check_FSQRT_DSQRT_etc.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __calling_conv  =  abi10
+#      __core          =  3
+#      __dlib_version  =  6
+#      __double_size   =  64
+#      __endian        =  l
+#      __enum_size     =  *
+#      __fpu           =  2
+#      __int_size      =  32
+#      __lock_R10      =  0
+#      __lock_R11      =  0
+#      __lock_R12      =  0
+#      __lock_R13      =  0
+#      __lock_R8       =  0
+#      __lock_R9       =  0
+#      __rt_version    =  5
+#      __size_limit    =  65536
+#
+###############################################################################
+
+C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\RXv3_Check_FSQRT_DSQRT_etc.c
+      1          #include <math.h>
+      2          
+      3          #if defined(__CCRX__)
+      4          // Don't use -library=function option for this source file.
+      5          // Don't use -nouse_div_inst option for this source file.
+      6          // Use -tfu=intrinsic,mathlib option for this file.
+      7          #elif defined(__ICCRX__)
+      8          // Don't use --sqrt_must_set_errno option for this source file.
+      9          // Use --tfu intrinsic_mathlib option for this source file.
+     10          #elif defined(__GNUC__)
+     11          // Use -mrxv2-fsqrt option with -fno-math-errno option for this source file.
+     12          // Use -mtfu=intrinsic,mathlib option for this source file.
+     13          #endif
+     14          // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+     15          //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+     16          // Max Operating MHz    160   120   120   120   200   240   240
+     17          // Register Bank Save   x     o     o     o     o     o     o
+     18          // DPFPU                x     o     o     x     x     o     o
+     19          // TFU                  x     x     x     o     o     o     o
+     20          
+     21          static double Check_Using_DSQRT(double x);
+
+   \                                 In section .text, align 1, keep-with-next
+     22          static double Check_Using_DSQRT(double x)
+     23          {
+   \                     _Check_Using_DSQRT:
+   \   000000 75 B0 00     DPUSHM.D  DR0,DR0
+     24              return sqrt(x);  // DSQRT is used here directly.
+   \   000003 FD 77 81 00  DMOV.L    R1,DRL0
+   \   000007 FD 77 82 02  DMOV.L    R2,DRH0
+   \   00000B 76 90 0D 00  DSQRT     DR0,DR0
+   \   00000F FD 75 81 00  DMOV.L    DRL0,R1
+   \   000013 FD 75 82 02  DMOV.L    DRH0,R2
+   \   000017 75 B8 00     DPOPM.D   DR0,DR0
+   \   00001A 02           RTS
+     25          }
+     26          
+     27          static float Check_Using_FSQRT(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     28          static float Check_Using_FSQRT(float x)
+     29          {
+     30              return sqrtf(x); // FSQRT is used here directly.
+   \                     _Check_Using_FSQRT:
+   \   000000 FC A3 11     FSQRT     R1,R1
+   \   000003 02           RTS
+     31          }
+     32          
+
+   \                                 In section .data24.data, align 4
+     33          void *m_debug_Check_Using_DSQRT = (void *)Check_Using_DSQRT;
+   \                     _m_debug_Check_Using_DSQRT:
+   \   000000 ....'....    DC32 _Check_Using_DSQRT
+     34          void *m_debug_Check_Using_FSQRT = (void *)Check_Using_FSQRT;
+   \                     _m_debug_Check_Using_FSQRT:
+   \   000004 ....'....    DC32 _Check_Using_FSQRT
+     35          
+
+   \                                 In section .data24.data, align 4
+     36          double d1=1.0, d2=2.0;
+   \                     _d1:
+   \   000000 0000'0000    DC32 0x0
+   \   000004 3FF0'0000    DC32 0x3ff0'0000
+   \                     _d2:
+   \   000008 0000'0000    DC32 0x0
+   \   00000C 4000'0000    DC32 0x4000'0000
+
+   \                                 In section .data24.data, align 4
+     37          float f1=1.0, f2=2.0;
+   \                     _f1:
+   \   000000 3F80'0000    DC32 0x3f80'0000
+
+   \                                 In section .data24.data, align 4
+   \                     _f2:
+   \   000000 4000'0000    DC32 0x4000'0000
+     38          
+     39          #if defined(__CCRX__)
+     40          
+     41          static void Check_Using_DDIV(void);
+     42          static void Check_Using_DDIV(void)
+     43          {
+     44              d2 = d1 / d2;
+     45          }
+     46          
+     47          static void Check_Using_FDIV(void);
+     48          static void Check_Using_FDIV(void)
+     49          {
+     50              f2 = f1 / f2;
+     51          }
+     52          
+     53          void *m_debug_Check_Using_DDIV = (void *)Check_Using_DDIV;
+     54          void *m_debug_Check_Using_FDIV = (void *)Check_Using_FDIV;
+     55          
+     56          #endif
+     57          
+     58          void Check_Using_DSQRT_FSQRT(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     59          void Check_Using_DSQRT_FSQRT(void)
+     60          {
+   \                     _Check_Using_DSQRT_FSQRT:
+   \   000000 7E A6        PUSH.L    R6
+     61              ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
+   \   000002 FB 6E        MOV.L     #_m_debug_Check_Using_DSQRT:24,R6
+
+   \          ..'....
+   \   000007 EC 63        MOV.L     [R6],R3
+   \   000009 66 01        MOV.L     #0x0,R1
+   \   00000B FB 22 00 00  MOV.L     #0x40100000,R2
+
+   \          10 40
+   \   000011 7F 13        JSR       R3
+     62              ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+   \   000013 A8 6C        MOV.L     0x4[R6],R4
+   \   000015 FB 12 00 00  MOV.L     #0x40800000,R1
+
+   \          80 40
+   \   00001B 7F 14        JSR       R4
+     63          }
+   \   00001D 3F 66 01     RTSD      #0x4,R6-R6
+     64          
+
+   \                                 In section .data24.bss, align 4
+     65          double dA, dB, dC, dD;
+   \                     _dA:
+   \   000000              DS8 8
+   \                     _dB:
+   \   000008              DS8 8
+   \                     _dC:
+   \   000010              DS8 8
+   \                     _dD:
+   \   000018              DS8 8
+     66          static void Check_DPUSHM_DPOPM(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     67          static void Check_DPUSHM_DPOPM(void)
+     68          {
+     69              double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+     70          
+     71              d3  = d1 + d2 +  3.0;
+   \                     _Check_DPUSHM_DPOPM:
+   \   000000 FB 1E        MOV.L     #_d1:24,R1
+
+   \          ..'....
+   \   000005 75 B0 0F     DPUSHM.D  DR0,DR15
+   \   000008 FC C9 18 02  DMOV.D    0x8[R1],DR2
+
+   \          20
+   \   00000D FC C8 18 30  DMOV.D    [R1],DR3
+   \   000011 FC C8 18 00  DMOV.D    [R1],DR0
+   \   000015 F9 03 43 00  DMOV.D    #0x40080000,DRH4
+
+   \          00 08 40
+     72              d4  = d1 - d2 +  4.0;
+   \   00001C F9 03 53 00  DMOV.D    #0x40100000,DRH5
+
+   \          00 10 40
+   \   000023 76 90 20 33  DADD      DR3,DR2,DR3
+   \   000027 76 90 01 22  DSUB      DR2,DR0,DR2
+   \   00002B 76 90 40 43  DADD      DR3,DR4,DR4
+   \   00002F 76 90 50 52  DADD      DR2,DR5,DR5
+     73              d5  = d1 + d2 +  5.0;
+   \   000033 F9 03 63 00  DMOV.D    #0x40140000,DRH6
+
+   \          00 14 40
+     74              d6  = d1 - d2 +  6.0;
+   \   00003A F9 03 73 00  DMOV.D    #0x40180000,DRH7
+
+   \          00 18 40
+   \   000041 F9 03 93 00  DMOV.D    #0x40200000,DRH9
+
+   \          00 20 40
+   \   000048 F9 03 B3 00  DMOV.D    #0x40240000,DRH11
+
+   \          00 24 40
+   \   00004F F9 03 D3 00  DMOV.D    #0x40280000,DRH13
+
+   \          00 28 40
+   \   000056 F9 03 F3 00  DMOV.D    #0x402c0000,DRH15
+
+   \          00 2C 40
+   \   00005D F9 03 03 00  DMOV.D    #0x40300000,DRH0
+
+   \          00 30 40
+   \   000064 76 90 60 63  DADD      DR3,DR6,DR6
+   \   000068 76 90 70 72  DADD      DR2,DR7,DR7
+     75              d7  = d1 + d2 +  7.0;
+     76              d8  = d1 - d2 +  8.0;
+   \   00006C 76 90 90 92  DADD      DR2,DR9,DR9
+     77              d9  = d1 + d2 +  9.0;
+     78              d10 = d1 - d2 + 10.0;
+   \   000070 76 90 B0 B2  DADD      DR2,DR11,DR11
+     79              d11 = d1 + d2 + 11.0;
+     80              d12 = d1 - d2 + 12.0;
+   \   000074 76 90 D0 D2  DADD      DR2,DR13,DR13
+     81              d13 = d1 + d2 + 13.0;
+     82              d14 = d1 - d2 + 14.0;
+   \   000078 76 90 F0 F2  DADD      DR2,DR15,DR15
+     83              d15 = d1 + d2 + 15.0;
+     84              d16 = d1 - d2 + 16.0;
+   \   00007C 76 90 00 22  DADD      DR2,DR0,DR2
+     85          
+     86              dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+   \   000080 76 90 50 04  DADD      DR4,DR5,DR0
+   \   000084 F9 03 83 00  DMOV.D    #0x401c0000,DRH8
+
+   \          00 1C 40
+   \   00008B 76 90 60 00  DADD      DR0,DR6,DR0
+   \   00008F 76 90 80 83  DADD      DR3,DR8,DR8
+   \   000093 76 90 70 00  DADD      DR0,DR7,DR0
+   \   000097 F9 03 A3 00  DMOV.D    #0x40220000,DRH10
+
+   \          00 22 40
+   \   00009E 76 90 80 00  DADD      DR0,DR8,DR0
+   \   0000A2 76 90 A0 A3  DADD      DR3,DR10,DR10
+   \   0000A6 76 90 90 00  DADD      DR0,DR9,DR0
+   \   0000AA F9 03 C3 00  DMOV.D    #0x40260000,DRH12
+
+   \          00 26 40
+   \   0000B1 76 90 A0 00  DADD      DR0,DR10,DR0
+   \   0000B5 76 90 C0 C3  DADD      DR3,DR12,DR12
+   \   0000B9 76 90 B0 00  DADD      DR0,DR11,DR0
+   \   0000BD F9 03 E3 00  DMOV.D    #0x402a0000,DRH14
+
+   \          00 2A 40
+   \   0000C4 76 90 C0 00  DADD      DR0,DR12,DR0
+   \   0000C8 76 90 E0 E3  DADD      DR3,DR14,DR14
+   \   0000CC 76 90 D0 00  DADD      DR0,DR13,DR0
+   \   0000D0 F9 03 13 00  DMOV.D    #0x402e0000,DRH1
+
+   \          00 2E 40
+   \   0000D7 76 90 E0 00  DADD      DR0,DR14,DR0
+   \   0000DB 76 90 10 33  DADD      DR3,DR1,DR3
+   \   0000DF 76 90 F0 00  DADD      DR0,DR15,DR0
+   \   0000E3 76 90 30 00  DADD      DR0,DR3,DR0
+   \   0000E7 FB 1E        MOV.L     #_dA:24,R1
+
+   \          ..'....
+   \   0000EC 76 90 20 00  DADD      DR0,DR2,DR0
+   \   0000F0 FC 78 18 00  DMOV.D    DR0,[R1]
+     87              dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+   \   0000F4 76 90 52 04  DMUL      DR4,DR5,DR0
+   \   0000F8 76 90 62 00  DMUL      DR0,DR6,DR0
+   \   0000FC 76 90 72 00  DMUL      DR0,DR7,DR0
+   \   000100 76 90 82 00  DMUL      DR0,DR8,DR0
+   \   000104 76 90 92 00  DMUL      DR0,DR9,DR0
+   \   000108 76 90 A2 00  DMUL      DR0,DR10,DR0
+   \   00010C 76 90 B2 00  DMUL      DR0,DR11,DR0
+   \   000110 76 90 C2 00  DMUL      DR0,DR12,DR0
+   \   000114 76 90 D2 00  DMUL      DR0,DR13,DR0
+   \   000118 76 90 E2 00  DMUL      DR0,DR14,DR0
+   \   00011C 76 90 F2 00  DMUL      DR0,DR15,DR0
+   \   000120 76 90 32 00  DMUL      DR0,DR3,DR0
+   \   000124 76 90 22 00  DMUL      DR0,DR2,DR0
+   \   000128 FC 79 18 02  DMOV.D    DR0,0x8[R1]
+
+   \          00
+     88              dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+   \   00012D 76 90 41 05  DSUB      DR5,DR4,DR0
+     89              dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+   \   000131 76 90 45 45  DDIV      DR5,DR4,DR4
+   \   000135 76 90 01 06  DSUB      DR6,DR0,DR0
+   \   000139 76 90 45 46  DDIV      DR6,DR4,DR4
+   \   00013D 76 90 01 07  DSUB      DR7,DR0,DR0
+   \   000141 76 90 45 47  DDIV      DR7,DR4,DR4
+   \   000145 76 90 01 08  DSUB      DR8,DR0,DR0
+   \   000149 76 90 45 48  DDIV      DR8,DR4,DR4
+   \   00014D 76 90 01 09  DSUB      DR9,DR0,DR0
+   \   000151 76 90 45 49  DDIV      DR9,DR4,DR4
+   \   000155 76 90 01 0A  DSUB      DR10,DR0,DR0
+   \   000159 76 90 45 4A  DDIV      DR10,DR4,DR4
+   \   00015D 76 90 01 0B  DSUB      DR11,DR0,DR0
+   \   000161 76 90 45 4B  DDIV      DR11,DR4,DR4
+   \   000165 76 90 01 0C  DSUB      DR12,DR0,DR0
+   \   000169 76 90 45 4C  DDIV      DR12,DR4,DR4
+   \   00016D 76 90 01 0D  DSUB      DR13,DR0,DR0
+   \   000171 76 90 45 4D  DDIV      DR13,DR4,DR4
+   \   000175 76 90 01 0E  DSUB      DR14,DR0,DR0
+   \   000179 76 90 45 4E  DDIV      DR14,DR4,DR4
+   \   00017D 76 90 01 0F  DSUB      DR15,DR0,DR0
+   \   000181 76 90 45 4F  DDIV      DR15,DR4,DR4
+   \   000185 76 90 01 03  DSUB      DR3,DR0,DR0
+   \   000189 76 90 45 33  DDIV      DR3,DR4,DR3
+   \   00018D 76 90 01 02  DSUB      DR2,DR0,DR0
+   \   000191 76 90 35 22  DDIV      DR2,DR3,DR2
+   \   000195 FC 79 18 04  DMOV.D    DR0,0x10[R1]
+
+   \          00
+   \   00019A FC 79 18 06  DMOV.D    DR2,0x18[R1]
+
+   \          20
+     90          }
+   \   00019F 75 B8 0F     DPOPM.D   DR0,DR15
+   \   0001A2 02           RTS
+     91          
+
+   \                                 In section .data24.data, align 4
+     92          void *m_debug_U_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+   \                     _m_debug_U_Check_DPUSHM_DPOPM:
+   \   000000 ....'....    DC32 _Check_DPUSHM_DPOPM
+     93          
+     94          static float Check_TFU_sinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     95          static float Check_TFU_sinf(float x)
+   \                     _Check_TFU_sinf:
+   \   000000              REQUIRE __iar_init_tfu
+     96          {
+     97              return sinf(x);
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2
+
+   \          08
+   \   000005 A0 29        MOV.L     R1,0x4[R2]
+   \   000007 A8 29        MOV.L     0x4[R2],R1
+   \   000009 02           RTS
+     98          }
+     99          
+    100          static float Check_TFU_cosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    101          static float Check_TFU_cosf(float x)
+   \                     _Check_TFU_cosf:
+   \   000000              REQUIRE __iar_init_tfu
+    102          {
+    103              return cosf(x);
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2
+
+   \          08
+   \   000005 A0 29        MOV.L     R1,0x4[R2]
+   \   000007 EC 21        MOV.L     [R2],R1
+   \   000009 02           RTS
+    104          }
+    105          
+    106          static float Check_TFU_atan2f(float y, float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    107          static float Check_TFU_atan2f(float y, float x)
+   \                     _Check_TFU_atan2f:
+   \   000000              REQUIRE __iar_init_tfu
+    108          {
+    109              return atan2f(y, x);
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3
+
+   \          08
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]
+   \   000009 A8 B9        MOV.L     0xc[R3],R1
+   \   00000B 02           RTS
+    110          }
+    111          
+    112          static float Check_TFU_hypotf(float x, float y);
+
+   \                                 In section .text, align 1, keep-with-next
+    113          static float Check_TFU_hypotf(float x, float y)
+   \                     _Check_TFU_hypotf:
+   \   000000              REQUIRE __iar_init_tfu
+    114          {
+    115              return hypotf(x, y);
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3
+
+   \          08
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]
+   \   000009 A8 B1        MOV.L     0x8[R3],R1
+   \   00000B FD 72 31 EE  FMUL      #0x3f1b74ee,R1
+
+   \          74 1B 3F
+   \   000012 02           RTS
+    116          }
+    117          
+    118          static float Check_TFU_asinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    119          static float Check_TFU_asinf(float x)
+    120          {
+    121              return asinf(x);
+   \                     _Check_TFU_asinf:
+   \   000000 04 ..'....   BRA.A     _asinf
+    122          }
+    123          
+    124          static float Check_TFU_acosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    125          static float Check_TFU_acosf(float x)
+    126          {
+    127              return acosf(x);
+   \                     _Check_TFU_acosf:
+   \   000000 04 ..'....   BRA.A     _acosf
+    128          }
+    129          
+    130          static float Check_TFU_atanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    131          static float Check_TFU_atanf(float x)
+    132          {
+    133              return atanf(x);
+   \                     _Check_TFU_atanf:
+   \   000000 04 ..'....   BRA.A     _atanf
+    134          }
+    135          
+    136          static float Check_TFU_tanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    137          static float Check_TFU_tanf(float x)
+    138          {
+    139              return tanf(x);
+   \                     _Check_TFU_tanf:
+   \   000000 04 ..'....   BRA.A     _tanf
+    140          }
+    141          
+
+   \                                 In section .data24.data, align 4
+    142          void *m_debug_U_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+   \                     _m_debug_U_Check_TFU_sinf:
+   \   000000 ....'....    DC32 _Check_TFU_sinf
+
+   \                                 In section .data24.data, align 4
+    143          void *m_debug_U_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+   \                     _m_debug_U_Check_TFU_cosf:
+   \   000000 ....'....    DC32 _Check_TFU_cosf
+
+   \                                 In section .data24.data, align 4
+    144          void *m_debug_U_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+   \                     _m_debug_U_Check_TFU_atan2f:
+   \   000000 ....'....    DC32 _Check_TFU_atan2f
+
+   \                                 In section .data24.data, align 4
+    145          void *m_debug_U_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+   \                     _m_debug_U_Check_TFU_hypotf:
+   \   000000 ....'....    DC32 _Check_TFU_hypotf
+
+   \                                 In section .data24.data, align 4
+    146          void *m_debug_U_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+   \                     _m_debug_U_Check_TFU_asinf:
+   \   000000 ....'....    DC32 _Check_TFU_asinf
+
+   \                                 In section .data24.data, align 4
+    147          void *m_debug_U_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+   \                     _m_debug_U_Check_TFU_acosf:
+   \   000000 ....'....    DC32 _Check_TFU_acosf
+
+   \                                 In section .data24.data, align 4
+    148          void *m_debug_U_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+   \                     _m_debug_U_Check_TFU_atanf:
+   \   000000 ....'....    DC32 _Check_TFU_atanf
+
+   \                                 In section .data24.data, align 4
+    149          void *m_debug_U_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+   \                     _m_debug_U_Check_TFU_tanf:
+   \   000000 ....'....    DC32 _Check_TFU_tanf
+    150          
+    151          struct vec { float X; float Y; };
+    152          void rot(float t, struct vec *v1, struct vec *v2);
+
+   \                                 In section .text, align 1, keep-with-next
+    153          void rot(float t, struct vec *v1, struct vec *v2)
+   \                     _rot:
+   \   000000              REQUIRE __iar_init_tfu
+    154          {
+    155              v2->X = - sinf(t) * v1->Y + cosf(t) * v1->X;
+   \   000000 FB 5E 10 14  MOV.L     #0x81410,R5
+
+   \          08
+   \   000005 A0 59        MOV.L     R1,0x4[R5]
+   \   000007 A8 5C        MOV.L     0x4[R5],R4
+   \   000009 A0 59        MOV.L     R1,0x4[R5]
+   \   00000B EC 5E        MOV.L     [R5],R14
+   \   00000D EC 25        MOV.L     [R2],R5
+   \   00000F FC 8F E5     FMUL      R14,R5
+   \   000012 ED 2E 01     MOV.L     0x4[R2],R14
+   \   000015 FC 8F E4     FMUL      R14,R4
+   \   000018 FF 84 45     FSUB      R4,R5,R4
+    156              v2->Y =   sinf(t) * v1->X + cosf(t) * v1->Y;
+   \   00001B FB 5E 10 14  MOV.L     #0x81410,R5
+
+   \          08
+   \   000020 E3 34        MOV.L     R4,[R3]
+   \   000022 A0 59        MOV.L     R1,0x4[R5]
+   \   000024 A8 5C        MOV.L     0x4[R5],R4
+   \   000026 EC 2F        MOV.L     [R2],R15
+   \   000028 FC 8F 4F     FMUL      R4,R15
+   \   00002B A0 59        MOV.L     R1,0x4[R5]
+   \   00002D EC 51        MOV.L     [R5],R1
+   \   00002F A8 2D        MOV.L     0x4[R2],R5
+   \   000031 FC 8F 51     FMUL      R5,R1
+   \   000034 FC 8B F1     FADD      R15,R1
+   \   000037 A0 39        MOV.L     R1,0x4[R3]
+    157          }
+   \   000039 02           RTS
+    158          
+    159          #if defined(__ICCRX__)
+    160          #include <intrinsics.h>
+    161          #endif
+    162          
+    163          void rot_2(float t, struct vec *v1, struct vec *v2);
+
+   \                                 In section .text, align 1, keep-with-next
+    164          void rot_2(float t, struct vec *v1, struct vec *v2)
+   \                     _rot_2:
+   \   000000              REQUIRE __iar_init_tfu
+    165          {
+   \   000000 60 80        SUB       #0x8,SP
+    166              float sinf_t, cosf_t;
+    167          
+    168          #if defined(__CCRX__)
+    169              __sincosf(t, &sinf_t, &cosf_t);
+    170          #elif defined(__ICCRX__)
+    171              __sincosf(t, &sinf_t, &cosf_t);
+   \   000002 FB 4E 10 14  MOV.L     #0x81410,R4
+
+   \          08
+   \   000007 A0 49        MOV.L     R1,0x4[R4]
+   \   000009 A8 49        MOV.L     0x4[R4],R1
+   \   00000B A0 09        MOV.L     R1,0x4[SP]
+   \   00000D EC 44        MOV.L     [R4],R4
+    172          #elif defined(__GNUC__)
+    173              __builtin_rx_sincosf(t, &sinf_t, &cosf_t);
+    174          #endif
+    175          
+    176              v2->X = - sinf_t * v1->Y + cosf_t * v1->X;
+   \   00000F E3 04        MOV.L     R4,[SP]
+   \   000011 EC 01        MOV.L     [SP],R1
+   \   000013 EC 24        MOV.L     [R2],R4
+   \   000015 ED 2E 01     MOV.L     0x4[R2],R14
+   \   000018 A8 0D        MOV.L     0x4[SP],R5
+   \   00001A FC 8F 14     FMUL      R1,R4
+   \   00001D FC 8F 5E     FMUL      R5,R14
+   \   000020 FF 8E E4     FSUB      R14,R4,R14
+   \   000023 E3 3E        MOV.L     R14,[R3]
+    177              v2->Y =   sinf_t * v1->X + cosf_t * v1->Y;
+   \   000025 A8 09        MOV.L     0x4[SP],R1
+   \   000027 EC 24        MOV.L     [R2],R4
+   \   000029 EC 05        MOV.L     [SP],R5
+   \   00002B ED 2E 01     MOV.L     0x4[R2],R14
+   \   00002E FC 8F 14     FMUL      R1,R4
+   \   000031 FF B2 E5     FMUL      R14,R5,R2
+   \   000034 FC 8B 42     FADD      R4,R2
+   \   000037 A0 3A        MOV.L     R2,0x4[R3]
+    178          }
+   \   000039 67 02        RTSD      #0x8
+
+   Maximum stack usage in bytes:
+
+   ISTACK Function
+   ------ --------
+    132   Check_DPUSHM_DPOPM
+      4   Check_TFU_acosf
+        4   -> acosf
+      4   Check_TFU_asinf
+        4   -> asinf
+      4   Check_TFU_atan2f
+      4   Check_TFU_atanf
+        4   -> atanf
+      4   Check_TFU_cosf
+      4   Check_TFU_hypotf
+      4   Check_TFU_sinf
+      4   Check_TFU_tanf
+        4   -> tanf
+     12   Check_Using_DSQRT
+      8   Check_Using_DSQRT_FSQRT
+        8   -- Indirect call
+      4   Check_Using_FSQRT
+      4   rot
+     12   rot_2
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     419  Check_DPUSHM_DPOPM
+       4  Check_TFU_acosf
+       4  Check_TFU_asinf
+      12  Check_TFU_atan2f
+       4  Check_TFU_atanf
+      10  Check_TFU_cosf
+      19  Check_TFU_hypotf
+      10  Check_TFU_sinf
+       4  Check_TFU_tanf
+      27  Check_Using_DSQRT
+      32  Check_Using_DSQRT_FSQRT
+       4  Check_Using_FSQRT
+      16  d1
+          d2
+      32  dA
+          dB
+          dC
+          dD
+       4  f1
+       4  f2
+       8  m_debug_Check_Using_DSQRT
+          m_debug_Check_Using_FSQRT
+       4  m_debug_U_Check_DPUSHM_DPOPM
+       4  m_debug_U_Check_TFU_acosf
+       4  m_debug_U_Check_TFU_asinf
+       4  m_debug_U_Check_TFU_atan2f
+       4  m_debug_U_Check_TFU_atanf
+       4  m_debug_U_Check_TFU_cosf
+       4  m_debug_U_Check_TFU_hypotf
+       4  m_debug_U_Check_TFU_sinf
+       4  m_debug_U_Check_TFU_tanf
+      58  rot
+      59  rot_2
+
+ 
+  32 bytes in section .data24.bss
+  68 bytes in section .data24.data
+ 666 bytes in section .text
+ 
+ 666 bytes of CODE memory
+ 100 bytes of DATA memory
+
+Errors: none
+Warnings: none

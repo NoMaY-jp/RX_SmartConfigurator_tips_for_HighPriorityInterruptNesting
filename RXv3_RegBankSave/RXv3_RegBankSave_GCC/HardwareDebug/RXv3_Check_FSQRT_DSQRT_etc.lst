@@ -1,0 +1,846 @@
+   1                             		.file	"RXv3_Check_FSQRT_DSQRT_etc.c"
+   2                             		.section P,"ax"
+   3                             	.Ltext0:
+   4                             		.section	.text.Check_DPUSHM_DPOPM,"ax",@progbits
+   6                             	_Check_DPUSHM_DPOPM:
+   7                             	.LFB3:
+   8                             		.file 1 "../src/RXv3_Check_FSQRT_DSQRT_etc.c"
+   1:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #include <math.h>
+   2:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+   3:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #if defined(__CCRX__)
+   4:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Don't use -library=function option for this source file.
+   5:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Don't use -nouse_div_inst option for this source file.
+   6:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Use -tfu=intrinsic,mathlib option for this file.
+   7:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #elif defined(__ICCRX__)
+   8:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Don't use --sqrt_must_set_errno option for this source file.
+   9:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Use --tfu intrinsic_mathlib option for this source file.
+  10:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #elif defined(__GNUC__)
+  11:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Use -mrxv2-fsqrt option with -fno-math-errno option for this source file.
+  12:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Use -mtfu=intrinsic,mathlib option for this source file.
+  13:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+  14:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+  15:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+  16:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Max Operating MHz    160   120   120   120   200   240   240
+  17:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // Register Bank Save   x     o     o     o     o     o     o
+  18:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // DPFPU                x     o     o     x     x     o     o
+  19:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** // TFU                  x     x     x     o     o     o     o
+  20:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  21:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static double Check_Using_DSQRT(double x);
+  22:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static double Check_Using_DSQRT(double x)
+  23:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+  24:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sqrt(x);  // DSQRT is used here directly.
+  25:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+  26:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  27:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_Using_FSQRT(float x);
+  28:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_Using_FSQRT(float x)
+  29:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+  30:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sqrtf(x); // FSQRT is used here directly.
+  31:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+  32:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  33:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_Check_Using_DSQRT = (void *)Check_Using_DSQRT;
+  34:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_Check_Using_FSQRT = (void *)Check_Using_FSQRT;
+  35:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  36:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** double d1=1.0, d2=2.0;
+  37:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** float f1=1.0, f2=2.0;
+  38:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  39:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #if defined(__CCRX__)
+  40:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  41:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_Using_DDIV(void);
+  42:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_Using_DDIV(void)
+  43:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+  44:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d2 = d1 / d2;
+  45:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+  46:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  47:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_Using_FDIV(void);
+  48:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_Using_FDIV(void)
+  49:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+  50:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     f2 = f1 / f2;
+  51:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+  52:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  53:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_Check_Using_DDIV = (void *)Check_Using_DDIV;
+  54:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_Check_Using_FDIV = (void *)Check_Using_FDIV;
+  55:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  56:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+  57:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  58:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void Check_Using_DSQRT_FSQRT(void);
+  59:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void Check_Using_DSQRT_FSQRT(void)
+  60:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+  61:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
+  62:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+  63:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+  64:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  65:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** double dA, dB, dC, dD;
+  66:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_DPUSHM_DPOPM(void);
+  67:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static void Check_DPUSHM_DPOPM(void)
+  68:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+   9                             		.loc 1 68 1 view -0
+  10 0000 75 B0 0F                		dpushm.d	dr0-dr15
+  11 0003 75 A0 10                		dpushm.l	dcmr-dcmr
+  12                             	.LCFI0:
+  69:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+  13                             		.loc 1 69 5 view .LVU1
+  70:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  71:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d3  = d1 + d2 +  3.0;
+  14                             		.loc 1 71 5 view .LVU2
+  15                             		.loc 1 71 14 is_stmt 0 view .LVU3
+  16 0006 FB 52 00 00 00 00       		mov.L	#_d1, r5
+  17 000c FC C8 58 50             		dmov.D	[r5], dr5
+  18 0010 FB 52 00 00 00 00       		mov.L	#_d2, r5
+  19 0016 FC C8 58 00             		dmov.D	[r5], dr0
+  72:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d4  = d1 - d2 +  4.0;
+  20                             		.loc 1 72 14 view .LVU4
+  21 001a 76 90 51 30             		dsub	dr0, dr5, dr3
+  71:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d4  = d1 - d2 +  4.0;
+  22                             		.loc 1 71 14 view .LVU5
+  23 001e 76 90 00 55             		dadd	dr5, dr0, dr5
+  71:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d4  = d1 - d2 +  4.0;
+  24                             		.loc 1 71 9 view .LVU6
+  25 0022 F9 03 13 00 00 08 40    		dmov.D	#0x40080000, drh1
+  26 0029 76 90 10 15             		dadd	dr5, dr1, dr1
+  27                             	.LVL0:
+  28                             		.loc 1 72 5 is_stmt 1 view .LVU7
+  29                             		.loc 1 72 9 is_stmt 0 view .LVU8
+  30 002d F9 03 63 00 00 10 40    		dmov.D	#0x40100000, drh6
+  31 0034 76 90 60 63             		dadd	dr3, dr6, dr6
+  32                             	.LVL1:
+  73:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d5  = d1 + d2 +  5.0;
+  33                             		.loc 1 73 5 is_stmt 1 view .LVU9
+  34                             		.loc 1 73 9 is_stmt 0 view .LVU10
+  35 0038 F9 03 F3 00 00 14 40    		dmov.D	#0x40140000, drh15
+  36 003f 76 90 F0 F5             		dadd	dr5, dr15, dr15
+  37                             	.LVL2:
+  74:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d6  = d1 - d2 +  6.0;
+  38                             		.loc 1 74 5 is_stmt 1 view .LVU11
+  75:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d7  = d1 + d2 +  7.0;
+  76:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d8  = d1 - d2 +  8.0;
+  77:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d9  = d1 + d2 +  9.0;
+  78:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d10 = d1 - d2 + 10.0;
+  79:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d11 = d1 + d2 + 11.0;
+  80:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d12 = d1 - d2 + 12.0;
+  81:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d13 = d1 + d2 + 13.0;
+  82:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d14 = d1 - d2 + 14.0;
+  83:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d15 = d1 + d2 + 15.0;
+  84:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d16 = d1 - d2 + 16.0;
+  85:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+  39                             		.loc 1 87 13 is_stmt 0 view .LVU12
+  40 0043 76 90 62 41             		dmul	dr1, dr6, dr4
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  41                             		.loc 1 88 13 view .LVU13
+  42 0047 76 90 11 06             		dsub	dr6, dr1, dr0
+  74:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d6  = d1 - d2 +  6.0;
+  43                             		.loc 1 74 9 view .LVU14
+  44 004b F9 03 E3 00 00 18 40    		dmov.D	#0x40180000, drh14
+  45 0052 76 90 E0 E3             		dadd	dr3, dr14, dr14
+  46                             	.LVL3:
+  75:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d7  = d1 + d2 +  7.0;
+  47                             		.loc 1 75 5 is_stmt 1 view .LVU15
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  48                             		.loc 1 87 18 is_stmt 0 view .LVU16
+  49 0056 76 90 F2 44             		dmul	dr4, dr15, dr4
+  50                             		.loc 1 88 18 view .LVU17
+  51 005a 76 90 01 0F             		dsub	dr15, dr0, dr0
+  75:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d7  = d1 + d2 +  7.0;
+  52                             		.loc 1 75 9 view .LVU18
+  53 005e F9 03 D3 00 00 1C 40    		dmov.D	#0x401c0000, drh13
+  54 0065 76 90 D0 D5             		dadd	dr5, dr13, dr13
+  55                             	.LVL4:
+  76:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d9  = d1 + d2 +  9.0;
+  56                             		.loc 1 76 5 is_stmt 1 view .LVU19
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  57                             		.loc 1 87 23 is_stmt 0 view .LVU20
+  58 0069 76 90 E2 44             		dmul	dr4, dr14, dr4
+  59                             		.loc 1 88 23 view .LVU21
+  60 006d 76 90 01 0E             		dsub	dr14, dr0, dr0
+  76:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d9  = d1 + d2 +  9.0;
+  61                             		.loc 1 76 9 view .LVU22
+  62 0071 F9 03 C3 00 00 20 40    		dmov.D	#0x40200000, drh12
+  63 0078 76 90 C0 C3             		dadd	dr3, dr12, dr12
+  64                             	.LVL5:
+  77:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d10 = d1 - d2 + 10.0;
+  65                             		.loc 1 77 5 is_stmt 1 view .LVU23
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  66                             		.loc 1 87 28 is_stmt 0 view .LVU24
+  67 007c 76 90 D2 44             		dmul	dr4, dr13, dr4
+  68                             		.loc 1 88 28 view .LVU25
+  69 0080 76 90 01 0D             		dsub	dr13, dr0, dr0
+  77:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d10 = d1 - d2 + 10.0;
+  70                             		.loc 1 77 9 view .LVU26
+  71 0084 F9 03 B3 00 00 22 40    		dmov.D	#0x40220000, drh11
+  72 008b 76 90 B0 B5             		dadd	dr5, dr11, dr11
+  73                             	.LVL6:
+  78:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d11 = d1 + d2 + 11.0;
+  74                             		.loc 1 78 5 is_stmt 1 view .LVU27
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  75                             		.loc 1 87 33 is_stmt 0 view .LVU28
+  76 008f 76 90 C2 44             		dmul	dr4, dr12, dr4
+  77                             		.loc 1 88 33 view .LVU29
+  78 0093 76 90 01 0C             		dsub	dr12, dr0, dr0
+  78:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d11 = d1 + d2 + 11.0;
+  79                             		.loc 1 78 9 view .LVU30
+  80 0097 F9 03 A3 00 00 24 40    		dmov.D	#0x40240000, drh10
+  81 009e 76 90 A0 A3             		dadd	dr3, dr10, dr10
+  82                             	.LVL7:
+  79:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d12 = d1 - d2 + 12.0;
+  83                             		.loc 1 79 5 is_stmt 1 view .LVU31
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  84                             		.loc 1 87 38 is_stmt 0 view .LVU32
+  85 00a2 76 90 B2 44             		dmul	dr4, dr11, dr4
+  86                             		.loc 1 88 38 view .LVU33
+  87 00a6 76 90 01 0B             		dsub	dr11, dr0, dr0
+  79:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d12 = d1 - d2 + 12.0;
+  88                             		.loc 1 79 9 view .LVU34
+  89 00aa F9 03 93 00 00 26 40    		dmov.D	#0x40260000, drh9
+  90 00b1 76 90 90 95             		dadd	dr5, dr9, dr9
+  91                             	.LVL8:
+  80:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d13 = d1 + d2 + 13.0;
+  92                             		.loc 1 80 5 is_stmt 1 view .LVU35
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+  93                             		.loc 1 87 43 is_stmt 0 view .LVU36
+  94 00b5 76 90 A2 44             		dmul	dr4, dr10, dr4
+  95                             		.loc 1 88 43 view .LVU37
+  96 00b9 76 90 01 0A             		dsub	dr10, dr0, dr0
+  80:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d13 = d1 + d2 + 13.0;
+  97                             		.loc 1 80 9 view .LVU38
+  98 00bd F9 03 83 00 00 28 40    		dmov.D	#0x40280000, drh8
+  99 00c4 76 90 80 83             		dadd	dr3, dr8, dr8
+ 100                             	.LVL9:
+  81:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d14 = d1 - d2 + 14.0;
+ 101                             		.loc 1 81 5 is_stmt 1 view .LVU39
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 102                             		.loc 1 87 49 is_stmt 0 view .LVU40
+ 103 00c8 76 90 92 44             		dmul	dr4, dr9, dr4
+ 104                             		.loc 1 88 49 view .LVU41
+ 105 00cc 76 90 01 09             		dsub	dr9, dr0, dr0
+  81:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d14 = d1 - d2 + 14.0;
+ 106                             		.loc 1 81 9 view .LVU42
+ 107 00d0 F9 03 73 00 00 2A 40    		dmov.D	#0x402a0000, drh7
+ 108 00d7 76 90 70 75             		dadd	dr5, dr7, dr7
+ 109                             	.LVL10:
+  82:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d15 = d1 + d2 + 15.0;
+ 110                             		.loc 1 82 5 is_stmt 1 view .LVU43
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 111                             		.loc 1 87 55 is_stmt 0 view .LVU44
+ 112 00db 76 90 82 44             		dmul	dr4, dr8, dr4
+ 113                             		.loc 1 88 55 view .LVU45
+ 114 00df 76 90 01 08             		dsub	dr8, dr0, dr0
+  89:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 115                             		.loc 1 89 13 view .LVU46
+ 116 00e3 76 90 15 26             		ddiv	dr6, dr1, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 117                             		.loc 1 86 13 view .LVU47
+ 118 00e7 76 90 60 11             		dadd	dr1, dr6, dr1
+ 119                             	.LVL11:
+  82:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d15 = d1 + d2 + 15.0;
+ 120                             		.loc 1 82 9 view .LVU48
+ 121 00eb F9 03 63 00 00 2C 40    		dmov.D	#0x402c0000, drh6
+ 122                             	.LVL12:
+  82:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d15 = d1 + d2 + 15.0;
+ 123                             		.loc 1 82 9 view .LVU49
+ 124 00f2 76 90 60 63             		dadd	dr3, dr6, dr6
+ 125                             	.LVL13:
+  83:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d16 = d1 - d2 + 16.0;
+ 126                             		.loc 1 83 5 is_stmt 1 view .LVU50
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 127                             		.loc 1 87 61 is_stmt 0 view .LVU51
+ 128 00f6 76 90 72 44             		dmul	dr4, dr7, dr4
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 129                             		.loc 1 88 61 view .LVU52
+ 130 00fa 76 90 01 07             		dsub	dr7, dr0, dr0
+ 131                             		.loc 1 89 18 view .LVU53
+ 132 00fe 76 90 25 2F             		ddiv	dr15, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 133                             		.loc 1 86 18 view .LVU54
+ 134 0102 76 90 F0 11             		dadd	dr1, dr15, dr1
+  83:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d16 = d1 - d2 + 16.0;
+ 135                             		.loc 1 83 9 view .LVU55
+ 136 0106 F9 03 F3 00 00 2E 40    		dmov.D	#0x402e0000, drh15
+ 137                             	.LVL14:
+  83:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     d16 = d1 - d2 + 16.0;
+ 138                             		.loc 1 83 9 view .LVU56
+ 139 010d 76 90 F0 55             		dadd	dr5, dr15, dr5
+ 140                             	.LVL15:
+  84:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 141                             		.loc 1 84 5 is_stmt 1 view .LVU57
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 142                             		.loc 1 87 67 is_stmt 0 view .LVU58
+ 143 0111 76 90 62 44             		dmul	dr4, dr6, dr4
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 144                             		.loc 1 88 67 view .LVU59
+ 145 0115 76 90 01 06             		dsub	dr6, dr0, dr0
+ 146                             		.loc 1 89 23 view .LVU60
+ 147 0119 76 90 25 2E             		ddiv	dr14, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 148                             		.loc 1 86 23 view .LVU61
+ 149 011d 76 90 E0 11             		dadd	dr1, dr14, dr1
+  84:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 150                             		.loc 1 84 9 view .LVU62
+ 151 0121 F9 03 E3 00 00 30 40    		dmov.D	#0x40300000, drh14
+ 152                             	.LVL16:
+  84:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 153                             		.loc 1 84 9 view .LVU63
+ 154 0128 76 90 E0 33             		dadd	dr3, dr14, dr3
+ 155                             	.LVL17:
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 156                             		.loc 1 86 5 is_stmt 1 view .LVU64
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 157                             		.loc 1 87 73 is_stmt 0 view .LVU65
+ 158 012c 76 90 52 44             		dmul	dr4, dr5, dr4
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 159                             		.loc 1 88 73 view .LVU66
+ 160 0130 76 90 01 05             		dsub	dr5, dr0, dr0
+ 161                             		.loc 1 89 28 view .LVU67
+ 162 0134 76 90 25 2D             		ddiv	dr13, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 163                             		.loc 1 86 28 view .LVU68
+ 164 0138 76 90 D0 11             		dadd	dr1, dr13, dr1
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 165                             		.loc 1 87 79 view .LVU69
+ 166 013c 76 90 32 44             		dmul	dr4, dr3, dr4
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 167                             		.loc 1 88 79 view .LVU70
+ 168 0140 76 90 01 03             		dsub	dr3, dr0, dr0
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 169                             		.loc 1 86 33 view .LVU71
+ 170 0144 76 90 C0 11             		dadd	dr1, dr12, dr1
+ 171                             		.loc 1 89 33 view .LVU72
+ 172 0148 76 90 25 2C             		ddiv	dr12, dr2, dr2
+ 173                             		.loc 1 89 38 view .LVU73
+ 174 014c 76 90 25 2B             		ddiv	dr11, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 175                             		.loc 1 86 38 view .LVU74
+ 176 0150 76 90 B0 11             		dadd	dr1, dr11, dr1
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 177                             		.loc 1 86 43 view .LVU75
+ 178 0154 76 90 A0 11             		dadd	dr1, dr10, dr1
+ 179                             		.loc 1 89 43 view .LVU76
+ 180 0158 76 90 25 2A             		ddiv	dr10, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 181                             		.loc 1 86 49 view .LVU77
+ 182 015c 76 90 90 11             		dadd	dr1, dr9, dr1
+ 183                             		.loc 1 89 49 view .LVU78
+ 184 0160 76 90 25 29             		ddiv	dr9, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 185                             		.loc 1 86 55 view .LVU79
+ 186 0164 76 90 80 11             		dadd	dr1, dr8, dr1
+ 187                             		.loc 1 89 55 view .LVU80
+ 188 0168 76 90 25 28             		ddiv	dr8, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 189                             		.loc 1 86 61 view .LVU81
+ 190 016c 76 90 70 11             		dadd	dr1, dr7, dr1
+ 191                             		.loc 1 89 61 view .LVU82
+ 192 0170 76 90 25 27             		ddiv	dr7, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 193                             		.loc 1 86 67 view .LVU83
+ 194 0174 76 90 60 11             		dadd	dr1, dr6, dr1
+ 195                             		.loc 1 89 67 view .LVU84
+ 196 0178 76 90 25 26             		ddiv	dr6, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 197                             		.loc 1 86 73 view .LVU85
+ 198 017c 76 90 50 11             		dadd	dr1, dr5, dr1
+ 199                             		.loc 1 89 73 view .LVU86
+ 200 0180 76 90 25 25             		ddiv	dr5, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 201                             		.loc 1 86 79 view .LVU87
+ 202 0184 76 90 30 11             		dadd	dr1, dr3, dr1
+ 203                             		.loc 1 89 79 view .LVU88
+ 204 0188 76 90 25 23             		ddiv	dr3, dr2, dr2
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 205                             		.loc 1 86 8 view .LVU89
+ 206 018c FB 52 00 00 00 00       		mov.L	#_dA, r5
+ 207                             	.LVL18:
+  86:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+ 208                             		.loc 1 86 8 view .LVU90
+ 209 0192 FC 78 58 10             		dmov.D	dr1, [r5]
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 210                             		.loc 1 87 5 is_stmt 1 view .LVU91
+  87:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+ 211                             		.loc 1 87 8 is_stmt 0 view .LVU92
+ 212 0196 FB 52 00 00 00 00       		mov.L	#_dB, r5
+ 213 019c FC 78 58 40             		dmov.D	dr4, [r5]
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 214                             		.loc 1 88 5 is_stmt 1 view .LVU93
+  88:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+ 215                             		.loc 1 88 8 is_stmt 0 view .LVU94
+ 216 01a0 FB 52 00 00 00 00       		mov.L	#_dC, r5
+ 217 01a6 FC 78 58 00             		dmov.D	dr0, [r5]
+ 218                             		.loc 1 89 5 is_stmt 1 view .LVU95
+ 219                             		.loc 1 89 8 is_stmt 0 view .LVU96
+ 220 01aa FB 52 00 00 00 00       		mov.L	#_dD, r5
+ 221 01b0 FC 78 58 20             		dmov.D	dr2, [r5]
+  90:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 222                             		.loc 1 90 1 view .LVU97
+ 223 01b4 75 A8 10                		dpopm.l	dcmr-dcmr
+ 224 01b7 75 B8 0F                		dpopm.d	dr0-dr15
+ 225                             	.LVL19:
+ 226                             		.loc 1 90 1 view .LVU98
+ 227 01ba 02                      		rts
+ 228                             	.LFE3:
+ 230                             		.section	.text.Check_Using_DSQRT,"ax",@progbits
+ 232                             	_Check_Using_DSQRT:
+ 233                             	.LVL20:
+ 234                             	.LFB0:
+  23:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sqrt(x);  // DSQRT is used here directly.
+ 235                             		.loc 1 23 1 is_stmt 1 view -0
+  23:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sqrt(x);  // DSQRT is used here directly.
+ 236                             		.loc 1 23 1 is_stmt 0 view .LVU100
+ 237 0000 75 B0 00                		dpushm.d	dr0-dr0
+ 238 0003 75 A0 10                		dpushm.l	dcmr-dcmr
+ 239                             	.LCFI1:
+  24:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 240                             		.loc 1 24 5 is_stmt 1 view .LVU101
+  25:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 241                             		.loc 1 25 1 is_stmt 0 view .LVU102
+ 242 0006 FD 77 81 00             		dmov.L	r1, drl0
+ 243 000a FD 77 82 02             		dmov.L	r2, drh0
+ 244 000e 76 90 0D 00             		dsqrt dr0, dr0
+ 245 0012 FD 75 81 00             		dmov.L	drl0, r1
+ 246 0016 FD 75 82 02             		dmov.L	drh0, r2
+ 247                             	.LVL21:
+  25:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 248                             		.loc 1 25 1 view .LVU103
+ 249 001a 75 A8 10                		dpopm.l	dcmr-dcmr
+ 250 001d 75 B8 00                		dpopm.d	dr0-dr0
+ 251 0020 02                      		rts
+ 252                             	.LFE0:
+ 254                             		.section	.text.Check_Using_FSQRT,"ax",@progbits
+ 256                             	_Check_Using_FSQRT:
+ 257                             	.LVL22:
+ 258                             	.LFB1:
+  29:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sqrtf(x); // FSQRT is used here directly.
+ 259                             		.loc 1 29 1 is_stmt 1 view -0
+  30:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 260                             		.loc 1 30 5 view .LVU105
+  31:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 261                             		.loc 1 31 1 is_stmt 0 view .LVU106
+ 262 0000 FC A3 11                		fsqrt r1, r1
+ 263                             	.LVL23:
+  31:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 264                             		.loc 1 31 1 view .LVU107
+ 265 0003 02                      		rts
+ 266                             	.LFE1:
+ 268                             		.section	.text.Check_TFU_sinf,"ax",@progbits
+ 270                             	_Check_TFU_sinf:
+ 271                             	.LVL24:
+ 272                             	.LFB4:
+  91:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  92:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+  93:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+  94:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_sinf(float x);
+  95:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_sinf(float x)
+  96:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 273                             		.loc 1 96 1 is_stmt 1 view -0
+  97:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return sinf(x);
+ 274                             		.loc 1 97 5 view .LVU109
+ 275                             		.loc 1 97 12 is_stmt 0 view .LVU110
+ 276 0000 FB 5E 14 14 08          		mov.L	#0x81414, r5
+ 277 0005 E3 51                   		mov.L	r1, [r5]
+ 278 0007 EC 51                   		mov.L	[r5], r1
+ 279                             	.LVL25:
+  98:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 280                             		.loc 1 98 1 view .LVU111
+ 281 0009 02                      		rts
+ 282                             	.LFE4:
+ 284                             		.section	.text.Check_TFU_cosf,"ax",@progbits
+ 286                             	_Check_TFU_cosf:
+ 287                             	.LVL26:
+ 288                             	.LFB5:
+  99:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 100:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_cosf(float x);
+ 101:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_cosf(float x)
+ 102:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 289                             		.loc 1 102 1 is_stmt 1 view -0
+ 103:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return cosf(x);
+ 290                             		.loc 1 103 5 view .LVU113
+ 291                             		.loc 1 103 12 is_stmt 0 view .LVU114
+ 292 0000 FB 5E 10 14 08          		mov.L	#0x81410, r5
+ 293 0005 A0 59                   		mov.L	r1, 4[r5]
+ 294 0007 EC 51                   		mov.L	[r5], r1
+ 295                             	.LVL27:
+ 104:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 296                             		.loc 1 104 1 view .LVU115
+ 297 0009 02                      		rts
+ 298                             	.LFE5:
+ 300                             		.section	.text.Check_TFU_atan2f,"ax",@progbits
+ 302                             	_Check_TFU_atan2f:
+ 303                             	.LVL28:
+ 304                             	.LFB6:
+ 105:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 106:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_atan2f(float y, float x);
+ 107:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_atan2f(float y, float x)
+ 108:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 305                             		.loc 1 108 1 is_stmt 1 view -0
+ 109:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return atan2f(y, x);
+ 306                             		.loc 1 109 5 view .LVU117
+ 307                             		.loc 1 109 12 is_stmt 0 view .LVU118
+ 308 0000 FB 5E 18 14 08          		mov.L	#0x81418, r5
+ 309 0005 E3 52                   		mov.L	r2, [r5]
+ 310 0007 A0 59                   		mov.L	r1, 4[r5]
+ 311 0009 A8 59                   		mov.L	4[r5], r1
+ 312                             	.LVL29:
+ 110:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 313                             		.loc 1 110 1 view .LVU119
+ 314 000b 02                      		rts
+ 315                             	.LFE6:
+ 317                             		.section	.text.Check_TFU_hypotf,"ax",@progbits
+ 319                             	_Check_TFU_hypotf:
+ 320                             	.LVL30:
+ 321                             	.LFB7:
+ 111:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 112:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_hypotf(float x, float y);
+ 113:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_hypotf(float x, float y)
+ 114:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 322                             		.loc 1 114 1 is_stmt 1 view -0
+ 115:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return hypotf(x, y);
+ 323                             		.loc 1 115 5 view .LVU121
+ 324                             		.loc 1 115 12 is_stmt 0 view .LVU122
+ 325 0000 FB 5E 18 14 08          		mov.L	#0x81418, r5
+ 326 0005 E3 51                   		mov.L	r1, [r5]
+ 327 0007 66 04                   		mov.L	#0, r4
+ 328 0009 F8 42 EE 74 1B 3F       		mov.L	#0x3f1b74ee, [r4]
+ 329 000f EC 44                   		mov.L	[r4], r4
+ 330 0011 A0 5A                   		mov.L	r2, 4[r5]
+ 331 0013 EC 51                   		mov.L	[r5], r1
+ 332                             	.LVL31:
+ 116:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 333                             		.loc 1 116 1 view .LVU123
+ 334 0015 FC 8F 41                		fmul	r4, r1
+ 335 0018 02                      		rts
+ 336                             	.LFE7:
+ 338                             		.section	.text.Check_TFU_asinf,"ax",@progbits
+ 340                             	_Check_TFU_asinf:
+ 341                             	.LVL32:
+ 342                             	.LFB8:
+ 117:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 118:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_asinf(float x);
+ 119:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_asinf(float x)
+ 120:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 343                             		.loc 1 120 1 is_stmt 1 view -0
+ 121:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return asinf(x);
+ 344                             		.loc 1 121 5 view .LVU125
+ 345                             		.loc 1 121 12 is_stmt 0 view .LVU126
+ 346 0000 04 00 00 00             		bra	_asinf
+ 347                             	.LVL33:
+ 348                             		.loc 1 121 12 view .LVU127
+ 349                             	.LFE8:
+ 351                             		.section	.text.Check_TFU_acosf,"ax",@progbits
+ 353                             	_Check_TFU_acosf:
+ 354                             	.LVL34:
+ 355                             	.LFB9:
+ 122:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 123:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 124:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_acosf(float x);
+ 125:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_acosf(float x)
+ 126:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 356                             		.loc 1 126 1 is_stmt 1 view -0
+ 127:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return acosf(x);
+ 357                             		.loc 1 127 5 view .LVU129
+ 358                             		.loc 1 127 12 is_stmt 0 view .LVU130
+ 359 0000 04 00 00 00             		bra	_acosf
+ 360                             	.LVL35:
+ 361                             		.loc 1 127 12 view .LVU131
+ 362                             	.LFE9:
+ 364                             		.section	.text.Check_TFU_atanf,"ax",@progbits
+ 366                             	_Check_TFU_atanf:
+ 367                             	.LVL36:
+ 368                             	.LFB10:
+ 128:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 129:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 130:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_atanf(float x);
+ 131:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_atanf(float x)
+ 132:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 369                             		.loc 1 132 1 is_stmt 1 view -0
+ 133:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return atanf(x);
+ 370                             		.loc 1 133 5 view .LVU133
+ 371                             		.loc 1 133 12 is_stmt 0 view .LVU134
+ 372 0000 04 00 00 00             		bra	_atanf
+ 373                             	.LVL37:
+ 374                             		.loc 1 133 12 view .LVU135
+ 375                             	.LFE10:
+ 377                             		.section	.text.Check_TFU_tanf,"ax",@progbits
+ 379                             	_Check_TFU_tanf:
+ 380                             	.LVL38:
+ 381                             	.LFB11:
+ 134:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 135:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 136:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_tanf(float x);
+ 137:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** static float Check_TFU_tanf(float x)
+ 138:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 382                             		.loc 1 138 1 is_stmt 1 view -0
+ 139:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     return tanf(x);
+ 383                             		.loc 1 139 5 view .LVU137
+ 384                             		.loc 1 139 12 is_stmt 0 view .LVU138
+ 385 0000 04 00 00 00             		bra	_tanf
+ 386                             	.LVL39:
+ 387                             		.loc 1 139 12 view .LVU139
+ 388                             	.LFE11:
+ 390                             		.section	.text.Check_Using_DSQRT_FSQRT,"ax",@progbits
+ 391                             		.global	_Check_Using_DSQRT_FSQRT
+ 393                             	_Check_Using_DSQRT_FSQRT:
+ 394                             	.LFB2:
+  60:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
+ 395                             		.loc 1 60 1 is_stmt 1 view -0
+ 396 0000 75 B0 00                		dpushm.d	dr0-dr0
+ 397 0003 75 A0 10                		dpushm.l	dcmr-dcmr
+ 398                             	.LCFI2:
+  61:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+ 399                             		.loc 1 61 5 view .LVU141
+  61:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+ 400                             		.loc 1 61 6 is_stmt 0 view .LVU142
+ 401 0006 F9 03 03 00 00 10 40    		dmov.D	#0x40100000, drh0
+ 402 000d FD 75 81 00             		dmov.L	drl0, r1
+ 403 0011 FD 75 82 02             		dmov.L	drh0, r2
+ 404 0015 FB 52 00 00 00 00       		mov.L	#_m_debug_Check_Using_DSQRT, r5
+ 405 001b EC 55                   		mov.L	[r5], r5
+ 406 001d 7F 15                   		jsr	r5
+ 407                             	.LVL40:
+  62:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 408                             		.loc 1 62 5 is_stmt 1 view .LVU143
+  62:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 409                             		.loc 1 62 6 is_stmt 0 view .LVU144
+ 410 001f FB 52 00 00 00 00       		mov.L	#_m_debug_Check_Using_FSQRT, r5
+ 411 0025 EC 55                   		mov.L	[r5], r5
+ 412 0027 FB 12 00 00 80 40       		mov.L	#0x40800000, r1
+ 413 002d 7F 15                   		jsr	r5
+ 414                             	.LVL41:
+  63:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 415                             		.loc 1 63 1 view .LVU145
+ 416 002f 75 A8 10                		dpopm.l	dcmr-dcmr
+ 417 0032 75 B8 00                		dpopm.d	dr0-dr0
+ 418 0035 02                      		rts
+ 419                             	.LFE2:
+ 421                             		.section	.text.rot,"ax",@progbits
+ 422                             		.global	_rot
+ 424                             	_rot:
+ 425                             	.LVL42:
+ 426                             	.LFB12:
+ 140:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 141:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 142:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+ 143:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+ 144:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+ 145:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+ 146:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+ 147:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+ 148:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+ 149:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void *m_debug_U_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+ 150:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 151:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** struct vec { float X; float Y; };
+ 152:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void rot(float t, struct vec *v1, struct vec *v2);
+ 153:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void rot(float t, struct vec *v1, struct vec *v2)
+ 154:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 427                             		.loc 1 154 1 is_stmt 1 view -0
+ 428                             		.loc 1 154 1 is_stmt 0 view .LVU147
+ 429 0000 7E A7                   		push.l	r7
+ 430                             	.LCFI3:
+ 155:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     v2->X = - sinf(t) * v1->Y + cosf(t) * v1->X;
+ 431                             		.loc 1 155 5 is_stmt 1 view .LVU148
+ 432                             		.loc 1 155 15 is_stmt 0 view .LVU149
+ 433 0002 FB EE 14 14 08          		mov.L	#0x81414, r14
+ 434 0007 E3 E1                   		mov.L	r1, [r14]
+ 435                             		.loc 1 155 33 view .LVU150
+ 436 0009 FB 4E 10 14 08          		mov.L	#0x81410, r4
+ 437                             		.loc 1 155 15 view .LVU151
+ 438 000e EC EF                   		mov.L	[r14], r15
+ 439                             		.loc 1 155 23 view .LVU152
+ 440 0010 A8 2F                   		mov.L	4[r2], r7
+ 441                             		.loc 1 155 33 view .LVU153
+ 442 0012 A0 49                   		mov.L	r1, 4[r4]
+ 443 0014 EC 45                   		mov.L	[r4], r5
+ 444                             		.loc 1 155 23 view .LVU154
+ 445 0016 FC 8F 7F                		fmul	r7, r15
+ 446                             		.loc 1 155 41 view .LVU155
+ 447 0019 EC 27                   		mov.L	[r2], r7
+ 448 001b FC 8F 75                		fmul	r7, r5
+ 449                             		.loc 1 155 31 view .LVU156
+ 450 001e FC 83 F5                		fsub	r15, r5
+ 451                             		.loc 1 155 11 view .LVU157
+ 452 0021 E3 35                   		mov.L	r5, [r3]
+ 156:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     v2->Y =   sinf(t) * v1->X + cosf(t) * v1->Y;
+ 453                             		.loc 1 156 5 is_stmt 1 view .LVU158
+ 454                             		.loc 1 156 15 is_stmt 0 view .LVU159
+ 455 0023 E3 E1                   		mov.L	r1, [r14]
+ 456 0025 EC EE                   		mov.L	[r14], r14
+ 457                             		.loc 1 156 23 view .LVU160
+ 458 0027 EC 2F                   		mov.L	[r2], r15
+ 459                             		.loc 1 156 33 view .LVU161
+ 460 0029 A0 49                   		mov.L	r1, 4[r4]
+ 461 002b EC 45                   		mov.L	[r4], r5
+ 462                             		.loc 1 156 41 view .LVU162
+ 463 002d A8 2C                   		mov.L	4[r2], r4
+ 464                             		.loc 1 156 23 view .LVU163
+ 465 002f FC 8F FE                		fmul	r15, r14
+ 466                             		.loc 1 156 41 view .LVU164
+ 467 0032 FC 8F 45                		fmul	r4, r5
+ 468                             		.loc 1 156 31 view .LVU165
+ 469 0035 FC 8B E5                		fadd	r14, r5
+ 470                             		.loc 1 156 11 view .LVU166
+ 471 0038 A0 3D                   		mov.L	r5, 4[r3]
+ 157:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 472                             		.loc 1 157 1 view .LVU167
+ 473 003a 3F 77 01                		rtsd	#4, r7-r7
+ 474                             	.LFE12:
+ 476                             		.section	.text.rot_2,"ax",@progbits
+ 477                             		.global	_rot_2
+ 479                             	_rot_2:
+ 480                             	.LVL43:
+ 481                             	.LFB13:
+ 158:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 159:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #if defined(__ICCRX__)
+ 160:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #include <intrinsics.h>
+ 161:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+ 162:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 163:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void rot_2(float t, struct vec *v1, struct vec *v2);
+ 164:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** void rot_2(float t, struct vec *v1, struct vec *v2)
+ 165:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** {
+ 482                             		.loc 1 165 1 is_stmt 1 view -0
+ 483                             		.loc 1 165 1 is_stmt 0 view .LVU169
+ 484 0000 60 80                   		sub	#8, r0
+ 485                             	.LCFI4:
+ 166:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     float sinf_t, cosf_t;
+ 486                             		.loc 1 166 5 is_stmt 1 view .LVU170
+ 167:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 168:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #if defined(__CCRX__)
+ 169:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     __sincosf(t, &sinf_t, &cosf_t);
+ 170:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #elif defined(__ICCRX__)
+ 171:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     __sincosf(t, &sinf_t, &cosf_t);
+ 172:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #elif defined(__GNUC__)
+ 173:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     __builtin_rx_sincosf(t, &sinf_t, &cosf_t);
+ 487                             		.loc 1 173 5 view .LVU171
+ 488 0002 FB 5E 10 14 08          		mov.L	#0x81410, r5
+ 489 0007 A0 59                   		mov.L	r1, 4[r5]
+ 490 0009 ED 5E 01                		mov.L	4[r5], r14
+ 174:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+ 175:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** 
+ 176:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     v2->X = - sinf_t * v1->Y + cosf_t * v1->X;
+ 491                             		.loc 1 176 26 is_stmt 0 view .LVU172
+ 492 000c A8 29                   		mov.L	4[r2], r1
+ 493                             	.LVL44:
+ 494                             		.loc 1 176 39 view .LVU173
+ 495 000e EC 24                   		mov.L	[r2], r4
+ 173:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+ 496                             		.loc 1 173 5 view .LVU174
+ 497 0010 E7 0E 01                		mov.L	r14, 4[r0]
+ 498                             	.LVL45:
+ 173:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+ 499                             		.loc 1 173 5 view .LVU175
+ 500 0013 EC 5E                   		mov.L	[r5], r14
+ 501                             		.loc 1 176 13 view .LVU176
+ 502 0015 A8 0D                   		mov.L	4[r0], r5
+ 173:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** #endif
+ 503                             		.loc 1 173 5 view .LVU177
+ 504 0017 E3 0E                   		mov.L	r14, [r0]
+ 505                             		.loc 1 176 5 is_stmt 1 view .LVU178
+ 506                             		.loc 1 176 22 is_stmt 0 view .LVU179
+ 507 0019 FF BF 51                		fmul	r5, r1, r15
+ 508                             		.loc 1 176 39 view .LVU180
+ 509 001c EC 0E                   		mov.L	[r0], r14
+ 510 001e FC 8F E4                		fmul	r14, r4
+ 511                             		.loc 1 176 30 view .LVU181
+ 512 0021 FC 83 F4                		fsub	r15, r4
+ 513                             		.loc 1 176 11 view .LVU182
+ 514 0024 E3 34                   		mov.L	r4, [r3]
+ 177:../src/RXv3_Check_FSQRT_DSQRT_etc.c ****     v2->Y =   sinf_t * v1->X + cosf_t * v1->Y;
+ 515                             		.loc 1 177 5 is_stmt 1 view .LVU183
+ 516                             		.loc 1 177 22 is_stmt 0 view .LVU184
+ 517 0026 EC 24                   		mov.L	[r2], r4
+ 518                             		.loc 1 177 39 view .LVU185
+ 519 0028 FC 8F E1                		fmul	r14, r1
+ 520                             		.loc 1 177 22 view .LVU186
+ 521 002b FC 8F 45                		fmul	r4, r5
+ 522                             		.loc 1 177 30 view .LVU187
+ 523 002e FC 8B 15                		fadd	r1, r5
+ 524                             		.loc 1 177 11 view .LVU188
+ 525 0031 A0 3D                   		mov.L	r5, 4[r3]
+ 178:../src/RXv3_Check_FSQRT_DSQRT_etc.c **** }
+ 526                             		.loc 1 178 1 view .LVU189
+ 527 0033 67 02                   		rtsd	#8
+ 528                             	.LFE13:
+ 530                             		.global	_m_debug_U_Check_TFU_tanf
+ 531                             		.section	.data.m_debug_U_Check_TFU_tanf,"aw"
+ 532                             		.balign 4
+ 535                             	_m_debug_U_Check_TFU_tanf:
+ 536 0000 00 00 00 00             		.long	_Check_TFU_tanf
+ 537                             		.global	_m_debug_U_Check_TFU_atanf
+ 538                             		.section	.data.m_debug_U_Check_TFU_atanf,"aw"
+ 539                             		.balign 4
+ 542                             	_m_debug_U_Check_TFU_atanf:
+ 543 0000 00 00 00 00             		.long	_Check_TFU_atanf
+ 544                             		.global	_m_debug_U_Check_TFU_acosf
+ 545                             		.section	.data.m_debug_U_Check_TFU_acosf,"aw"
+ 546                             		.balign 4
+ 549                             	_m_debug_U_Check_TFU_acosf:
+ 550 0000 00 00 00 00             		.long	_Check_TFU_acosf
+ 551                             		.global	_m_debug_U_Check_TFU_asinf
+ 552                             		.section	.data.m_debug_U_Check_TFU_asinf,"aw"
+ 553                             		.balign 4
+ 556                             	_m_debug_U_Check_TFU_asinf:
+ 557 0000 00 00 00 00             		.long	_Check_TFU_asinf
+ 558                             		.global	_m_debug_U_Check_TFU_hypotf
+ 559                             		.section	.data.m_debug_U_Check_TFU_hypotf,"aw"
+ 560                             		.balign 4
+ 563                             	_m_debug_U_Check_TFU_hypotf:
+ 564 0000 00 00 00 00             		.long	_Check_TFU_hypotf
+ 565                             		.global	_m_debug_U_Check_TFU_atan2f
+ 566                             		.section	.data.m_debug_U_Check_TFU_atan2f,"aw"
+ 567                             		.balign 4
+ 570                             	_m_debug_U_Check_TFU_atan2f:
+ 571 0000 00 00 00 00             		.long	_Check_TFU_atan2f
+ 572                             		.global	_m_debug_U_Check_TFU_cosf
+ 573                             		.section	.data.m_debug_U_Check_TFU_cosf,"aw"
+ 574                             		.balign 4
+ 577                             	_m_debug_U_Check_TFU_cosf:
+ 578 0000 00 00 00 00             		.long	_Check_TFU_cosf
+ 579                             		.global	_m_debug_U_Check_TFU_sinf
+ 580                             		.section	.data.m_debug_U_Check_TFU_sinf,"aw"
+ 581                             		.balign 4
+ 584                             	_m_debug_U_Check_TFU_sinf:
+ 585 0000 00 00 00 00             		.long	_Check_TFU_sinf
+ 586                             		.global	_m_debug_U_Check_DPUSHM_DPOPM
+ 587                             		.section	.data.m_debug_U_Check_DPUSHM_DPOPM,"aw"
+ 588                             		.balign 4
+ 591                             	_m_debug_U_Check_DPUSHM_DPOPM:
+ 592 0000 00 00 00 00             		.long	_Check_DPUSHM_DPOPM
+ 593                             		.comm	_dD,8,4
+ 594                             		.comm	_dC,8,4
+ 595                             		.comm	_dB,8,4
+ 596                             		.comm	_dA,8,4
+ 597                             		.global	_f2
+ 598                             		.section	.data.f2,"aw"
+ 599                             		.balign 4
+ 602                             	_f2:
+ 603 0000 00 00 00 40             		.long	0x40000000
+ 604                             		.global	_f1
+ 605                             		.section	.data.f1,"aw"
+ 606                             		.balign 4
+ 609                             	_f1:
+ 610 0000 00 00 80 3F             		.long	0x3f800000
+ 611                             		.global	_d2
+ 612                             		.section	.data.d2,"aw"
+ 613                             		.balign 4
+ 616                             	_d2:
+ 617 0000 00 00 00 00             		.long	0
+ 618 0004 00 00 00 40             		.long	0x40000000
+ 619                             		.global	_d1
+ 620                             		.section	.data.d1,"aw"
+ 621                             		.balign 4
+ 624                             	_d1:
+ 625 0000 00 00 00 00             		.long	0
+ 626 0004 00 00 F0 3F             		.long	0x3ff00000
+ 627                             		.global	_m_debug_Check_Using_FSQRT
+ 628                             		.section	.data.m_debug_Check_Using_FSQRT,"aw"
+ 629                             		.balign 4
+ 632                             	_m_debug_Check_Using_FSQRT:
+ 633 0000 00 00 00 00             		.long	_Check_Using_FSQRT
+ 634                             		.global	_m_debug_Check_Using_DSQRT
+ 635                             		.section	.data.m_debug_Check_Using_DSQRT,"aw"
+ 636                             		.balign 4
+ 639                             	_m_debug_Check_Using_DSQRT:
+ 640 0000 00 00 00 00             		.long	_Check_Using_DSQRT
+ 793                             	.Letext0:
+ 794                             		.file 2 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\lib\\gcc\\rx-elf\\8.3.0.20
+ 795                             		.file 3 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_typ
+ 796                             		.file 4 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\reen
+ 797                             		.file 5 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\lock
+ 798                             		.file 6 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\math.h"

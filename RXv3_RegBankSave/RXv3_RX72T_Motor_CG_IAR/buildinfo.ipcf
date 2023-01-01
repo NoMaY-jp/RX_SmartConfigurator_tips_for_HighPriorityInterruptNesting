@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- IAR Project Connection File -->
+<iarProjectConnection version="1.6" name="Renesas_AP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="IarProjectConnection_1.8.xsd">
+<device>
+    <name>R5F572TK</name>
+</device>
+<includePath>
+    <path>$PROJ_DIR$\src\smc_gen\Config_MTU3_MTU4</path>
+    <path>$PROJ_DIR$\src\smc_gen\general</path>
+    <path>$PROJ_DIR$\src\smc_gen\r_bsp</path>
+    <path>$PROJ_DIR$\src\smc_gen\r_config</path>
+    <path>$PROJ_DIR$\src\smc_gen\r_pincfg</path>
+</includePath>
+<files>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="Config_MTU3_MTU4">
+                <path>.\src\smc_gen\Config_MTU3_MTU4\Config_MTU3_MTU4.c</path>
+                <path>.\src\smc_gen\Config_MTU3_MTU4\Config_MTU3_MTU4.h</path>
+                <path>.\src\smc_gen\Config_MTU3_MTU4\Config_MTU3_MTU4_user.c</path>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="general">
+                <path>.\src\smc_gen\general\r_cg_hardware_setup.c</path>
+                <path>.\src\smc_gen\general\r_cg_macrodriver.h</path>
+                <path>.\src\smc_gen\general\r_cg_userdefine.h</path>
+                <path>.\src\smc_gen\general\r_smc_cgc.c</path>
+                <path>.\src\smc_gen\general\r_smc_cgc.h</path>
+                <path>.\src\smc_gen\general\r_smc_cgc_user.c</path>
+                <path>.\src\smc_gen\general\r_smc_entry.h</path>
+                <path>.\src\smc_gen\general\r_smc_interrupt.c</path>
+                <path>.\src\smc_gen\general\r_smc_interrupt.h</path>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="board">
+                    <group name ="generic_rx72t">
+                        <path>.\src\smc_gen\r_bsp\board\generic_rx72t\hwsetup.c</path>
+                        <path>.\src\smc_gen\r_bsp\board\generic_rx72t\hwsetup.h</path>
+                        <path>.\src\smc_gen\r_bsp\board\generic_rx72t\r_bsp.h</path>
+                        <path>.\src\smc_gen\r_bsp\board\generic_rx72t\r_bsp_config_reference.h</path>
+                        <path>.\src\smc_gen\r_bsp\board\generic_rx72t\r_bsp_interrupt_config_reference.h</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="board">
+                    <group name ="user">
+                        <path>.\src\smc_gen\r_bsp\board\user\r_bsp.h</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="doc">
+                    <group name ="en">
+                        <path>.\src\smc_gen\r_bsp\doc\en\r01an1685ej0720-rx-bsp.pdf</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="doc">
+                    <group name ="ja">
+                        <path>.\src\smc_gen\r_bsp\doc\ja\r01an1685jj0720-rx-bsp.pdf</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="mcu">
+                    <group name ="all">
+                        <path>.\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\lowlvl.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\lowlvl.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\lowsrc.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\lowsrc.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\resetprg.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_rtos.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="mcu">
+                    <group name ="rx72t">
+                        <group name ="register_access">
+                            <group name ="iccrx">
+                                <path>.\src\smc_gen\r_bsp\mcu\rx72t\register_access\iccrx\iodefine.h</path>
+                            </group>
+                        </group>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <group name ="mcu">
+                    <group name ="rx72t">
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_clocks.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_clocks.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_info.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_init.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_init.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_interrupts.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_interrupts.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_locks.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_mapped_interrupts.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_mapped_interrupts.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\mcu_mapped_interrupts_private.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\r_bsp_cpu.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\r_bsp_locking.h</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\vecttbl.c</path>
+                        <path>.\src\smc_gen\r_bsp\mcu\rx72t\vecttbl.h</path>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_bsp">
+                <path>.\src\smc_gen\r_bsp\platform.h</path>
+                <path>.\src\smc_gen\r_bsp\readme.txt</path>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_config">
+                <path>.\src\smc_gen\r_config\r_bsp_config.h</path>
+                <path>.\src\smc_gen\r_config\r_bsp_config_readme.txt</path>
+                <path>.\src\smc_gen\r_config\r_bsp_interrupt_config.h</path>
+            </group>
+        </group>
+    </group>
+    <group name ="src">
+        <group name ="smc_gen">
+            <group name ="r_pincfg">
+                <path>.\src\smc_gen\r_pincfg\Pin.c</path>
+                <path>.\src\smc_gen\r_pincfg\Pin.h</path>
+            </group>
+        </group>
+    </group>
+</files>
+</iarProjectConnection>

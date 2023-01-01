@@ -1,0 +1,199 @@
+* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Fri Dec 23 10:15:15 2022
+
+LOC.     OBJ.              0XMDA SOURCE STATEMENT
+
+                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  23-Dec-2022 10:15:15
+                                 
+                                 ;*** CPU TYPE ***
+                                 
+                                 ;-ISA=RXV3
+                                 
+                                 ;*** COMMAND PARAMETER ***
+                                 
+                                 ;-isa=rxv3
+                                 ;-fpu
+                                 ;-dpfpu
+                                 ;-save_acc
+                                 ;-MAKEUD=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src
+                                 ;-include=C:\Renesas\CS+\CC\CC-RX\V3.04.00\/include
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_config
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_pincfg
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\general
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_bsp
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_RIIC0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_SCI0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_MTU3_MTU4
+                                 ;-asmopt=-bank
+                                 ;-lang=c99
+                                 ;-utf8
+                                 ;-message
+                                 ;-output=obj
+                                 ;-obj_path=src
+                                 ;-debug
+                                 ;-outcode=utf8
+                                 ;-show=source
+                                 ;-optimize=max
+                                 ;-goptimize
+                                 ;-speed
+                                 ;-type_size_access_to_volatile
+                                 ;-nologo
+                                 ;-listfile=src/RXv3_RegBankSave_helper.lst
+                                 ;../src/RXv3_RegBankSave_helper.c
+                                 
+                                 		.glb	_cnt
+                                 		.glb	_dbl
+                                 		.glb	_i_fnc_4_2
+                                 ;LineNo. C-SOURCE STATEMENT
+                                 
+                                 		.SECTION	P,CODE
+00000000                         _i_fnc_4_2:
+                                 		.STACK	_i_fnc_4_2=24
+                                 ;       1 unsigned int cnt;
+                                 ;       2 
+                                 ;       3 double dbl;
+                                 ;       4 void i_fnc_4_2(void);
+                                 ;       5 void i_fnc_4_2(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_helper.c",5
+00000000 75B001                  		DPUSHM.D DR0-DR1
+00000003 75A010                  		DPUSHM.L DCMR-DCMR
+                                 ;       6 {
+                                 ;       7     if(dbl > 1.0)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_helper.c",7
+00000006 FBE2rrrrrrrr            		MOV.L #_dbl, R14
+0000000C F903030000F03F          		DMOV.D #3FF00000H, DRH0
+00000013 FCC8E810                		DMOV.D [R14], DR1
+00000017 76900841                		DCMPLT DR1, DR0
+0000001B 75901B                  		MVFDR
+0000001E 21rr                    		BNE L12
+00000020                         L11:	; if_then_bb
+                                 ;       8     {
+                                 ;       9         dbl = 1.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_helper.c",9
+00000020 F8E600                  		MOV.L #00000000H, [R14]
+00000023 F9E2010000F03F          		MOV.L #3FF00000H, 04H[R14]
+0000002A                         L12:	; return
+0000002A 75A810                  		DPOPM.L DCMR-DCMR
+0000002D 75B801                  		DPOPM.D DR0-DR1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_helper.c",11
+00000030 02                      		RTS
+                                 ;      10     }
+                                 ;      11 }
+                                 ;      12 
+                                 ;      13 #if defined(__CCRX__)
+                                 ;      14 
+                                 ;      15 #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+                                 ;      16 
+                                 ;      17 #include <stdio.h>
+                                 ;      18 
+                                 ;      19 #int write(int fd, const void *buf, size_t byte)
+                                 ;      20 {
+                                 ;      21     (void) fd; (void) buf; (void) byte;
+                                 ;      22     return -1;
+                                 ;      23 }
+                                 ;      24 
+                                 ;      25 int read(int fd, void *buf, size_t byte)
+                                 ;      26 {
+                                 ;      27     (void) fd; (void) buf; (void) byte;
+                                 ;      28     return -1;
+                                 ;      29 }
+                                 ;      30 
+                                 ;      31 #endif
+                                 ;      32 
+                                 ;      33 #endif
+                                 ;      34 
+                                 ;      35 #if defined(__GNUC__)
+                                 ;      36 
+                                 ;      37 #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+                                 ;      38 
+                                 ;      39 #include <unistd.h>
+                                 ;      40 #include <sys/stat.h>
+                                 ;      41 
+                                 ;      42 int write(int fd, const void *buf, size_t byte)
+                                 ;      43 {
+                                 ;      44     (void) fd; (void) buf; (void) byte;
+                                 ;      45     return -1;
+                                 ;      46 }
+                                 ;      47 
+                                 ;      48 int read(int fd, void *buf, size_t byte)
+                                 ;      49 {
+                                 ;      50     (void) fd; (void) buf; (void) byte;
+                                 ;      51     return -1;
+                                 ;      52 }
+                                 ;      53 
+                                 ;      54 off_t lseek (int fd, off_t offset, int whence)
+                                 ;      55 {
+                                 ;      56     (void) fd; (void) offset; (void) whence;
+                                 ;      57     return -1;
+                                 ;      58 }
+                                 ;      59 
+                                 ;      60 int isatty(int fd)
+                                 ;      61 {
+                                 ;      62     (void) fd;
+                                 ;      63     return 0;
+                                 ;      64 }
+                                 ;      65 
+                                 ;      66 int close(int fd)
+                                 ;      67 {
+                                 ;      68     (void) fd;
+                                 ;      69     return -1;
+                                 ;      70 }
+                                 ;      71 
+                                 ;      72 int fstat(int fd, struct stat *buf)
+                                 ;      73 {
+                                 ;      74     (void) fd; (void) buf;
+                                 ;      75     return -1;
+                                 ;      76 }
+                                 ;      77 
+                                 ;      78 #endif
+                                 ;      79 
+                                 ;      80 #include <stdlib.h>
+                                 ;      81 
+                                 ;      82 void abort(void)
+                                 ;      83 {
+                                 ;      84    exit(-1);
+                                 ;      85 }
+                                 ;      86 
+                                 ;      87 #endif
+                                 		.SECTION	B_8,DATA,ALIGN=8
+00000000                         _dbl:
+00000000(00000008H)              		.blkl	2
+                                 		.SECTION	B,DATA,ALIGN=4
+00000000                         _cnt:
+00000000(00000004H)              		.blkl	1
+                                 		.END
+
+Information List
+
+TOTAL ERROR(S)    00000
+TOTAL WARNING(S)  00000
+TOTAL LINE(S)     00163   LINES
+
+Section List
+
+Attr         Size               Name
+CODE     0000000049(00000031H)  P
+DATA     0000000008(00000008H)  B_8
+DATA     0000000004(00000004H)  B
+
+Cpu Type
+
+-ISA=RXV3 -FPU
+
+Command Parameter
+
+-subcommand=C:\Temp\DevTools\$ccrx1CB9EB5\$ccrx\RXv3_RegBankSave_helper.src.cmd
+    -nologo
+    -isa=rxv3
+    -fpu
+    -fint_register=0
+    -endian=little
+    -goptimize
+    -debug
+    -dpfpu
+    -bank
+-listfile=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_RegBankSave_helper.lst
+-output=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_RegBankSave_helper.obj

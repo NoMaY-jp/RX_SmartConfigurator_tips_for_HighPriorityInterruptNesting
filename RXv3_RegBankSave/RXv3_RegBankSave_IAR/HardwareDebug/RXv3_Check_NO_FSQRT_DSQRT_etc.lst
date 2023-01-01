@@ -1,0 +1,530 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:19:31
+# Copyright 2009-2020 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
+#
+#    Source file       =  ..\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c
+#    Command line      =
+#        ..\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c -o
+#        src\RXv3_Check_NO_FSQRT_DSQRT_etc.o --no_wrap_diagnostics -e
+#        --align_func=1 --tfu=none -Ohs --no_size_constraints --no_cross_call
+#        --debug -lC ./ -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_config/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_pincfg/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\general/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_bsp/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_RIIC0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_SCI0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_MTU3_MTU4/
+#        --remarks --save_acc --sqrt_must_set_errno --endian l --core rxv3
+#        --fpu=64 --data_model=f --double=64 --int=32 --dlib_config
+#        C:/Renesas/EWB/8.4/rx/LIB/dlrxdlln.h
+#    Locale            =  C
+#    List file         =  ./RXv3_Check_NO_FSQRT_DSQRT_etc.lst
+#    Object file       =  src\RXv3_Check_NO_FSQRT_DSQRT_etc.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __calling_conv  =  abi10
+#      __core          =  3
+#      __dlib_version  =  6
+#      __double_size   =  64
+#      __endian        =  l
+#      __enum_size     =  *
+#      __fpu           =  2
+#      __int_size      =  32
+#      __lock_R10      =  0
+#      __lock_R11      =  0
+#      __lock_R12      =  0
+#      __lock_R13      =  0
+#      __lock_R8       =  0
+#      __lock_R9       =  0
+#      __rt_version    =  5
+#      __size_limit    =  65536
+#
+###############################################################################
+
+C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\RXv3_Check_NO_FSQRT_DSQRT_etc.c
+      1          #include <math.h>
+      2          
+      3          #if defined(__CCRX__)
+      4          // Use -library=function option for this source file.
+      5          // Use -nouse_div_inst option for this source file.
+      6          // Don't use -tfu=intrinsic,mathlib option for this file.
+      7          #elif defined(__ICCRX__)
+      8          // Use --sqrt_must_set_errno option for this source file.
+      9          // Don't use --tfu intrinsic_mathlib option for this source file.
+     10          #elif defined(__GNUC__)
+     11          // Don't use -mrxv2-fsqrt option for this source file.
+     12          // Don't use -mtfu=intrinsic,mathlib option for this source file.
+     13          #endif
+     14          // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+     15          //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+     16          // Max Operating MHz    160   120   120   120   200   240   240
+     17          // Register Bank Save   x     o     o     o     o     o     o
+     18          // DPFPU                x     o     o     x     x     o     o
+     19          // TFU                  x     x     x     o     o     o     o
+     20          
+     21          static double Check_Not_Using_DSQRT(double x);
+
+   \                                 In section .text, align 1, keep-with-next
+     22          static double Check_Not_Using_DSQRT(double x)
+     23          {
+   \                     _Check_Not_Using_DSQRT:
+   \   000000 75 B0 00     DPUSHM.D  DR0,DR0
+     24              return sqrt(x);  // DSQRT is used in library.
+   \   000003 FD 77 81 00  DMOV.L    R1,DRL0
+   \   000007 FD 77 82 02  DMOV.L    R2,DRH0
+   \   00000B 76 90 0D 00  DSQRT     DR0,DR0
+   \   00000F FD 75 81 04  MVFDC     DPSW,R1
+   \   000013 7C 21        BTST      #0x2,R1
+   \   000015 15           BEQ.S     ??Check_Not_Using_DSQRT_0
+   \   000016 05 ..'....   BSR.A     ___iar_errno_set_EDOM
+   \                     ??Check_Not_Using_DSQRT_0:
+   \   00001A FD 75 81 00  DMOV.L    DRL0,R1
+   \   00001E FD 75 82 02  DMOV.L    DRH0,R2
+   \   000022 75 B8 00     DPOPM.D   DR0,DR0
+   \   000025 02           RTS
+     25          }
+     26          
+     27          static float Check_Not_Using_FSQRT(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     28          static float Check_Not_Using_FSQRT(float x)
+     29          {
+     30              return sqrtf(x); // FSQRT is used in library.
+   \                     _Check_Not_Using_FSQRT:
+   \   000000 04 ..'....   BRA.A     __iar_hwsqrt32f
+     31          }
+     32          
+
+   \                                 In section .data24.data, align 4
+     33          void *m_debug_Check_Not_Using_DSQRT = (void *)Check_Not_Using_DSQRT;
+   \                     _m_debug_Check_Not_Using_DSQRT:
+   \   000000 ....'....    DC32 _Check_Not_Using_DSQRT
+     34          void *m_debug_Check_Not_Using_FSQRT = (void *)Check_Not_Using_FSQRT;
+   \                     _m_debug_Check_Not_Using_FSQRT:
+   \   000004 ....'....    DC32 _Check_Not_Using_FSQRT
+     35          
+     36          extern double d1, d2;
+     37          extern float f1, f2;
+     38          
+     39          #if defined(__CCRX__)
+     40          
+     41          static void Check_Not_Using_DDIV(void);
+     42          static void Check_Not_Using_DDIV(void)
+     43          {
+     44              d2 = d1 / d2;
+     45          }
+     46          
+     47          static void Check_Not_Using_FDIV(void);
+     48          static void Check_Not_Using_FDIV(void)
+     49          {
+     50              f2 = f1 / f2;
+     51          }
+     52          
+     53          void *m_debug_Check_Not_Using_DDIV = (void *)Check_Not_Using_DDIV;
+     54          void *m_debug_Check_Not_Using_FDIV = (void *)Check_Not_Using_FDIV;
+     55          
+     56          #endif
+     57          
+     58          void Check_Not_Using_DSQRT_FSQRT(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     59          void Check_Not_Using_DSQRT_FSQRT(void)
+     60          {
+   \                     _Check_Not_Using_DSQRT_FSQRT:
+   \   000000 7E A6        PUSH.L    R6
+     61              ((double (*)(double))m_debug_Check_Not_Using_DSQRT)(4.0);
+   \   000002 FB 6E        MOV.L     #_m_debug_Check_Not_Using_DSQRT:24,R6
+
+   \          ..'....
+   \   000007 EC 63        MOV.L     [R6],R3
+   \   000009 66 01        MOV.L     #0x0,R1
+   \   00000B FB 22 00 00  MOV.L     #0x40100000,R2
+
+   \          10 40
+   \   000011 7F 13        JSR       R3
+     62              ((float (*)(float))m_debug_Check_Not_Using_FSQRT)(4.0);
+   \   000013 A8 6C        MOV.L     0x4[R6],R4
+   \   000015 FB 12 00 00  MOV.L     #0x40800000,R1
+
+   \          80 40
+   \   00001B 7F 14        JSR       R4
+     63          }
+   \   00001D 3F 66 01     RTSD      #0x4,R6-R6
+     64          
+     65          extern double dA, dB, dC, dD;
+     66          static void Check_DPUSHM_DPOPM(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     67          static void Check_DPUSHM_DPOPM(void)
+     68          {
+     69              double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+     70          
+     71              d3  = d1 + d2 +  3.0;
+   \                     _Check_DPUSHM_DPOPM:
+   \   000000 FB 1E        MOV.L     #_d2:24,R1
+
+   \          ..'....
+   \   000005 FB 2E        MOV.L     #_d1:24,R2
+
+   \          ..'....
+   \   00000A 75 B0 0F     DPUSHM.D  DR0,DR15
+   \   00000D FC C8 28 00  DMOV.D    [R2],DR0
+   \   000011 FC C8 18 20  DMOV.D    [R1],DR2
+   \   000015 FC C8 28 10  DMOV.D    [R2],DR1
+   \   000019 FC C8 18 40  DMOV.D    [R1],DR4
+   \   00001D F9 03 33 00  DMOV.D    #0x40080000,DRH3
+
+   \          00 08 40
+     72              d4  = d1 - d2 +  4.0;
+   \   000024 76 90 20 20  DADD      DR0,DR2,DR2
+   \   000028 76 90 11 44  DSUB      DR4,DR1,DR4
+   \   00002C F9 03 53 00  DMOV.D    #0x40100000,DRH5
+
+   \          00 10 40
+   \   000033 76 90 30 32  DADD      DR2,DR3,DR3
+   \   000037 76 90 50 54  DADD      DR4,DR5,DR5
+     73              d5  = d1 + d2 +  5.0;
+   \   00003B F9 03 63 00  DMOV.D    #0x40140000,DRH6
+
+   \          00 14 40
+     74              d6  = d1 - d2 +  6.0;
+   \   000042 F9 03 73 00  DMOV.D    #0x40180000,DRH7
+
+   \          00 18 40
+   \   000049 F9 03 93 00  DMOV.D    #0x40200000,DRH9
+
+   \          00 20 40
+   \   000050 F9 03 B3 00  DMOV.D    #0x40240000,DRH11
+
+   \          00 24 40
+   \   000057 F9 03 D3 00  DMOV.D    #0x40280000,DRH13
+
+   \          00 28 40
+   \   00005E F9 03 F3 00  DMOV.D    #0x402c0000,DRH15
+
+   \          00 2C 40
+   \   000065 F9 03 03 00  DMOV.D    #0x40300000,DRH0
+
+   \          00 30 40
+   \   00006C 76 90 60 62  DADD      DR2,DR6,DR6
+   \   000070 76 90 70 74  DADD      DR4,DR7,DR7
+     75              d7  = d1 + d2 +  7.0;
+     76              d8  = d1 - d2 +  8.0;
+   \   000074 76 90 90 94  DADD      DR4,DR9,DR9
+     77              d9  = d1 + d2 +  9.0;
+     78              d10 = d1 - d2 + 10.0;
+   \   000078 76 90 B0 B4  DADD      DR4,DR11,DR11
+     79              d11 = d1 + d2 + 11.0;
+     80              d12 = d1 - d2 + 12.0;
+   \   00007C 76 90 D0 D4  DADD      DR4,DR13,DR13
+     81              d13 = d1 + d2 + 13.0;
+     82              d14 = d1 - d2 + 14.0;
+   \   000080 76 90 F0 F4  DADD      DR4,DR15,DR15
+     83              d15 = d1 + d2 + 15.0;
+     84              d16 = d1 - d2 + 16.0;
+   \   000084 76 90 00 44  DADD      DR4,DR0,DR4
+     85          
+     86              dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+   \   000088 76 90 50 03  DADD      DR3,DR5,DR0
+   \   00008C F9 03 83 00  DMOV.D    #0x401c0000,DRH8
+
+   \          00 1C 40
+   \   000093 76 90 60 00  DADD      DR0,DR6,DR0
+   \   000097 76 90 80 82  DADD      DR2,DR8,DR8
+   \   00009B 76 90 70 00  DADD      DR0,DR7,DR0
+   \   00009F F9 03 A3 00  DMOV.D    #0x40220000,DRH10
+
+   \          00 22 40
+   \   0000A6 76 90 80 00  DADD      DR0,DR8,DR0
+   \   0000AA 76 90 A0 A2  DADD      DR2,DR10,DR10
+   \   0000AE 76 90 90 00  DADD      DR0,DR9,DR0
+   \   0000B2 F9 03 C3 00  DMOV.D    #0x40260000,DRH12
+
+   \          00 26 40
+   \   0000B9 76 90 A0 00  DADD      DR0,DR10,DR0
+   \   0000BD 76 90 C0 C2  DADD      DR2,DR12,DR12
+   \   0000C1 76 90 B0 00  DADD      DR0,DR11,DR0
+   \   0000C5 F9 03 E3 00  DMOV.D    #0x402a0000,DRH14
+
+   \          00 2A 40
+   \   0000CC 76 90 C0 00  DADD      DR0,DR12,DR0
+   \   0000D0 76 90 E0 E2  DADD      DR2,DR14,DR14
+   \   0000D4 76 90 D0 00  DADD      DR0,DR13,DR0
+   \   0000D8 F9 03 13 00  DMOV.D    #0x402e0000,DRH1
+
+   \          00 2E 40
+   \   0000DF 76 90 E0 00  DADD      DR0,DR14,DR0
+   \   0000E3 76 90 10 22  DADD      DR2,DR1,DR2
+   \   0000E7 76 90 F0 00  DADD      DR0,DR15,DR0
+   \   0000EB 76 90 20 00  DADD      DR0,DR2,DR0
+   \   0000EF 76 90 40 00  DADD      DR0,DR4,DR0
+   \   0000F3 FB 1E        MOV.L     #_dA:24,R1
+
+   \          ..'....
+   \   0000F8 FC 78 18 00  DMOV.D    DR0,[R1]
+     87              dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+   \   0000FC 76 90 52 03  DMUL      DR3,DR5,DR0
+   \   000100 76 90 62 00  DMUL      DR0,DR6,DR0
+   \   000104 76 90 72 00  DMUL      DR0,DR7,DR0
+   \   000108 76 90 82 00  DMUL      DR0,DR8,DR0
+   \   00010C 76 90 92 00  DMUL      DR0,DR9,DR0
+   \   000110 76 90 A2 00  DMUL      DR0,DR10,DR0
+   \   000114 76 90 B2 00  DMUL      DR0,DR11,DR0
+   \   000118 76 90 C2 00  DMUL      DR0,DR12,DR0
+   \   00011C 76 90 D2 00  DMUL      DR0,DR13,DR0
+   \   000120 76 90 E2 00  DMUL      DR0,DR14,DR0
+   \   000124 76 90 F2 00  DMUL      DR0,DR15,DR0
+   \   000128 76 90 22 00  DMUL      DR0,DR2,DR0
+   \   00012C 76 90 42 00  DMUL      DR0,DR4,DR0
+   \   000130 FB 2E        MOV.L     #_dB:24,R2
+
+   \          ..'....
+   \   000135 FC 78 28 00  DMOV.D    DR0,[R2]
+     88              dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+   \   000139 76 90 31 05  DSUB      DR5,DR3,DR0
+   \   00013D 76 90 35 35  DDIV      DR5,DR3,DR3
+   \   000141 76 90 01 06  DSUB      DR6,DR0,DR0
+   \   000145 76 90 35 36  DDIV      DR6,DR3,DR3
+   \   000149 76 90 01 07  DSUB      DR7,DR0,DR0
+   \   00014D 76 90 35 37  DDIV      DR7,DR3,DR3
+   \   000151 76 90 01 08  DSUB      DR8,DR0,DR0
+   \   000155 76 90 35 38  DDIV      DR8,DR3,DR3
+   \   000159 76 90 01 09  DSUB      DR9,DR0,DR0
+   \   00015D 76 90 35 39  DDIV      DR9,DR3,DR3
+   \   000161 76 90 01 0A  DSUB      DR10,DR0,DR0
+   \   000165 76 90 35 3A  DDIV      DR10,DR3,DR3
+   \   000169 76 90 01 0B  DSUB      DR11,DR0,DR0
+   \   00016D 76 90 35 3B  DDIV      DR11,DR3,DR3
+   \   000171 76 90 01 0C  DSUB      DR12,DR0,DR0
+   \   000175 76 90 35 3C  DDIV      DR12,DR3,DR3
+   \   000179 76 90 01 0D  DSUB      DR13,DR0,DR0
+   \   00017D 76 90 35 3D  DDIV      DR13,DR3,DR3
+   \   000181 76 90 01 0E  DSUB      DR14,DR0,DR0
+   \   000185 76 90 35 3E  DDIV      DR14,DR3,DR3
+   \   000189 76 90 01 0F  DSUB      DR15,DR0,DR0
+   \   00018D 76 90 35 3F  DDIV      DR15,DR3,DR3
+   \   000191 76 90 01 02  DSUB      DR2,DR0,DR0
+   \   000195 76 90 35 22  DDIV      DR2,DR3,DR2
+   \   000199 76 90 01 04  DSUB      DR4,DR0,DR0
+   \   00019D FB 3E        MOV.L     #_dC:24,R3
+
+   \          ..'....
+     89              dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+   \   0001A2 76 90 25 24  DDIV      DR4,DR2,DR2
+   \   0001A6 FB 4E        MOV.L     #_dD:24,R4
+
+   \          ..'....
+   \   0001AB FC 78 38 00  DMOV.D    DR0,[R3]
+   \   0001AF FC 78 48 20  DMOV.D    DR2,[R4]
+     90          }
+   \   0001B3 75 B8 0F     DPOPM.D   DR0,DR15
+   \   0001B6 02           RTS
+     91          
+
+   \                                 In section .data24.data, align 4
+     92          void *m_debug_N_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+   \                     _m_debug_N_Check_DPUSHM_DPOPM:
+   \   000000 ....'....    DC32 _Check_DPUSHM_DPOPM
+     93          
+     94          static float Check_TFU_sinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     95          static float Check_TFU_sinf(float x)
+     96          {
+     97              return sinf(x);
+   \                     _Check_TFU_sinf:
+   \   000000 04 ..'....   BRA.A     _sinf
+     98          }
+     99          
+    100          static float Check_TFU_cosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    101          static float Check_TFU_cosf(float x)
+    102          {
+    103              return cosf(x);
+   \                     _Check_TFU_cosf:
+   \   000000 04 ..'....   BRA.A     _cosf
+    104          }
+    105          
+    106          static float Check_TFU_atan2f(float y, float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    107          static float Check_TFU_atan2f(float y, float x)
+    108          {
+    109              return atan2f(y, x);
+   \                     _Check_TFU_atan2f:
+   \   000000 04 ..'....   BRA.A     _atan2f
+    110          }
+    111          
+    112          static float Check_TFU_hypotf(float x, float y);
+
+   \                                 In section .text, align 1, keep-with-next
+    113          static float Check_TFU_hypotf(float x, float y)
+    114          {
+    115              return hypotf(x, y);
+   \                     _Check_TFU_hypotf:
+   \   000000 04 ..'....   BRA.A     _hypotf
+    116          }
+    117          
+    118          static float Check_TFU_asinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    119          static float Check_TFU_asinf(float x)
+    120          {
+    121              return asinf(x);
+   \                     _Check_TFU_asinf:
+   \   000000 04 ..'....   BRA.A     _asinf
+    122          }
+    123          
+    124          static float Check_TFU_acosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    125          static float Check_TFU_acosf(float x)
+    126          {
+    127              return acosf(x);
+   \                     _Check_TFU_acosf:
+   \   000000 04 ..'....   BRA.A     _acosf
+    128          }
+    129          
+    130          static float Check_TFU_atanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    131          static float Check_TFU_atanf(float x)
+    132          {
+    133              return atanf(x);
+   \                     _Check_TFU_atanf:
+   \   000000 04 ..'....   BRA.A     _atanf
+    134          }
+    135          
+    136          static float Check_TFU_tanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    137          static float Check_TFU_tanf(float x)
+    138          {
+    139              return tanf(x);
+   \                     _Check_TFU_tanf:
+   \   000000 04 ..'....   BRA.A     _tanf
+    140          }
+    141          
+
+   \                                 In section .data24.data, align 4
+    142          void *m_debug_N_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+   \                     _m_debug_N_Check_TFU_sinf:
+   \   000000 ....'....    DC32 _Check_TFU_sinf
+
+   \                                 In section .data24.data, align 4
+    143          void *m_debug_N_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+   \                     _m_debug_N_Check_TFU_cosf:
+   \   000000 ....'....    DC32 _Check_TFU_cosf
+
+   \                                 In section .data24.data, align 4
+    144          void *m_debug_N_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+   \                     _m_debug_N_Check_TFU_atan2f:
+   \   000000 ....'....    DC32 _Check_TFU_atan2f
+
+   \                                 In section .data24.data, align 4
+    145          void *m_debug_N_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+   \                     _m_debug_N_Check_TFU_hypotf:
+   \   000000 ....'....    DC32 _Check_TFU_hypotf
+
+   \                                 In section .data24.data, align 4
+    146          void *m_debug_N_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+   \                     _m_debug_N_Check_TFU_asinf:
+   \   000000 ....'....    DC32 _Check_TFU_asinf
+
+   \                                 In section .data24.data, align 4
+    147          void *m_debug_N_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+   \                     _m_debug_N_Check_TFU_acosf:
+   \   000000 ....'....    DC32 _Check_TFU_acosf
+
+   \                                 In section .data24.data, align 4
+    148          void *m_debug_N_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+   \                     _m_debug_N_Check_TFU_atanf:
+   \   000000 ....'....    DC32 _Check_TFU_atanf
+
+   \                                 In section .data24.data, align 4
+    149          void *m_debug_N_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+   \                     _m_debug_N_Check_TFU_tanf:
+   \   000000 ....'....    DC32 _Check_TFU_tanf
+
+   Maximum stack usage in bytes:
+
+   ISTACK Function
+   ------ --------
+    132   Check_DPUSHM_DPOPM
+     12   Check_Not_Using_DSQRT
+      8   Check_Not_Using_DSQRT_FSQRT
+        8   -- Indirect call
+      4   Check_Not_Using_FSQRT
+      4   Check_TFU_acosf
+        4   -> acosf
+      4   Check_TFU_asinf
+        4   -> asinf
+      4   Check_TFU_atan2f
+        4   -> atan2f
+      4   Check_TFU_atanf
+        4   -> atanf
+      4   Check_TFU_cosf
+        4   -> cosf
+      4   Check_TFU_hypotf
+        4   -> hypotf
+      4   Check_TFU_sinf
+        4   -> sinf
+      4   Check_TFU_tanf
+        4   -> tanf
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     439  Check_DPUSHM_DPOPM
+      38  Check_Not_Using_DSQRT
+      32  Check_Not_Using_DSQRT_FSQRT
+       4  Check_Not_Using_FSQRT
+       4  Check_TFU_acosf
+       4  Check_TFU_asinf
+       4  Check_TFU_atan2f
+       4  Check_TFU_atanf
+       4  Check_TFU_cosf
+       4  Check_TFU_hypotf
+       4  Check_TFU_sinf
+       4  Check_TFU_tanf
+       8  m_debug_Check_Not_Using_DSQRT
+          m_debug_Check_Not_Using_FSQRT
+       4  m_debug_N_Check_DPUSHM_DPOPM
+       4  m_debug_N_Check_TFU_acosf
+       4  m_debug_N_Check_TFU_asinf
+       4  m_debug_N_Check_TFU_atan2f
+       4  m_debug_N_Check_TFU_atanf
+       4  m_debug_N_Check_TFU_cosf
+       4  m_debug_N_Check_TFU_hypotf
+       4  m_debug_N_Check_TFU_sinf
+       4  m_debug_N_Check_TFU_tanf
+
+ 
+  44 bytes in section .data24.data
+ 545 bytes in section .text
+ 
+ 545 bytes of CODE memory
+  44 bytes of DATA memory
+
+Errors: none
+Warnings: none

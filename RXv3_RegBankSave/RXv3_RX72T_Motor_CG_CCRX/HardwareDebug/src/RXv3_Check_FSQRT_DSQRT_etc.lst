@@ -1,0 +1,1070 @@
+* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Fri Dec 23 10:07:26 2022
+
+LOC.     OBJ.              0XMDA SOURCE STATEMENT
+
+                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  23-Dec-2022 10:07:23
+                                 
+                                 ;*** CPU TYPE ***
+                                 
+                                 ;-ISA=RXV3
+                                 
+                                 ;*** COMMAND PARAMETER ***
+                                 
+                                 ;-isa=rxv3
+                                 ;-fpu
+                                 ;-dbl_size=8
+                                 ;-save_acc
+                                 ;-MAKEUD=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\HardwareDebug\src
+                                 ;-include=C:\Renesas\CS+\CC\CC-RX\V3.04.00\/include
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\smc_gen\r_config
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\smc_gen\r_pincfg
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\smc_gen\general
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\smc_gen\r_bsp
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\smc_gen\Config_MTU3_MTU4
+                                 ;-asmopt=-bank
+                                 ;-lang=c99
+                                 ;-utf8
+                                 ;-message
+                                 ;-output=obj
+                                 ;-obj_path=src
+                                 ;-debug
+                                 ;-outcode=utf8
+                                 ;-show=source
+                                 ;-optimize=max
+                                 ;-goptimize
+                                 ;-speed
+                                 ;-type_size_access_to_volatile
+                                 ;-tfu=intrinsic,mathlib
+                                 ;-nologo
+                                 ;-listfile=src/RXv3_Check_FSQRT_DSQRT_etc.lst
+                                 ;../src/RXv3_Check_FSQRT_DSQRT_etc.c
+                                 
+                                 		.glb	_m_debug_Check_Using_DSQRT
+                                 		.glb	_m_debug_Check_Using_FSQRT
+                                 		.glb	_d1
+                                 		.glb	_d2
+                                 		.glb	_f1
+                                 		.glb	_f2
+                                 		.glb	_m_debug_Check_Using_DDIV
+                                 		.glb	_m_debug_Check_Using_FDIV
+                                 		.glb	_dA
+                                 		.glb	_dB
+                                 		.glb	_dC
+                                 		.glb	_dD
+                                 		.glb	_m_debug_U_Check_DPUSHM_DPOPM
+                                 		.glb	_m_debug_U_Check_TFU_sinf
+                                 		.glb	_m_debug_U_Check_TFU_cosf
+                                 		.glb	_m_debug_U_Check_TFU_atan2f
+                                 		.glb	_m_debug_U_Check_TFU_hypotf
+                                 		.glb	_m_debug_U_Check_TFU_asinf
+                                 		.glb	_m_debug_U_Check_TFU_acosf
+                                 		.glb	_m_debug_U_Check_TFU_atanf
+                                 		.glb	_m_debug_U_Check_TFU_tanf
+                                 		.glb	_sqrt
+                                 		.glb	_Check_Using_DSQRT_FSQRT
+                                 		.glb	_rot
+                                 		.glb	_rot_2
+                                 ;LineNo. C-SOURCE STATEMENT
+                                 
+                                 		.SECTION	P,CODE
+00000000                         __$Check_Using_DSQRT:
+                                 		.STACK	__$Check_Using_DSQRT=4
+                                 ;       1 #include <math.h>
+                                 ;       2 
+                                 ;       3 #if defined(__CCRX__)
+                                 ;       4 // Don't use -library=function option for this source file.
+                                 ;       5 // Don't use -nouse_div_inst option for this source file.
+                                 ;       6 // Use -tfu=intrinsic,mathlib option for this file.
+                                 ;       7 #elif defined(__ICCRX__)
+                                 ;       8 // Don't use --sqrt_must_set_errno option for this source file.
+                                 ;       9 // Use --tfu intrinsic_mathlib option for this source file.
+                                 ;      10 #elif defined(__GNUC__)
+                                 ;      11 // Use -mrxv2-fsqrt option for this source file.
+                                 ;      12 // Use -mtfu=intrinsic,mathlib option for this source file.
+                                 ;      13 #endif
+                                 ;      14 // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+                                 ;      15 //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+                                 ;      16 // Max Operating MHz    160   120   120   120   200   240   240
+                                 ;      17 // Register Bank Save   x     o     o     o     o     o     o
+                                 ;      18 // DPFPU                x     o     o     x     x     o     o
+                                 ;      19 // TFU                  x     x     x     o     o     o     o
+                                 ;      20 
+                                 ;      21 static double Check_Using_DSQRT(double x);
+                                 ;      22 static double Check_Using_DSQRT(double x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",22
+00000000 04rrrrrr             A  		BRA _sqrt
+00000004                         __$Check_Using_FSQRT:
+                                 		.STACK	__$Check_Using_FSQRT=4
+                                 ;      23 {
+                                 ;      24     return sqrt(x);  // DSQRT is used here directly.
+                                 ;      25 }
+                                 ;      26 
+                                 ;      27 static float Check_Using_FSQRT(float x);
+                                 ;      28 static float Check_Using_FSQRT(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",28
+00000004 FCA311                  		FSQRT R1, R1
+                                 ;      29 {
+                                 ;      30     return sqrtf(x); // FSQRT is used here directly.
+                                 ;      31 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",31
+00000007 02                      		RTS
+00000008                         __$Check_Using_DDIV:
+                                 		.STACK	__$Check_Using_DDIV=8
+                                 ;      32 
+                                 ;      33 void *m_debug_Check_Using_DSQRT = (void *)Check_Using_DSQRT;
+                                 ;      34 void *m_debug_Check_Using_FSQRT = (void *)Check_Using_FSQRT;
+                                 ;      35 
+                                 ;      36 double d1=1.0, d2=2.0;
+                                 ;      37 float f1=1.0, f2=2.0;
+                                 ;      38 
+                                 ;      39 #if defined(__CCRX__)
+                                 ;      40 
+                                 ;      41 static void Check_Using_DDIV(void);
+                                 ;      42 static void Check_Using_DDIV(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",42
+00000008 7EA6                    		PUSH.L R6
+                                 ;      43 {
+                                 ;      44     d2 = d1 / d2;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",44
+0000000A FB12rrrrrrrr            		MOV.L #_d1, R1
+00000010 A81A                    		MOV.L 04H[R1], R2
+00000012 FB62rrrrrrrr            		MOV.L #_d2, R6
+00000018 A86C                    		MOV.L 04H[R6], R4
+0000001A EC63                    		MOV.L [R6], R3
+0000001C EC11                    		MOV.L [R1], R1
+0000001E 05rrrrrr             A  		BSR __COM_DIVd
+00000022 A06A                    		MOV.L R2, 04H[R6]
+00000024 E361                    		MOV.L R1, [R6]
+00000026 3F6601                  		RTSD #04H, R6-R6
+00000029                         __$Check_Using_FDIV:
+                                 		.STACK	__$Check_Using_FDIV=4
+                                 ;      45 }
+                                 ;      46 
+                                 ;      47 static void Check_Using_FDIV(void);
+                                 ;      48 static void Check_Using_FDIV(void)
+                                 ;      49 {
+                                 ;      50     f2 = f1 / f2;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",50
+00000029 FBE2rrrrrrrr            		MOV.L #_f1, R14
+0000002F ECEE                    		MOV.L [R14], R14
+00000031 FB52rrrrrrrr            		MOV.L #_f2, R5
+00000037 FC905E                  		FDIV [R5].L, R14
+0000003A E35E                    		MOV.L R14, [R5]
+0000003C 02                      		RTS
+0000003D                         _Check_Using_DSQRT_FSQRT:
+                                 		.STACK	_Check_Using_DSQRT_FSQRT=4
+                                 ;      51 }
+                                 ;      52 
+                                 ;      53 void *m_debug_Check_Using_DDIV = (void *)Check_Using_DDIV;
+                                 ;      54 void *m_debug_Check_Using_FDIV = (void *)Check_Using_FDIV;
+                                 ;      55 
+                                 ;      56 #endif
+                                 ;      57 
+                                 ;      58 void Check_Using_DSQRT_FSQRT(void);
+                                 ;      59 void Check_Using_DSQRT_FSQRT(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",59
+0000003D 6601                    		MOV.L #00000000H, R1
+                                 ;      60 {
+                                 ;      61     ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",61
+0000003F FBE2rrrrrrrr            		MOV.L #_m_debug_Check_Using_DSQRT, R14
+00000045 ECEE                    		MOV.L [R14], R14
+00000047 FB2200001040            		MOV.L #40100000H, R2
+0000004D 7F1E                    		JSR R14
+                                 ;      62     ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",62
+0000004F FBE2rrrrrrrr            		MOV.L #_m_debug_Check_Using_FSQRT, R14
+00000055 ECEE                    		MOV.L [R14], R14
+00000057 FB1200008040            		MOV.L #40800000H, R1
+0000005D 7F1E                    		JSR R14
+0000005F 02                      		RTS
+00000060                         __$Check_DPUSHM_DPOPM:
+                                 		.STACK	__$Check_DPUSHM_DPOPM=96
+                                 ;      63 }
+                                 ;      64 
+                                 ;      65 double dA, dB, dC, dD;
+                                 ;      66 static void Check_DPUSHM_DPOPM(void);
+                                 ;      67 static void Check_DPUSHM_DPOPM(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",67
+00000060 6E6D                    		PUSHM R6-R13
+                                 ;      68 {
+                                 ;      69     double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+                                 ;      70 
+                                 ;      71     d3  = d1 + d2 +  3.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",71
+00000062 FB22rrrrrrrr            		MOV.L #_d2, R2
+00000068 FB12rrrrrrrr            		MOV.L #_d1, R1
+0000006E ED2A01                  		MOV.L 04H[R2], R10
+00000071 7100C4                  		ADD #0FFFFFFC4H, R0
+00000074 EC2B                    		MOV.L [R2], R11
+00000076 A81A                    		MOV.L 04H[R1], R2
+00000078 EFA4                    		MOV.L R10, R4
+0000007A EC11                    		MOV.L [R1], R1
+0000007C EFB3                    		MOV.L R11, R3
+0000007E A00A                    		MOV.L R2, 04H[R0]
+00000080 E301                    		MOV.L R1, [R0]
+00000082 05rrrrrr             A  		BSR __COM_ADDd
+00000086 6606                    		MOV.L #00000000H, R6
+00000088 FB4200000840            		MOV.L #40080000H, R4
+0000008E EF1C                    		MOV.L R1, R12
+00000090 EF2D                    		MOV.L R2, R13
+00000092 EF63                    		MOV.L R6, R3
+00000094 05rrrrrr             A  		BSR __COM_ADDd
+00000098 EF18                    		MOV.L R1, R8
+0000009A A302                    		MOV.L R2, 30H[R0]
+                                 ;      72     d4  = d1 - d2 +  4.0;
+                                 ;      73     d5  = d1 + d2 +  5.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",73
+0000009C EFC1                    		MOV.L R12, R1
+0000009E FB4200001440            		MOV.L #40140000H, R4
+000000A4 EFD2                    		MOV.L R13, R2
+000000A6 EF63                    		MOV.L R6, R3
+000000A8 05rrrrrr             A  		BSR __COM_ADDd
+000000AC EF17                    		MOV.L R1, R7
+000000AE EF29                    		MOV.L R2, R9
+                                 ;      74     d6  = d1 - d2 +  6.0;
+                                 ;      75     d7  = d1 + d2 +  7.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",75
+000000B0 EFC1                    		MOV.L R12, R1
+000000B2 FB4200001C40            		MOV.L #401C0000H, R4
+000000B8 EFD2                    		MOV.L R13, R2
+000000BA EF63                    		MOV.L R6, R3
+000000BC 05rrrrrr             A  		BSR __COM_ADDd
+000000C0 A289                    		MOV.L R1, 2CH[R0]
+000000C2 FB4200002240            		MOV.L #40220000H, R4
+000000C8 A282                    		MOV.L R2, 28H[R0]
+                                 ;      76     d8  = d1 - d2 +  8.0;
+                                 ;      77     d9  = d1 + d2 +  9.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",77
+000000CA EFC1                    		MOV.L R12, R1
+000000CC EFD2                    		MOV.L R13, R2
+000000CE EF63                    		MOV.L R6, R3
+000000D0 05rrrrrr             A  		BSR __COM_ADDd
+000000D4 A209                    		MOV.L R1, 24H[R0]
+000000D6 FB4200002640            		MOV.L #40260000H, R4
+000000DC A202                    		MOV.L R2, 20H[R0]
+                                 ;      78     d10 = d1 - d2 + 10.0;
+                                 ;      79     d11 = d1 + d2 + 11.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",79
+000000DE EFC1                    		MOV.L R12, R1
+000000E0 EFD2                    		MOV.L R13, R2
+000000E2 EF63                    		MOV.L R6, R3
+000000E4 05rrrrrr             A  		BSR __COM_ADDd
+000000E8 A189                    		MOV.L R1, 1CH[R0]
+000000EA FB4200002A40            		MOV.L #402A0000H, R4
+000000F0 A182                    		MOV.L R2, 18H[R0]
+                                 ;      80     d12 = d1 - d2 + 12.0;
+                                 ;      81     d13 = d1 + d2 + 13.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",81
+000000F2 EFC1                    		MOV.L R12, R1
+000000F4 EFD2                    		MOV.L R13, R2
+000000F6 EF63                    		MOV.L R6, R3
+000000F8 05rrrrrr             A  		BSR __COM_ADDd
+000000FC A109                    		MOV.L R1, 14H[R0]
+000000FE FB4200002E40            		MOV.L #402E0000H, R4
+00000104 A102                    		MOV.L R2, 10H[R0]
+                                 ;      82     d14 = d1 - d2 + 14.0;
+                                 ;      83     d15 = d1 + d2 + 15.0;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",83
+00000106 EFC1                    		MOV.L R12, R1
+00000108 EFD2                    		MOV.L R13, R2
+0000010A EF63                    		MOV.L R6, R3
+0000010C 05rrrrrr             A  		BSR __COM_ADDd
+00000110 A089                    		MOV.L R1, 0CH[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",72
+00000112 EFB3                    		MOV.L R11, R3
+00000114 A082                    		MOV.L R2, 08H[R0]
+00000116 EFA4                    		MOV.L R10, R4
+00000118 EC01                    		MOV.L [R0], R1
+0000011A A80A                    		MOV.L 04H[R0], R2
+0000011C 05rrrrrr             A  		BSR __COM_SUBd
+00000120 A009                    		MOV.L R1, 04H[R0]
+00000122 FB4200001040            		MOV.L #40100000H, R4
+00000128 E302                    		MOV.L R2, [R0]
+0000012A EF63                    		MOV.L R6, R3
+0000012C 05rrrrrr             A  		BSR __COM_ADDd
+                                 ;      84     d16 = d1 - d2 + 16.0;
+                                 ;      85 
+                                 ;      86     dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+00000130 ED0C0C                  		MOV.L 30H[R0], R12
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",72
+00000133 EF1A                    		MOV.L R1, R10
+00000135 EF2D                    		MOV.L R2, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+00000137 EF81                    		MOV.L R8, R1
+00000139 EFC2                    		MOV.L R12, R2
+0000013B EFA3                    		MOV.L R10, R3
+0000013D EFD4                    		MOV.L R13, R4
+0000013F 05rrrrrr             A  		BSR __COM_ADDd
+00000143 EF73                    		MOV.L R7, R3
+00000145 EF94                    		MOV.L R9, R4
+00000147 05rrrrrr             A  		BSR __COM_ADDd
+0000014B EF1B                    		MOV.L R1, R11
+0000014D A382                    		MOV.L R2, 38H[R0]
+                                 ;      87     dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+0000014F EF81                    		MOV.L R8, R1
+00000151 EFC2                    		MOV.L R12, R2
+00000153 EFA3                    		MOV.L R10, R3
+00000155 EFD4                    		MOV.L R13, R4
+00000157 05rrrrrr             A  		BSR __COM_MULd
+0000015B EF73                    		MOV.L R7, R3
+0000015D EF94                    		MOV.L R9, R4
+0000015F 05rrrrrr             A  		BSR __COM_MULd
+00000163 EFC3                    		MOV.L R12, R3
+00000165 A30A                    		MOV.L R2, 34H[R0]
+00000167 EF1C                    		MOV.L R1, R12
+                                 ;      88     dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+00000169 EF32                    		MOV.L R3, R2
+0000016B EF81                    		MOV.L R8, R1
+0000016D EFA3                    		MOV.L R10, R3
+0000016F EFD4                    		MOV.L R13, R4
+00000171 05rrrrrr             A  		BSR __COM_SUBd
+00000175 EF73                    		MOV.L R7, R3
+00000177 EF94                    		MOV.L R9, R4
+00000179 05rrrrrr             A  		BSR __COM_SUBd
+0000017D EF83                    		MOV.L R8, R3
+0000017F EFA4                    		MOV.L R10, R4
+00000181 EF18                    		MOV.L R1, R8
+00000183 EF2A                    		MOV.L R2, R10
+                                 ;      89     dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+00000185 EF31                    		MOV.L R3, R1
+00000187 AB02                    		MOV.L 30H[R0], R2
+00000189 EF43                    		MOV.L R4, R3
+0000018B EFD4                    		MOV.L R13, R4
+0000018D 05rrrrrr             A  		BSR __COM_DIVd
+00000191 EF73                    		MOV.L R7, R3
+00000193 EF94                    		MOV.L R9, R4
+00000195 05rrrrrr             A  		BSR __COM_DIVd
+00000199 EF19                    		MOV.L R1, R9
+0000019B A302                    		MOV.L R2, 30H[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",74
+0000019D A809                    		MOV.L 04H[R0], R1
+0000019F FB4200001840            		MOV.L #40180000H, R4
+000001A5 EC02                    		MOV.L [R0], R2
+000001A7 EF63                    		MOV.L R6, R3
+000001A9 05rrrrrr             A  		BSR __COM_ADDd
+000001AD EF87                    		MOV.L R8, R7
+000001AF EF28                    		MOV.L R2, R8
+000001B1 EF1D                    		MOV.L R1, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+000001B3 AB82                    		MOV.L 38H[R0], R2
+000001B5 EFB1                    		MOV.L R11, R1
+000001B7 EFD3                    		MOV.L R13, R3
+000001B9 EF84                    		MOV.L R8, R4
+000001BB 05rrrrrr             A  		BSR __COM_ADDd
+000001BF AA8B                    		MOV.L 2CH[R0], R3
+000001C1 AA84                    		MOV.L 28H[R0], R4
+000001C3 05rrrrrr             A  		BSR __COM_ADDd
+000001C7 EF73                    		MOV.L R7, R3
+000001C9 EF8B                    		MOV.L R8, R11
+000001CB EF17                    		MOV.L R1, R7
+000001CD EFD5                    		MOV.L R13, R5
+000001CF EF28                    		MOV.L R2, R8
+000001D1 EF3D                    		MOV.L R3, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+000001D3 EFC1                    		MOV.L R12, R1
+000001D5 AB0A                    		MOV.L 34H[R0], R2
+000001D7 EF53                    		MOV.L R5, R3
+000001D9 EFB4                    		MOV.L R11, R4
+000001DB EF5C                    		MOV.L R5, R12
+000001DD 05rrrrrr             A  		BSR __COM_MULd
+000001E1 AA8B                    		MOV.L 2CH[R0], R3
+000001E3 AA84                    		MOV.L 28H[R0], R4
+000001E5 05rrrrrr             A  		BSR __COM_MULd
+000001E9 EFD4                    		MOV.L R13, R4
+000001EB EFB3                    		MOV.L R11, R3
+000001ED EFCD                    		MOV.L R12, R13
+000001EF EF1B                    		MOV.L R1, R11
+000001F1 EF2C                    		MOV.L R2, R12
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000001F3 EF95                    		MOV.L R9, R5
+000001F5 EF41                    		MOV.L R4, R1
+000001F7 EF39                    		MOV.L R3, R9
+000001F9 EFA2                    		MOV.L R10, R2
+000001FB EFD3                    		MOV.L R13, R3
+000001FD EF94                    		MOV.L R9, R4
+000001FF EF5A                    		MOV.L R5, R10
+00000201 05rrrrrr             A  		BSR __COM_SUBd
+00000205 AA8B                    		MOV.L 2CH[R0], R3
+00000207 AA84                    		MOV.L 28H[R0], R4
+00000209 05rrrrrr             A  		BSR __COM_SUBd
+0000020D EFA3                    		MOV.L R10, R3
+0000020F EF94                    		MOV.L R9, R4
+00000211 EF19                    		MOV.L R1, R9
+00000213 EF2A                    		MOV.L R2, R10
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+00000215 EF31                    		MOV.L R3, R1
+00000217 AB02                    		MOV.L 30H[R0], R2
+00000219 EFD3                    		MOV.L R13, R3
+0000021B 05rrrrrr             A  		BSR __COM_DIVd
+0000021F AA8B                    		MOV.L 2CH[R0], R3
+00000221 AA84                    		MOV.L 28H[R0], R4
+00000223 05rrrrrr             A  		BSR __COM_DIVd
+00000227 EF1D                    		MOV.L R1, R13
+00000229 A282                    		MOV.L R2, 28H[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",76
+0000022B A809                    		MOV.L 04H[R0], R1
+0000022D FB4200002040            		MOV.L #40200000H, R4
+00000233 EC02                    		MOV.L [R0], R2
+00000235 EF63                    		MOV.L R6, R3
+00000237 05rrrrrr             A  		BSR __COM_ADDd
+0000023B EFD3                    		MOV.L R13, R3
+0000023D EF15                    		MOV.L R1, R5
+0000023F EF2D                    		MOV.L R2, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+00000241 EF71                    		MOV.L R7, R1
+00000243 EF37                    		MOV.L R3, R7
+00000245 EF82                    		MOV.L R8, R2
+00000247 EF53                    		MOV.L R5, R3
+00000249 EFD4                    		MOV.L R13, R4
+0000024B EF58                    		MOV.L R5, R8
+0000024D 05rrrrrr             A  		BSR __COM_ADDd
+00000251 AA0B                    		MOV.L 24H[R0], R3
+00000253 AA04                    		MOV.L 20H[R0], R4
+00000255 05rrrrrr             A  		BSR __COM_ADDd
+00000259 EF8F                    		MOV.L R8, R15
+0000025B EF75                    		MOV.L R7, R5
+0000025D EF18                    		MOV.L R1, R8
+0000025F EF27                    		MOV.L R2, R7
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+00000261 EFB1                    		MOV.L R11, R1
+00000263 EFC2                    		MOV.L R12, R2
+00000265 EFF3                    		MOV.L R15, R3
+00000267 EFD4                    		MOV.L R13, R4
+00000269 EFFB                    		MOV.L R15, R11
+0000026B EF5C                    		MOV.L R5, R12
+0000026D 05rrrrrr             A  		BSR __COM_MULd
+00000271 AA0B                    		MOV.L 24H[R0], R3
+00000273 AA04                    		MOV.L 20H[R0], R4
+00000275 05rrrrrr             A  		BSR __COM_MULd
+00000279 EFC5                    		MOV.L R12, R5
+0000027B EFBF                    		MOV.L R11, R15
+0000027D EFDC                    		MOV.L R13, R12
+0000027F EF1B                    		MOV.L R1, R11
+00000281 EF2D                    		MOV.L R2, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+00000283 EF91                    		MOV.L R9, R1
+00000285 EFA2                    		MOV.L R10, R2
+00000287 EFF3                    		MOV.L R15, R3
+00000289 EFC4                    		MOV.L R12, R4
+0000028B EF5A                    		MOV.L R5, R10
+0000028D EFF9                    		MOV.L R15, R9
+0000028F 05rrrrrr             A  		BSR __COM_SUBd
+00000293 AA0B                    		MOV.L 24H[R0], R3
+00000295 AA04                    		MOV.L 20H[R0], R4
+00000297 05rrrrrr             A  		BSR __COM_SUBd
+0000029B EF93                    		MOV.L R9, R3
+0000029D EFC5                    		MOV.L R12, R5
+0000029F EFA4                    		MOV.L R10, R4
+000002A1 EF1C                    		MOV.L R1, R12
+000002A3 EF29                    		MOV.L R2, R9
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000002A5 EF41                    		MOV.L R4, R1
+000002A7 AA82                    		MOV.L 28H[R0], R2
+000002A9 EF54                    		MOV.L R5, R4
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000002AB EFDA                    		MOV.L R13, R10
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000002AD 05rrrrrr             A  		BSR __COM_DIVd
+000002B1 AA0B                    		MOV.L 24H[R0], R3
+000002B3 AA04                    		MOV.L 20H[R0], R4
+000002B5 05rrrrrr             A  		BSR __COM_DIVd
+000002B9 EF1D                    		MOV.L R1, R13
+000002BB A202                    		MOV.L R2, 20H[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",78
+000002BD A809                    		MOV.L 04H[R0], R1
+000002BF FB4200002440            		MOV.L #40240000H, R4
+000002C5 EC02                    		MOV.L [R0], R2
+000002C7 EF63                    		MOV.L R6, R3
+000002C9 05rrrrrr             A  		BSR __COM_ADDd
+000002CD EFC5                    		MOV.L R12, R5
+000002CF EFBC                    		MOV.L R11, R12
+000002D1 EF1B                    		MOV.L R1, R11
+000002D3 EF2F                    		MOV.L R2, R15
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+000002D5 EF81                    		MOV.L R8, R1
+000002D7 EF72                    		MOV.L R7, R2
+000002D9 EFB3                    		MOV.L R11, R3
+000002DB EFF4                    		MOV.L R15, R4
+000002DD EFF7                    		MOV.L R15, R7
+000002DF EF58                    		MOV.L R5, R8
+000002E1 05rrrrrr             A  		BSR __COM_ADDd
+000002E5 A98B                    		MOV.L 1CH[R0], R3
+000002E7 A984                    		MOV.L 18H[R0], R4
+000002E9 05rrrrrr             A  		BSR __COM_ADDd
+000002ED EF83                    		MOV.L R8, R3
+000002EF EFA4                    		MOV.L R10, R4
+000002F1 EF78                    		MOV.L R7, R8
+000002F3 EF1A                    		MOV.L R1, R10
+000002F5 EF27                    		MOV.L R2, R7
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+000002F7 EFC1                    		MOV.L R12, R1
+000002F9 EF42                    		MOV.L R4, R2
+000002FB EF3C                    		MOV.L R3, R12
+000002FD EFB3                    		MOV.L R11, R3
+000002FF EF84                    		MOV.L R8, R4
+00000301 05rrrrrr             A  		BSR __COM_MULd
+00000305 A98B                    		MOV.L 1CH[R0], R3
+00000307 A984                    		MOV.L 18H[R0], R4
+00000309 05rrrrrr             A  		BSR __COM_MULd
+0000030D EFDF                    		MOV.L R13, R15
+0000030F EF8D                    		MOV.L R8, R13
+00000311 EF18                    		MOV.L R1, R8
+00000313 EF25                    		MOV.L R2, R5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+00000315 EFC1                    		MOV.L R12, R1
+00000317 EF92                    		MOV.L R9, R2
+00000319 EFB3                    		MOV.L R11, R3
+0000031B EFD4                    		MOV.L R13, R4
+0000031D EF5C                    		MOV.L R5, R12
+0000031F EFF9                    		MOV.L R15, R9
+00000321 05rrrrrr             A  		BSR __COM_SUBd
+00000325 A98B                    		MOV.L 1CH[R0], R3
+00000327 A984                    		MOV.L 18H[R0], R4
+00000329 05rrrrrr             A  		BSR __COM_SUBd
+0000032D EF93                    		MOV.L R9, R3
+0000032F EFC9                    		MOV.L R12, R9
+00000331 EFB4                    		MOV.L R11, R4
+00000333 EF1C                    		MOV.L R1, R12
+00000335 EF2B                    		MOV.L R2, R11
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+00000337 EF31                    		MOV.L R3, R1
+00000339 AA02                    		MOV.L 20H[R0], R2
+0000033B EF43                    		MOV.L R4, R3
+0000033D EFD4                    		MOV.L R13, R4
+0000033F 05rrrrrr             A  		BSR __COM_DIVd
+00000343 A98B                    		MOV.L 1CH[R0], R3
+00000345 A984                    		MOV.L 18H[R0], R4
+00000347 05rrrrrr             A  		BSR __COM_DIVd
+0000034B EF1D                    		MOV.L R1, R13
+0000034D A182                    		MOV.L R2, 18H[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",80
+0000034F A809                    		MOV.L 04H[R0], R1
+00000351 FB4200002840            		MOV.L #40280000H, R4
+00000357 EC02                    		MOV.L [R0], R2
+00000359 EF63                    		MOV.L R6, R3
+0000035B 05rrrrrr             A  		BSR __COM_ADDd
+0000035F EFD3                    		MOV.L R13, R3
+00000361 EF15                    		MOV.L R1, R5
+00000363 EF2D                    		MOV.L R2, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+00000365 EFA1                    		MOV.L R10, R1
+00000367 EF3A                    		MOV.L R3, R10
+00000369 EF72                    		MOV.L R7, R2
+0000036B EF53                    		MOV.L R5, R3
+0000036D EFD4                    		MOV.L R13, R4
+0000036F EF57                    		MOV.L R5, R7
+00000371 05rrrrrr             A  		BSR __COM_ADDd
+00000375 A90B                    		MOV.L 14H[R0], R3
+00000377 A904                    		MOV.L 10H[R0], R4
+00000379 05rrrrrr             A  		BSR __COM_ADDd
+0000037D EFA5                    		MOV.L R10, R5
+0000037F EFDA                    		MOV.L R13, R10
+00000381 EF93                    		MOV.L R9, R3
+00000383 EF7D                    		MOV.L R7, R13
+00000385 EF17                    		MOV.L R1, R7
+00000387 EF29                    		MOV.L R2, R9
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+00000389 EF81                    		MOV.L R8, R1
+0000038B EF32                    		MOV.L R3, R2
+0000038D EFD3                    		MOV.L R13, R3
+0000038F EFA4                    		MOV.L R10, R4
+00000391 EF58                    		MOV.L R5, R8
+00000393 05rrrrrr             A  		BSR __COM_MULd
+00000397 A90B                    		MOV.L 14H[R0], R3
+00000399 A904                    		MOV.L 10H[R0], R4
+0000039B 05rrrrrr             A  		BSR __COM_MULd
+0000039F EF8F                    		MOV.L R8, R15
+000003A1 EF18                    		MOV.L R1, R8
+000003A3 EF25                    		MOV.L R2, R5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000003A5 EFC1                    		MOV.L R12, R1
+000003A7 EFB2                    		MOV.L R11, R2
+000003A9 EFD3                    		MOV.L R13, R3
+000003AB EFA4                    		MOV.L R10, R4
+000003AD EFFB                    		MOV.L R15, R11
+000003AF EF5C                    		MOV.L R5, R12
+000003B1 05rrrrrr             A  		BSR __COM_SUBd
+000003B5 A90B                    		MOV.L 14H[R0], R3
+000003B7 A904                    		MOV.L 10H[R0], R4
+000003B9 05rrrrrr             A  		BSR __COM_SUBd
+000003BD EFB3                    		MOV.L R11, R3
+000003BF EFCB                    		MOV.L R12, R11
+000003C1 EFA4                    		MOV.L R10, R4
+000003C3 EF1A                    		MOV.L R1, R10
+000003C5 EF2C                    		MOV.L R2, R12
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000003C7 EF31                    		MOV.L R3, R1
+000003C9 A982                    		MOV.L 18H[R0], R2
+000003CB EFD3                    		MOV.L R13, R3
+000003CD 05rrrrrr             A  		BSR __COM_DIVd
+000003D1 A90B                    		MOV.L 14H[R0], R3
+000003D3 A904                    		MOV.L 10H[R0], R4
+000003D5 05rrrrrr             A  		BSR __COM_DIVd
+000003D9 EF1D                    		MOV.L R1, R13
+000003DB A102                    		MOV.L R2, 10H[R0]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",82
+000003DD A809                    		MOV.L 04H[R0], R1
+000003DF FB4200002C40            		MOV.L #402C0000H, R4
+000003E5 EC02                    		MOV.L [R0], R2
+000003E7 EF63                    		MOV.L R6, R3
+000003E9 05rrrrrr             A  		BSR __COM_ADDd
+000003ED EFD3                    		MOV.L R13, R3
+000003EF EF15                    		MOV.L R1, R5
+000003F1 EF2D                    		MOV.L R2, R13
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+000003F3 EF71                    		MOV.L R7, R1
+000003F5 EF92                    		MOV.L R9, R2
+000003F7 EF37                    		MOV.L R3, R7
+000003F9 EF53                    		MOV.L R5, R3
+000003FB EFD4                    		MOV.L R13, R4
+000003FD EF59                    		MOV.L R5, R9
+000003FF 05rrrrrr             A  		BSR __COM_ADDd
+00000403 A88B                    		MOV.L 0CH[R0], R3
+00000405 A884                    		MOV.L 08H[R0], R4
+00000407 05rrrrrr             A  		BSR __COM_ADDd
+0000040B EF75                    		MOV.L R7, R5
+0000040D EF9F                    		MOV.L R9, R15
+0000040F EFD7                    		MOV.L R13, R7
+00000411 EF1D                    		MOV.L R1, R13
+00000413 EF29                    		MOV.L R2, R9
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+00000415 EF81                    		MOV.L R8, R1
+00000417 EFB2                    		MOV.L R11, R2
+00000419 EFF3                    		MOV.L R15, R3
+0000041B EF74                    		MOV.L R7, R4
+0000041D EF5B                    		MOV.L R5, R11
+0000041F EFF8                    		MOV.L R15, R8
+00000421 05rrrrrr             A  		BSR __COM_MULd
+00000425 A88B                    		MOV.L 0CH[R0], R3
+00000427 A884                    		MOV.L 08H[R0], R4
+00000429 05rrrrrr             A  		BSR __COM_MULd
+0000042D EFBF                    		MOV.L R11, R15
+0000042F EF15                    		MOV.L R1, R5
+00000431 EF2B                    		MOV.L R2, R11
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+00000433 EFA1                    		MOV.L R10, R1
+00000435 EFC2                    		MOV.L R12, R2
+00000437 EF83                    		MOV.L R8, R3
+00000439 EF74                    		MOV.L R7, R4
+0000043B EFFA                    		MOV.L R15, R10
+0000043D EF5C                    		MOV.L R5, R12
+0000043F 05rrrrrr             A  		BSR __COM_SUBd
+00000443 A88B                    		MOV.L 0CH[R0], R3
+00000445 A884                    		MOV.L 08H[R0], R4
+00000447 05rrrrrr             A  		BSR __COM_SUBd
+0000044B EF74                    		MOV.L R7, R4
+0000044D EFA3                    		MOV.L R10, R3
+0000044F EF97                    		MOV.L R9, R7
+00000451 EF1A                    		MOV.L R1, R10
+00000453 EF29                    		MOV.L R2, R9
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+00000455 EF31                    		MOV.L R3, R1
+00000457 A902                    		MOV.L 10H[R0], R2
+00000459 EF83                    		MOV.L R8, R3
+0000045B 05rrrrrr             A  		BSR __COM_DIVd
+0000045F A88B                    		MOV.L 0CH[R0], R3
+00000461 A884                    		MOV.L 08H[R0], R4
+00000463 05rrrrrr             A  		BSR __COM_DIVd
+00000467 EFC5                    		MOV.L R12, R5
+00000469 EF18                    		MOV.L R1, R8
+0000046B EF2C                    		MOV.L R2, R12
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",84
+0000046D A809                    		MOV.L 04H[R0], R1
+0000046F EC02                    		MOV.L [R0], R2
+00000471 EF63                    		MOV.L R6, R3
+00000473 EF56                    		MOV.L R5, R6
+00000475 FB4200003040            		MOV.L #40300000H, R4
+0000047B 05rrrrrr             A  		BSR __COM_ADDd
+0000047F EF83                    		MOV.L R8, R3
+00000481 EF28                    		MOV.L R2, R8
+00000483 EF15                    		MOV.L R1, R5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+00000485 EF72                    		MOV.L R7, R2
+00000487 EFD1                    		MOV.L R13, R1
+00000489 EF37                    		MOV.L R3, R7
+0000048B EF53                    		MOV.L R5, R3
+0000048D EF84                    		MOV.L R8, R4
+0000048F EF5D                    		MOV.L R5, R13
+00000491 05rrrrrr             A  		BSR __COM_ADDd
+00000495 EF64                    		MOV.L R6, R4
+00000497 EF73                    		MOV.L R7, R3
+00000499 EF26                    		MOV.L R2, R6
+0000049B EF17                    		MOV.L R1, R7
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+0000049D EFB2                    		MOV.L R11, R2
+0000049F EF41                    		MOV.L R4, R1
+000004A1 EF3B                    		MOV.L R3, R11
+000004A3 EFD3                    		MOV.L R13, R3
+000004A5 EF84                    		MOV.L R8, R4
+000004A7 05rrrrrr             A  		BSR __COM_MULd
+000004AB EF15                    		MOV.L R1, R5
+000004AD EF2F                    		MOV.L R2, R15
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000004AF EFA1                    		MOV.L R10, R1
+000004B1 EF92                    		MOV.L R9, R2
+000004B3 EFD3                    		MOV.L R13, R3
+000004B5 EF84                    		MOV.L R8, R4
+000004B7 EFFA                    		MOV.L R15, R10
+000004B9 EF59                    		MOV.L R5, R9
+000004BB 05rrrrrr             A  		BSR __COM_SUBd
+000004BF EF1F                    		MOV.L R1, R15
+000004C1 EF25                    		MOV.L R2, R5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000004C3 EFB1                    		MOV.L R11, R1
+000004C5 EF84                    		MOV.L R8, R4
+000004C7 EFC2                    		MOV.L R12, R2
+000004C9 EFD3                    		MOV.L R13, R3
+000004CB EF5B                    		MOV.L R5, R11
+000004CD EFF8                    		MOV.L R15, R8
+000004CF 05rrrrrr             A  		BSR __COM_DIVd
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+000004D3 FB32rrrrrrrr            		MOV.L #_dA, R3
+000004D9 A03E                    		MOV.L R6, 04H[R3]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+000004DB FB52rrrrrrrr            		MOV.L #_dB, R5
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",86
+000004E1 E337                    		MOV.L R7, [R3]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000004E3 FB42rrrrrrrr            		MOV.L #_dC, R4
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+000004E9 E75A01                  		MOV.L R10, 04H[R5]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000004EC FB32rrrrrrrr            		MOV.L #_dD, R3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",87
+000004F2 E359                    		MOV.L R9, [R5]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",88
+000004F4 E74B01                  		MOV.L R11, 04H[R4]
+000004F7 E348                    		MOV.L R8, [R4]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",89
+000004F9 A03A                    		MOV.L R2, 04H[R3]
+000004FB E331                    		MOV.L R1, [R3]
+000004FD 3F6D17                  		RTSD #5CH, R6-R13
+00000500                         __$Check_TFU_sinf:
+                                 		.STACK	__$Check_TFU_sinf=4
+                                 ;      90 }
+                                 ;      91 
+                                 ;      92 void *m_debug_U_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+                                 ;      93 
+                                 ;      94 static float Check_TFU_sinf(float x);
+                                 ;      95 static float Check_TFU_sinf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",95
+00000500 FBEE141408              		MOV.L #00081414H, R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",177
+00000505 E3E1                    		MOV.L R1, [R14]
+00000507 ECE1                    		MOV.L [R14], R1
+                                 ;      96 {
+                                 ;      97     return sinf(x);
+                                 ;      98 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",98
+00000509 02                      		RTS
+0000050A                         __$Check_TFU_cosf:
+                                 		.STACK	__$Check_TFU_cosf=4
+                                 ;      99 
+                                 ;     100 static float Check_TFU_cosf(float x);
+                                 ;     101 static float Check_TFU_cosf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",101
+0000050A FB2E101408              		MOV.L #00081410H, R2
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",183
+0000050F A029                    		MOV.L R1, 04H[R2]
+00000511 EC21                    		MOV.L [R2], R1
+                                 ;     102 {
+                                 ;     103     return cosf(x);
+                                 ;     104 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",104
+00000513 02                      		RTS
+00000514                         __$Check_TFU_atan2f:
+                                 		.STACK	__$Check_TFU_atan2f=4
+                                 ;     105 
+                                 ;     106 static float Check_TFU_atan2f(float y, float x);
+                                 ;     107 static float Check_TFU_atan2f(float y, float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",107
+00000514 FBEE181408              		MOV.L #00081418H, R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",189
+00000519 FD22E2                  		MOV.L R2, [R14+]
+0000051C E3E1                    		MOV.L R1, [R14]
+0000051E ECE1                    		MOV.L [R14], R1
+                                 ;     108 {
+                                 ;     109     return atan2f(y, x);
+                                 ;     110 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",110
+00000520 02                      		RTS
+00000521                         __$Check_TFU_hypotf:
+                                 		.STACK	__$Check_TFU_hypotf=4
+                                 ;     111 
+                                 ;     112 static float Check_TFU_hypotf(float x, float y);
+                                 ;     113 static float Check_TFU_hypotf(float x, float y)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",113
+00000521 FB3E181408              		MOV.L #00081418H, R3
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",195
+00000526 E331                    		MOV.L R1, [R3]
+00000528 A03A                    		MOV.L R2, 04H[R3]
+0000052A EC31                    		MOV.L [R3], R1
+0000052C FD7231EE741B3F          		FMUL #3F1B74EEH, R1
+                                 ;     114 {
+                                 ;     115     return hypotf(x, y);
+                                 ;     116 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",116
+00000533 02                      		RTS
+00000534                         __$Check_TFU_asinf:
+                                 		.STACK	__$Check_TFU_asinf=4
+                                 ;     117 
+                                 ;     118 static float Check_TFU_asinf(float x);
+                                 ;     119 static float Check_TFU_asinf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",119
+00000534 FFBF11                  		FMUL R1, R1, R15
+00000537 FBE20000803F            		MOV.L #3F800000H, R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",209
+0000053D FC83FE                  		FSUB R15, R14
+00000540 FCA3EF                  		FSQRT R14, R15
+00000543 FBEE181408              		MOV.L #00081418H, R14
+00000548 FD22EF                  		MOV.L R15, [R14+]
+0000054B E3E1                    		MOV.L R1, [R14]
+0000054D ECE1                    		MOV.L [R14], R1
+                                 ;     120 {
+                                 ;     121     return asinf(x);
+                                 ;     122 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",122
+0000054F 02                      		RTS
+00000550                         __$Check_TFU_acosf:
+                                 		.STACK	__$Check_TFU_acosf=4
+                                 ;     123 
+                                 ;     124 static float Check_TFU_acosf(float x);
+                                 ;     125 static float Check_TFU_acosf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",125
+00000550 FBFE181408              		MOV.L #00081418H, R15
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",203
+00000555 FD22F1                  		MOV.L R1, [R15+]
+00000558 FC8F11                  		FMUL R1, R1
+0000055B FBE20000803F            		MOV.L #3F800000H, R14
+00000561 FC831E                  		FSUB R1, R14
+00000564 FCA3EE                  		FSQRT R14, R14
+00000567 E3FE                    		MOV.L R14, [R15]
+00000569 ECF1                    		MOV.L [R15], R1
+                                 ;     126 {
+                                 ;     127     return acosf(x);
+                                 ;     128 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",128
+0000056B 02                      		RTS
+0000056C                         __$Check_TFU_atanf:
+                                 		.STACK	__$Check_TFU_atanf=4
+                                 ;     129 
+                                 ;     130 static float Check_TFU_atanf(float x);
+                                 ;     131 static float Check_TFU_atanf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",131
+0000056C FBEE181408              		MOV.L #00081418H, R14
+00000571 FBF20000803F            		MOV.L #3F800000H, R15
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",217
+00000577 FD22EF                  		MOV.L R15, [R14+]
+0000057A E3E1                    		MOV.L R1, [R14]
+0000057C ECE1                    		MOV.L [R14], R1
+                                 ;     132 {
+                                 ;     133     return atanf(x);
+                                 ;     134 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",134
+0000057E 02                      		RTS
+0000057F                         __$Check_TFU_tanf:
+                                 		.STACK	__$Check_TFU_tanf=4
+                                 ;     135 
+                                 ;     136 static float Check_TFU_tanf(float x);
+                                 ;     137 static float Check_TFU_tanf(float x)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",137
+0000057F FB2E101408              		MOV.L #00081410H, R2
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",159
+00000584 A029                    		MOV.L R1, 04H[R2]
+00000586 A829                    		MOV.L 04H[R2], R1
+00000588 EC2E                    		MOV.L [R2], R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",225
+0000058A FD721E00000000          		FCMP #00000000H, R14
+00000591 18                   S  		BNE L25
+00000592                         L24:	; _$__inline_tanf.exit
+00000592 FB120000807F            		MOV.L #7F800000H, R1
+                                 ;     138 {
+                                 ;     139     return tanf(x);
+                                 ;     140 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",140
+00000598 02                      		RTS
+00000599                         L25:	; if_break_bb.i
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",229
+00000599 FC93E1                  		FDIV R14, R1
+0000059C 02                      		RTS
+0000059D                         _rot:
+                                 		.STACK	_rot=4
+                                 ;     141 
+                                 ;     142 void *m_debug_U_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+                                 ;     143 void *m_debug_U_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+                                 ;     144 void *m_debug_U_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+                                 ;     145 void *m_debug_U_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+                                 ;     146 void *m_debug_U_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+                                 ;     147 void *m_debug_U_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+                                 ;     148 void *m_debug_U_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+                                 ;     149 void *m_debug_U_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+                                 ;     150 
+                                 ;     151 struct vec { float X; float Y; };
+                                 ;     152 void rot(float t, struct vec *v1, struct vec *v2);
+                                 ;     153 void rot(float t, struct vec *v1, struct vec *v2)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",153
+0000059D FB4E101408              		MOV.L #00081410H, R4
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",177
+000005A2 A049                    		MOV.L R1, 04H[R4]
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",184
+000005A4 EC2F                    		MOV.L [R2], R15
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",177
+000005A6 A849                    		MOV.L 04H[R4], R1
+000005A8 EC4E                    		MOV.L [R4], R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",178
+000005AA A82C                    		MOV.L 04H[R2], R4
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",184
+000005AC FC8FEF                  		FMUL R14, R15
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",178
+000005AF FC8F14                  		FMUL R1, R4
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",184
+000005B2 FC834F                  		FSUB R4, R15
+000005B5 E33F                    		MOV.L R15, [R3]
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",178
+000005B7 EC2F                    		MOV.L [R2], R15
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",184
+000005B9 A82A                    		MOV.L 04H[R2], R2
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",178
+000005BB FC8FF1                  		FMUL R15, R1
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",184
+000005BE FC8F2E                  		FMUL R2, R14
+000005C1 FC8BE1                  		FADD R14, R1
+000005C4 A039                    		MOV.L R1, 04H[R3]
+000005C6 02                      		RTS
+000005C7                         _rot_2:
+                                 		.STACK	_rot_2=4
+                                 ;     154 {
+                                 ;     155     v2->X = - sinf(t) * v1->Y + cosf(t) * v1->X;
+                                 ;     156     v2->Y =   sinf(t) * v1->X + cosf(t) * v1->Y;
+                                 ;     157 }
+                                 ;     158 
+                                 ;     159 #if defined(__ICCRX__)
+                                 ;     160 #include <intrinsics.h>
+                                 ;     161 #endif
+                                 ;     162 
+                                 ;     163 void rot_2(float t, struct vec *v1, struct vec *v2);
+                                 ;     164 void rot_2(float t, struct vec *v1, struct vec *v2)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",164
+000005C7 FB4E101408              		MOV.L #00081410H, R4
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",159
+000005CC A049                    		MOV.L R1, 04H[R4]
+                                 ;     165 {
+                                 ;     166     float sinf_t, cosf_t;
+                                 ;     167 
+                                 ;     168 #if defined(__CCRX__)
+                                 ;     169     __sincosf(t, &sinf_t, &cosf_t);
+                                 ;     170 #elif defined(__ICCRX__)
+                                 ;     171     __sincosf(t, &sinf_t, &cosf_t);
+                                 ;     172 #elif defined(__GNUC__)
+                                 ;     173     __builtin_rx_sincosf(t, &sinf_t, &cosf_t);
+                                 ;     174 #endif
+                                 ;     175 
+                                 ;     176     v2->X = - sinf_t * v1->Y + cosf_t * v1->X;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",176
+000005CE EC2E                    		MOV.L [R2], R14
+                                 		.LINE  "C:\Renesas\CS_~1\CC\CC-RX\V304~1.00\include\builtin.h",159
+000005D0 A849                    		MOV.L 04H[R4], R1
+000005D2 EC4F                    		MOV.L [R4], R15
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",176
+000005D4 A82C                    		MOV.L 04H[R2], R4
+000005D6 FC8FFE                  		FMUL R15, R14
+000005D9 FFB514                  		FMUL R1, R4, R5
+                                 ;     177     v2->Y =   sinf_t * v1->X + cosf_t * v1->Y;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",177
+000005DC FC8F4F                  		FMUL R4, R15
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",176
+000005DF FC835E                  		FSUB R5, R14
+000005E2 E33E                    		MOV.L R14, [R3]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\src\RXv3_Check_FSQRT_DSQRT_etc.c",177
+000005E4 FC8C21                  		FMUL [R2].L, R1
+000005E7 FC8BF1                  		FADD R15, R1
+000005EA A039                    		MOV.L R1, 04H[R3]
+000005EC 02                      		RTS
+                                 ;     178 }
+                                 		.SECTION	D,ROMDATA,ALIGN=4
+00000000                         _m_debug_Check_Using_DSQRT:
+00000000 rrrrrrrr                		.lword	__$Check_Using_DSQRT
+00000004                         _m_debug_Check_Using_FSQRT:
+00000004 rrrrrrrr                		.lword	__$Check_Using_FSQRT
+00000008                         _d1:
+00000008 00000000                		.lword	00000000H	; double least significant word 1
+0000000C 0000F03F                		.lword	3FF00000H	; double most significant word 1
+00000010                         _d2:
+00000010 00000000                		.lword	00000000H	; double least significant word 2
+00000014 00000040                		.lword	40000000H	; double most significant word 2
+00000018                         _f1:
+00000018 0000803F                		.lword	3F800000H	; float 1
+0000001C                         _f2:
+0000001C 00000040                		.lword	40000000H	; float 2
+00000020                         _m_debug_Check_Using_DDIV:
+00000020 rrrrrrrr                		.lword	__$Check_Using_DDIV
+00000024                         _m_debug_Check_Using_FDIV:
+00000024 rrrrrrrr                		.lword	__$Check_Using_FDIV
+00000028                         _m_debug_U_Check_DPUSHM_DPOPM:
+00000028 rrrrrrrr                		.lword	__$Check_DPUSHM_DPOPM
+0000002C                         _m_debug_U_Check_TFU_sinf:
+0000002C rrrrrrrr                		.lword	__$Check_TFU_sinf
+00000030                         _m_debug_U_Check_TFU_cosf:
+00000030 rrrrrrrr                		.lword	__$Check_TFU_cosf
+00000034                         _m_debug_U_Check_TFU_atan2f:
+00000034 rrrrrrrr                		.lword	__$Check_TFU_atan2f
+00000038                         _m_debug_U_Check_TFU_hypotf:
+00000038 rrrrrrrr                		.lword	__$Check_TFU_hypotf
+0000003C                         _m_debug_U_Check_TFU_asinf:
+0000003C rrrrrrrr                		.lword	__$Check_TFU_asinf
+00000040                         _m_debug_U_Check_TFU_acosf:
+00000040 rrrrrrrr                		.lword	__$Check_TFU_acosf
+00000044                         _m_debug_U_Check_TFU_atanf:
+00000044 rrrrrrrr                		.lword	__$Check_TFU_atanf
+00000048                         _m_debug_U_Check_TFU_tanf:
+00000048 rrrrrrrr                		.lword	__$Check_TFU_tanf
+                                 		.SECTION	B,DATA,ALIGN=4
+00000000                         _dA:
+00000000(00000008H)              		.blkl	2
+00000008                         _dB:
+00000008(00000008H)              		.blkl	2
+00000010                         _dC:
+00000010(00000008H)              		.blkl	2
+00000018                         _dD:
+00000018(00000008H)              		.blkl	2
+                                 		.glb	__COM_ADDd
+                                 		.glb	__COM_DIVd
+                                 		.glb	__COM_MULd
+                                 		.glb	__COM_SUBd
+                                 		.END
+
+Information List
+
+TOTAL ERROR(S)    00000
+TOTAL WARNING(S)  00000
+TOTAL LINE(S)     01035   LINES
+
+Section List
+
+Attr         Size               Name
+CODE     0000001517(000005EDH)  P
+ROMDATA  0000000076(0000004CH)  D
+DATA     0000000032(00000020H)  B
+
+Cpu Type
+
+-ISA=RXV3 -FPU
+
+Command Parameter
+
+-subcommand=C:\Temp\DevTools\$ccrx3EA715E\$ccrx\RXv3_Check_FSQRT_DSQRT_etc.src.cmd
+    -nologo
+    -isa=rxv3
+    -fpu
+    -fint_register=0
+    -endian=little
+    -goptimize
+    -debug
+    -bank
+-listfile=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\HardwareDebug\src\RXv3_Check_FSQRT_DSQRT_etc.lst
+-output=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_CCRX\HardwareDebug\src\RXv3_Check_FSQRT_DSQRT_etc.obj

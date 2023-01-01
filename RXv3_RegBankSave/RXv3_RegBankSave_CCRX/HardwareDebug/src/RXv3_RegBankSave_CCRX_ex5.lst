@@ -1,0 +1,668 @@
+* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Fri Dec 23 10:15:13 2022
+
+LOC.     OBJ.              0XMDA SOURCE STATEMENT
+
+                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  23-Dec-2022 10:15:11
+                                 
+                                 ;*** CPU TYPE ***
+                                 
+                                 ;-ISA=RXV3
+                                 
+                                 ;*** COMMAND PARAMETER ***
+                                 
+                                 ;-isa=rxv3
+                                 ;-fpu
+                                 ;-dpfpu
+                                 ;-save_acc
+                                 ;-MAKEUD=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src
+                                 ;-include=C:\Renesas\CS+\CC\CC-RX\V3.04.00\/include
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_config
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_pincfg
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\general
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_bsp
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_RIIC0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_SCI0
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_riic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\r_sci_iic_rx\src
+                                 ;-include=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\smc_gen\Config_MTU3_MTU4
+                                 ;-asmopt=-bank
+                                 ;-lang=c99
+                                 ;-utf8
+                                 ;-message
+                                 ;-output=obj
+                                 ;-obj_path=src
+                                 ;-debug
+                                 ;-outcode=utf8
+                                 ;-show=source
+                                 ;-optimize=max
+                                 ;-goptimize
+                                 ;-speed
+                                 ;-type_size_access_to_volatile
+                                 ;-nologo
+                                 ;-listfile=src/RXv3_RegBankSave_CCRX_ex5.lst
+                                 ;../src/RXv3_RegBankSave_CCRX_ex5.c
+                                 
+                                 		.glb	__Ctype
+                                 		.glb	_i_debug_ex5_1
+                                 		.glb	_i_debug_ex5_2
+                                 		.glb	_cnt
+                                 		.glb	_i_debug_ex5_3
+                                 		.glb	_i_debug_ex5_4
+                                 		.glb	_sort_
+                                 		.glb	_change_
+                                 		.glb	_printf
+                                 		.glb	_scanf
+                                 		.glb	_atoi
+                                 		.glb	_i_fnc_4_2
+                                 ;LineNo. C-SOURCE STATEMENT
+                                 
+                                 		.SECTION	P,CODE
+00000000                         __$i_hdr_5_1:
+                                 		.STACK	__$i_hdr_5_1=104
+                                 ;       1 #include <stdio.h>
+                                 ;       2 //#include <math.h>
+                                 ;       3 #include <stdlib.h>
+                                 ;       4 #include <ctype.h>
+                                 ;       5 
+                                 ;       6 /* Special character code */
+                                 ;       7 #define LF 0x0a                     /* Line feed       */
+                                 ;       8 
+                                 ;       9 /* Flag */
+                                 ;      10 #define FALSE 0x00
+                                 ;      11 #define TRUE  0x01
+                                 ;      12 
+                                 ;      13 //void main(void);
+                                 ;      14 void sort_(long *a);
+                                 ;      15 void change_(long *a);
+                                 ;      16 
+                                 ;      17 static void i_hdr_5_1(void);
+                                 ;      18 
+                                 ;      19 #pragma interrupt i_hdr_5_1(enable, bank=0)
+                                 ;      20 static void i_hdr_5_1(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",20
+00000000 7FA8                    		SETPSW I
+00000002 FD76E000                		SAVE #00H
+00000006 7100A8                  		ADD #0FFFFFFA8H, R0
+                                 ;      21 {
+                                 ;      22     long data[10];
+                                 ;      23     int i;
+                                 ;      24     char tmp[2];
+                                 ;      25     int ret;
+                                 ;      26     char isnuminput;
+                                 ;      27 
+                                 ;      28 //    while(1){
+                                 ;      29 
+                                 ;      30         printf("### Data Input ###\n");
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",30
+00000009 FB12rrrrrrrr            		MOV.L #_L10, R1
+0000000F E301                    		MOV.L R1, [R0]
+00000011 05rrrrrr             A  		BSR _printf
+00000015 6240                    		ADD #04H, R0
+                                 ;      31 
+                                 ;      32         for( i=0; i<10; i++ ){
+                                 ;      33             printf("data[%d]=",i);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",33
+00000017 FBD2rrrrrrrr            		MOV.L #_L11, R13
+0000001D 6608                    		MOV.L #00000000H, R8
+                                 ;      34             data[i]= 0;
+                                 ;      35             isnuminput = FALSE;
+                                 ;      36             while(1){
+                                 ;      37                 ret = scanf("%c",&tmp);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",37
+0000001F FBC2rrrrrrrr            		MOV.L #_L12, R12
+00000025 710904                  		ADD #04H, R0, R9
+                                 ;      38                 if(ret != EOF){
+                                 ;      39                     if( tmp[0] != LF ){
+                                 ;      40                         if( isdigit(tmp[0])!=0 ){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",40
+00000028 FBB2rrrrrrrr            		MOV.L #__Ctype, R11
+                                 ;      41                             data[i] = data[i]*10 + atoi(tmp);
+                                 ;      42                             isnuminput = TRUE;
+                                 ;      43                         }else{
+                                 ;      44                             printf("\n+++You can input only the decimal number.+++\n");
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",44
+0000002E FBA2rrrrrrrr            		MOV.L #_L13, R10
+00000034                         L17:	; bb
+00000034 6080                    		SUB #08H, R0
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",33
+00000036 E30D                    		MOV.L R13, [R0]
+00000038 E70801                  		MOV.L R8, 04H[R0]
+0000003B 05rrrrrr             A  		BSR _printf
+0000003F 6280                    		ADD #08H, R0
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",34
+00000041 F89600                  		MOV.L #00000000H, [R9]
+00000044                         L18:	; bb
+00000044 6607                    		MOV.L #00000000H, R7
+00000046 EF76                    		MOV.L R7, R6
+00000048                         L19:	; bb80
+00000048 6080                    		SUB #08H, R0
+0000004A 710108                  		ADD #08H, R0, R1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",37
+0000004D E30C                    		MOV.L R12, [R0]
+0000004F A009                    		MOV.L R1, 04H[R0]
+00000051 05rrrrrr             A  		BSR _scanf
+00000055 6280                    		ADD #08H, R0
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",38
+00000057 7501FF                  		CMP #0FFFFFFFFH, R1
+0000005A 3Arrrr               W  		BEQ L42
+0000005D                         L20:	; if_then_bb
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",39
+0000005D 5802                    		MOVU.B [R0], R2
+0000005F 61A2                    		CMP #0AH, R2
+00000061 3Brrrr               W  		BNE L41
+00000064                         L21:	; if_else_bb55
+                                 ;      45                             data[i] = 0;
+                                 ;      46                             isnuminput = FALSE;
+                                 ;      47                             printf("data[%d]=",i);
+                                 ;      48                         }
+                                 ;      49                     }else{
+                                 ;      50                         if(isnuminput != FALSE){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",50
+00000064 FD78C6FF00              		TST #0FFH, R6
+00000069 3Arrrr               W  		BEQ L42
+0000006C                         L22:	; bb82
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",32
+0000006C 6218                    		ADD #01H, R8
+0000006E 6249                    		ADD #04H, R9
+00000070 61A8                    		CMP #0AH, R8
+00000072 21rr                    		BNE L17
+00000074                         L23:	; bb82.bb69.i_crit_edge
+00000074 6605                    		MOV.L #00000000H, R5
+00000076 665F                    		MOV.L #00000005H, R15
+00000078                         L24:	; bb69.i
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",88
+00000078 47F5                    		CMP R15, R5
+0000007A 28rr                    		BGE L33
+0000007C                         L25:	; bb61.i.preheader
+0000007C FF2EF5                  		ADD R15, R5, R14
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",89
+0000007F 619E                    		CMP #09H, R14
+00000081 2Arr                    		BGT L32
+00000083                         L26:	; bb.nph53
+00000083 FDC2FA                  		SHLL #02H, R15, R10
+00000086 710404                  		ADD #04H, R0, R4
+00000089 EF53                    		MOV.L R5, R3
+0000008B                         L27:	; bb50.i.preheader
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",90
+0000008B 4753                    		CMP R5, R3
+0000008D 29rr                    		BLT L31
+0000008F                         L28:	; bb.nph
+0000008F FDC2E9                  		SHLL #02H, R14, R9
+00000092 EF32                    		MOV.L R3, R2
+00000094 EF41                    		MOV.L R4, R1
+00000096                         L29:	; bb14.i
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",91
+00000096 FE6518                  		MOV.L [R5,R1], R8
+00000099 FF2719                  		ADD R1, R9, R7
+0000009C EC76                    		MOV.L [R7], R6
+0000009E 4768                    		CMP R6, R8
+000000A0 2Brr                    		BLE L31
+000000A2                         L30:	; if_then_bb.i
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",93
+000000A2 FE2516                  		MOV.L R6, [R5,R1]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",90
+000000A5 43F2                    		SUB R15, R2
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",94
+000000A7 E378                    		MOV.L R8, [R7]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",90
+000000A9 43A1                    		SUB R10, R1
+000000AB 4752                    		CMP R5, R2
+000000AD 28rr                    		BGE L29
+000000AF                         L31:	; bb61.i
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",89
+000000AF 4BF3                    		ADD R15, R3
+000000B1 FF213F                  		ADD R3, R15, R1
+000000B4 4BA4                    		ADD R10, R4
+000000B6 6191                    		CMP #09H, R1
+000000B8 2Brr                    		BLE L27
+000000BA                         L32:	; bb66.i
+000000BA 6215                    		ADD #01H, R5
+000000BC 2Err                 B  		BRA L24
+000000BE                         L33:	; bb75.i
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",101
+000000BE FD9FF1                  		SHLR #1FH, R15, R1
+000000C1 4B1F                    		ADD R1, R15
+000000C3 6A1F                    		SHAR #01H, R15
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",87
+000000C5 610F                    		CMP #00H, R15
+000000C7 6605                    		MOV.L #00000000H, R5
+000000C9 2Arr                    		BGT L24
+000000CB                         L34:	; sort_.exit
+000000CB 6040                    		SUB #04H, R0
+                                 ;      51                             break;
+                                 ;      52                         }else{
+                                 ;      53                             printf("\n+++You can input only the decimal number.+++\n");
+                                 ;      54                             data[i] = 0;
+                                 ;      55                             isnuminput = FALSE;
+                                 ;      56                             printf("data[%d]=",i);
+                                 ;      57                         }
+                                 ;      58                     }
+                                 ;      59                 }else{
+                                 ;      60                     printf("\n+++You can input only the decimal number.+++\n");
+                                 ;      61                     data[i] = 0;
+                                 ;      62                     isnuminput = FALSE;
+                                 ;      63                     printf("data[%d]=",i);
+                                 ;      64                 }
+                                 ;      65             }
+                                 ;      66         }
+                                 ;      67 
+                                 ;      68         sort_(data);
+                                 ;      69 
+                                 ;      70         printf("*** Sorting results ***\n");
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",70
+000000CD FB12rrrrrrrr            		MOV.L #_L14, R1
+000000D3 E301                    		MOV.L R1, [R0]
+000000D5 05rrrrrr             A  		BSR _printf
+000000D9 6240                    		ADD #04H, R0
+                                 ;      71 
+                                 ;      72         for( i=0; i<10; i++ ){
+                                 ;      73             printf("data[%d]=%ld\n",i,data[i]);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",73
+000000DB FB82rrrrrrrr            		MOV.L #_L15, R8
+000000E1 6606                    		MOV.L #00000000H, R6
+000000E3 710704                  		ADD #04H, R0, R7
+000000E6                         L35:	; bb93
+000000E6 FD2A71                  		MOV.L [R7+], R1
+000000E9 60C0                    		SUB #0CH, R0
+000000EB A00E                    		MOV.L R6, 04H[R0]
+000000ED A081                    		MOV.L R1, 08H[R0]
+000000EF E308                    		MOV.L R8, [R0]
+000000F1 05rrrrrr             A  		BSR _printf
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",72
+000000F5 6216                    		ADD #01H, R6
+000000F7 62C0                    		ADD #0CH, R0
+000000F9 61A6                    		CMP #0AH, R6
+000000FB 21rr                    		BNE L35
+000000FD                         L36:	; bb93.bb.i.split.clone_crit_edge
+000000FD 6623                    		MOV.L #00000002H, R3
+000000FF 71012C                  		ADD #2CH, R0, R1
+00000102 710204                  		ADD #04H, R0, R2
+00000105                         L37:	; bb.i.split.clone
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",111
+00000105 FD2A24                  		MOV.L [R2+], R4
+00000108 E314                    		MOV.L R4, [R1]
+0000010A FD2A24                  		MOV.L [R2+], R4
+0000010D A01C                    		MOV.L R4, 04H[R1]
+0000010F FD2A24                  		MOV.L [R2+], R4
+00000112 A094                    		MOV.L R4, 08H[R1]
+00000114 FD2A24                  		MOV.L [R2+], R4
+00000117 A09C                    		MOV.L R4, 0CH[R1]
+00000119 FD2A24                  		MOV.L [R2+], R4
+0000011C A114                    		MOV.L R4, 10H[R1]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",110
+0000011E 711114                  		ADD #14H, R1
+00000121 6013                    		SUB #01H, R3
+00000123 21rr                    		BNE L37
+00000125                         L38:	; bb18.i.split.clone.loopexit
+00000125 6623                    		MOV.L #00000002H, R3
+00000127 710240                  		ADD #40H, R0, R2
+0000012A 710104                  		ADD #04H, R0, R1
+0000012D                         L39:	; bb18.i.split.clone
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",114
+0000012D A82C                    		MOV.L 04H[R2], R4
+0000012F ED2E04                  		MOV.L 10H[R2], R14
+00000132 A09C                    		MOV.L R4, 0CH[R1]
+00000134 ED2F03                  		MOV.L 0CH[R2], R15
+00000137 A8A5                    		MOV.L 08H[R2], R5
+00000139 EC24                    		MOV.L [R2], R4
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",113
+0000013B 7122EC                  		ADD #0FFFFFFECH, R2
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",114
+0000013E E31E                    		MOV.L R14, [R1]
+00000140 E71F01                  		MOV.L R15, 04H[R1]
+00000143 A095                    		MOV.L R5, 08H[R1]
+00000145 A114                    		MOV.L R4, 10H[R1]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",113
+00000147 711114                  		ADD #14H, R1
+0000014A 6013                    		SUB #01H, R3
+0000014C 21rr                    		BNE L39
+0000014E                         L40:	; change_.exit
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",116
+0000014E 710054                  		ADD #54H, R0
+00000151 FD76F000                		RSTR #00H
+00000155 7F95                    		RTE
+00000157                         L41:	; if_then_bb24
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",40
+00000157 ECB1                    		MOV.L [R11], R1
+00000159 FED211                  		MOVU.W [R2,R1], R1
+0000015C 7C51                    		BTST #05H, R1
+0000015E 21rr                    		BNE L43
+00000160                         L42:	; if_else_bb
+00000160 6040                    		SUB #04H, R0
+00000162 E30A                    		MOV.L R10, [R0]
+00000164 05rrrrrr             A  		BSR _printf
+00000168 6040                    		SUB #04H, R0
+0000016A F89600                  		MOV.L #00000000H, [R9]
+0000016D E70801                  		MOV.L R8, 04H[R0]
+00000170 E30D                    		MOV.L R13, [R0]
+00000172 05rrrrrr             A  		BSR _printf
+00000176 6280                    		ADD #08H, R0
+00000178 38rrrr               W  		BRA L18
+0000017B                         L43:	; if_then_bb37
+0000017B EF01                    		MOV.L R0, R1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",41
+0000017D 05rrrrrr             A  		BSR _atoi
+00000181 63A7                    		MUL #0AH, R7
+00000183 6616                    		MOV.L #00000001H, R6
+00000185 4B17                    		ADD R1, R7
+00000187 E397                    		MOV.L R7, [R9]
+00000189 38rrrr               W  		BRA L19
+0000018C                         _sort_:
+                                 		.STACK	_sort_=28
+                                 ;      74         }
+                                 ;      75 
+                                 ;      76         change_(data);
+                                 ;      77 
+                                 ;      78 //    }
+                                 ;      79 }
+                                 ;      80 
+                                 ;      81 void sort_(long *data)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",81
+0000018C 6E6B                    		PUSHM R6-R11
+0000018E 6602                    		MOV.L #00000000H, R2
+00000190 665E                    		MOV.L #00000005H, R14
+00000192 EF1B                    		MOV.L R1, R11
+00000194                         L45:	; bb69
+                                 ;      82 {
+                                 ;      83     long t;
+                                 ;      84     int i, j, k, gap;
+                                 ;      85 
+                                 ;      86     gap = 5;
+                                 ;      87     while( gap > 0 ){
+                                 ;      88         for( k=0; k<gap; k++){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",88
+00000194 47E2                    		CMP R14, R2
+00000196 28rr                    		BGE L54
+00000198                         L46:	; bb61.preheader
+00000198 FF21E2                  		ADD R14, R2, R1
+                                 ;      89             for( i=k+gap; i<10; i=i+gap ){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",89
+0000019B 6191                    		CMP #09H, R1
+0000019D 2Arr                    		BGT L53
+0000019F                         L47:	; bb.nph15
+0000019F FDC2EA                  		SHLL #02H, R14, R10
+000001A2 EFB3                    		MOV.L R11, R3
+000001A4 EF24                    		MOV.L R2, R4
+000001A6                         L48:	; bb50.preheader
+                                 ;      90                 for(j=i-gap; j>=k; j=j-gap){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",90
+000001A6 4724                    		CMP R2, R4
+000001A8 29rr                    		BLT L52
+000001AA                         L49:	; bb.nph
+000001AA FDC219                  		SHLL #02H, R1, R9
+000001AD EF45                    		MOV.L R4, R5
+000001AF EF3F                    		MOV.L R3, R15
+000001B1                         L50:	; bb14
+                                 ;      91                     if(data[j]>data[j+gap]){
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",91
+000001B1 FE62F8                  		MOV.L [R2,R15], R8
+000001B4 FF27F9                  		ADD R15, R9, R7
+000001B7 EC76                    		MOV.L [R7], R6
+000001B9 4768                    		CMP R6, R8
+000001BB 2Brr                    		BLE L52
+000001BD                         L51:	; if_then_bb
+                                 ;      92                         t = data[j];
+                                 ;      93                         data[j] = data[j+gap];
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",93
+000001BD FE22F6                  		MOV.L R6, [R2,R15]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",90
+000001C0 43E5                    		SUB R14, R5
+000001C2 43AF                    		SUB R10, R15
+000001C4 4725                    		CMP R2, R5
+                                 ;      94                         data[j+gap] = t;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",94
+000001C6 E378                    		MOV.L R8, [R7]
+000001C8 28rr                    		BGE L50
+000001CA                         L52:	; bb61
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",89
+000001CA 4BE4                    		ADD R14, R4
+000001CC FF2F4E                  		ADD R4, R14, R15
+000001CF 4BA3                    		ADD R10, R3
+000001D1 619F                    		CMP #09H, R15
+000001D3 2Brr                    		BLE L48
+000001D5                         L53:	; bb66
+000001D5 6212                    		ADD #01H, R2
+000001D7 2Err                 B  		BRA L45
+000001D9                         L54:	; bb75
+                                 ;      95                     }
+                                 ;      96                     else
+                                 ;      97                         break;
+                                 ;      98                 }
+                                 ;      99             }
+                                 ;     100         }
+                                 ;     101         gap = gap/2;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",101
+000001D9 FD9FEF                  		SHLR #1FH, R14, R15
+000001DC 4BFE                    		ADD R15, R14
+000001DE 6A1E                    		SHAR #01H, R14
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",87
+000001E0 610E                    		CMP #00H, R14
+000001E2 6602                    		MOV.L #00000000H, R2
+000001E4 2Arr                    		BGT L45
+000001E6                         L55:	; return
+                                 ;     102     }
+                                 ;     103 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",103
+000001E6 3F6B06                  		RTSD #18H, R6-R11
+000001E9                         _change_:
+                                 		.STACK	_change_=44
+                                 ;     104 
+                                 ;     105 void change_(long *data)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",105
+000001E9 7100D8                  		ADD #0FFFFFFD8H, R0
+000001EC 662E                    		MOV.L #00000002H, R14
+000001EE EF12                    		MOV.L R1, R2
+000001F0 EF03                    		MOV.L R0, R3
+000001F2                         L57:	; bb.split.clone
+                                 ;     106 {
+                                 ;     107     long tmp[10];
+                                 ;     108     int i;
+                                 ;     109 
+                                 ;     110     for(i=0; i<10; i++){
+                                 ;     111         tmp[i] = data[i];
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",111
+000001F2 FD2A1F                  		MOV.L [R1+], R15
+000001F5 FD2A14                  		MOV.L [R1+], R4
+000001F8 FD2A15                  		MOV.L [R1+], R5
+000001FB A03C                    		MOV.L R4, 04H[R3]
+000001FD FD2A14                  		MOV.L [R1+], R4
+00000200 E33F                    		MOV.L R15, [R3]
+00000202 A0BC                    		MOV.L R4, 0CH[R3]
+00000204 FD2A14                  		MOV.L [R1+], R4
+00000207 A0B5                    		MOV.L R5, 08H[R3]
+00000209 A134                    		MOV.L R4, 10H[R3]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",110
+0000020B 713314                  		ADD #14H, R3
+0000020E 601E                    		SUB #01H, R14
+00000210 21rr                    		BNE L57
+00000212                         L58:	; bb18.split.clone.loopexit
+00000212 662E                    		MOV.L #00000002H, R14
+00000214 710114                  		ADD #14H, R0, R1
+00000217                         L59:	; bb18.split.clone
+                                 ;     112     }
+                                 ;     113     for(i=0; i<10; i++){
+                                 ;     114         data[i] = tmp[9 - i];
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",114
+00000217 A89B                    		MOV.L 0CH[R1], R3
+00000219 A914                    		MOV.L 10H[R1], R4
+0000021B A02B                    		MOV.L R3, 04H[R2]
+0000021D A81B                    		MOV.L 04H[R1], R3
+0000021F E324                    		MOV.L R4, [R2]
+00000221 A0AB                    		MOV.L R3, 0CH[R2]
+00000223 A894                    		MOV.L 08H[R1], R4
+00000225 EC13                    		MOV.L [R1], R3
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",113
+00000227 7111EC                  		ADD #0FFFFFFECH, R1
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",114
+0000022A A0A4                    		MOV.L R4, 08H[R2]
+0000022C A123                    		MOV.L R3, 10H[R2]
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",113
+0000022E 712214                  		ADD #14H, R2
+00000231 601E                    		SUB #01H, R14
+00000233 21rr                    		BNE L59
+00000235                         L60:	; return
+                                 ;     115     }
+                                 ;     116 }
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",116
+00000235 670A                    		RTSD #28H
+00000237                         __$i_hdr_5_2:
+                                 		.STACK	__$i_hdr_5_2=8
+                                 ;     117 
+                                 ;     118 void *i_debug_ex5_1 = (void *)i_hdr_5_1;
+                                 ;     119 
+                                 ;     120 
+                                 ;     121 
+                                 ;     122 extern void i_fnc_4_2(void);
+                                 ;     123 static void i_hdr_5_2(void);
+                                 ;     124 
+                                 ;     125 #pragma interrupt i_hdr_5_2(enable, bank=0)
+                                 ;     126 static void i_hdr_5_2(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",126
+00000237 7FA8                    		SETPSW I
+00000239 FD76E000                		SAVE #00H
+                                 ;     127 {
+                                 ;     128    i_fnc_4_2();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",128
+0000023D 05rrrrrr             A  		BSR _i_fnc_4_2
+00000241 FD76F000                		RSTR #00H
+00000245 7F95                    		RTE
+00000247                         __$i_hdr_5_3:
+                                 		.STACK	__$i_hdr_5_3=8
+                                 ;     129 }
+                                 ;     130 
+                                 ;     131 void *i_debug_ex5_2 = (void *)i_hdr_5_2;
+                                 ;     132 
+                                 ;     133 
+                                 ;     134 
+                                 ;     135 extern unsigned int cnt;
+                                 ;     136 static void i_hdr_5_3(void);
+                                 ;     137 
+                                 ;     138 #pragma interrupt i_hdr_5_3(enable, bank=0)
+                                 ;     139 static void i_hdr_5_3(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",139
+00000247 7FA8                    		SETPSW I
+00000249 FD76E000                		SAVE #00H
+                                 ;     140 {
+                                 ;     141    cnt = cnt * cnt;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",141
+0000024D FB22rrrrrrrr            		MOV.L #_cnt, R2
+00000253 EC21                    		MOV.L [R2], R1
+00000255 4F11                    		MUL R1, R1
+00000257 E321                    		MOV.L R1, [R2]
+00000259 FD76F000                		RSTR #00H
+0000025D 7F95                    		RTE
+0000025F                         __$i_hdr_5_4:
+                                 		.STACK	__$i_hdr_5_4=8
+                                 ;     142 }
+                                 ;     143 
+                                 ;     144 void *i_debug_ex5_3 = (void *)i_hdr_5_3;
+                                 ;     145 
+                                 ;     146 
+                                 ;     147 
+                                 ;     148 extern unsigned int cnt;
+                                 ;     149 static void i_hdr_5_4(void);
+                                 ;     150 
+                                 ;     151 #pragma interrupt i_hdr_5_4(enable, bank=0)
+                                 ;     152 static void i_hdr_5_4(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",152
+0000025F 7FA8                    		SETPSW I
+00000261 FD76E000                		SAVE #00H
+                                 ;     153 {
+                                 ;     154    cnt++;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\RXv3_RegBankSave_CCRX_ex5.c",154
+00000265 FB22rrrrrrrr            		MOV.L #_cnt, R2
+0000026B EC21                    		MOV.L [R2], R1
+0000026D 6211                    		ADD #01H, R1
+0000026F E321                    		MOV.L R1, [R2]
+00000271 FD76F000                		RSTR #00H
+00000275 7F95                    		RTE
+                                 ;     155 }
+                                 ;     156 
+                                 ;     157 void *i_debug_ex5_4 = (void *)i_hdr_5_4;
+                                 		.SECTION	L,ROMDATA,ALIGN=4
+00000000                         _L10:
+00000000 23232320                		.byte	"### Data Input ###"
+         44617461                
+         20496E70                
+         75742023                
+         2323                    
+00000012 0A00                    		.byte	0AH,00H
+00000014                         _L11:
+00000014 64617461                		.byte	"data[%d]="
+         5B25645D                
+         3D                      
+0000001D 00                      		.byte	00H
+0000001E                         _L12:
+0000001E 2563                    		.byte	"%c"
+00000020 00                      		.byte	00H
+00000021                         _L13:
+00000021 0A                      		.byte	0AH
+00000022 2B2B2B59                		.byte	"+++You can input only the decimal number.+++"
+         6F752063                
+         616E2069                
+         6E707574                
+         206F6E6C                
+         79207468                
+         65206465                
+         63696D61                
+         6C206E75                
+         6D626572                
+         2E2B2B2B                
+0000004E 0A00                    		.byte	0AH,00H
+00000050                         _L14:
+00000050 2A2A2A20                		.byte	"*** Sorting results ***"
+         536F7274                
+         696E6720                
+         72657375                
+         6C747320                
+         2A2A2A                  
+00000067 0A00                    		.byte	0AH,00H
+00000069                         _L15:
+00000069 64617461                		.byte	"data[%d]=%ld"
+         5B25645D                
+         3D256C64                
+00000075 0A00                    		.byte	0AH,00H
+                                 		.SECTION	D,ROMDATA,ALIGN=4
+00000000                         _i_debug_ex5_1:
+00000000 rrrrrrrr                		.lword	__$i_hdr_5_1
+00000004                         _i_debug_ex5_2:
+00000004 rrrrrrrr                		.lword	__$i_hdr_5_2
+00000008                         _i_debug_ex5_3:
+00000008 rrrrrrrr                		.lword	__$i_hdr_5_3
+0000000C                         _i_debug_ex5_4:
+0000000C rrrrrrrr                		.lword	__$i_hdr_5_4
+                                 		.END
+
+Information List
+
+TOTAL ERROR(S)    00000
+TOTAL WARNING(S)  00000
+TOTAL LINE(S)     00609   LINES
+
+Section List
+
+Attr         Size               Name
+CODE     0000000631(00000277H)  P
+ROMDATA  0000000119(00000077H)  L
+ROMDATA  0000000016(00000010H)  D
+
+Cpu Type
+
+-ISA=RXV3 -FPU
+
+Command Parameter
+
+-subcommand=C:\Temp\DevTools\$ccrx2DA32D\$ccrx\RXv3_RegBankSave_CCRX_ex5.src.cmd
+    -nologo
+    -isa=rxv3
+    -fpu
+    -fint_register=0
+    -endian=little
+    -goptimize
+    -debug
+    -dpfpu
+    -bank
+-listfile=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_RegBankSave_CCRX_ex5.lst
+-output=C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\HardwareDebug\src\RXv3_RegBankSave_CCRX_ex5.obj

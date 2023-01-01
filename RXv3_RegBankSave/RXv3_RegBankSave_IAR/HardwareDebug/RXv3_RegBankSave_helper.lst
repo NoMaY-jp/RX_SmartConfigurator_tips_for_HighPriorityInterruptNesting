@@ -1,0 +1,205 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:19:56
+# Copyright 2009-2020 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
+#
+#    Source file       =  ..\src\RXv3_RegBankSave_helper.c
+#    Command line      =
+#        ..\src\RXv3_RegBankSave_helper.c -o src\RXv3_RegBankSave_helper.o
+#        --no_wrap_diagnostics -e --align_func=1 --tfu=none -Ohs
+#        --no_size_constraints --no_cross_call --debug -lC ./ -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_config/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_pincfg/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\general/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_bsp/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_RIIC0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_SCI0/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_riic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\r_sci_iic_rx\src/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\smc_gen\Config_MTU3_MTU4/
+#        --remarks --save_acc --endian l --core rxv3 --fpu=64 --data_model=f
+#        --double=64 --int=32 --dlib_config
+#        C:/Renesas/EWB/8.4/rx/LIB/dlrxdlln.h
+#    Locale            =  C
+#    List file         =  ./RXv3_RegBankSave_helper.lst
+#    Object file       =  src\RXv3_RegBankSave_helper.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __calling_conv  =  abi10
+#      __core          =  3
+#      __double_size   =  64
+#      __endian        =  l
+#      __enum_size     =  *
+#      __fpu           =  2
+#      __int_size      =  32
+#      __lock_R10      =  0
+#      __lock_R11      =  0
+#      __lock_R12      =  0
+#      __lock_R13      =  0
+#      __lock_R8       =  0
+#      __lock_R9       =  0
+#      __rt_version    =  5
+#      __size_limit    =  65536
+#
+###############################################################################
+
+
+   \                                 In section .data24.bss, align 4
+C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_IAR\src\RXv3_RegBankSave_helper.c
+      1          unsigned int cnt;
+   \                     _cnt:
+   \   000000              DS8 4
+      2          
+
+   \                                 In section .data24.bss, align 4
+      3          double dbl;
+   \                     _dbl:
+   \   000000              DS8 8
+      4          void i_fnc_4_2(void);
+
+   \                                 In section .text, align 1, keep-with-next
+      5          void i_fnc_4_2(void)
+      6          {
+   \                     _i_fnc_4_2:
+   \   000000 75 B0 01     DPUSHM.D  DR0,DR1
+      7              if(dbl > 1.0)
+   \   000003 FB 1E        MOV.L     #_dbl:24,R1
+
+   \          ..'....
+   \   000008 75 A0 10     DPUSHM.L  DCMR,DCMR
+   \   00000B FC C8 18 00  DMOV.D    [R1],DR0
+   \   00000F F9 03 10 01  DMOV.L    #0x1,DRL1
+
+   \          00 00 00
+   \   000016 F9 03 12 00  DMOV.L    #0x3ff00000,DRH1
+
+   \          00 F0 3F
+   \   00001D 76 90 18 60  DCMPLE    DR0,DR1
+   \   000021 75 90 1B     MVFDR
+   \   000024 21 0C        BNE.B     ??i_fnc_4_2_0
+      8              {
+      9                  dbl = 1.0;
+   \   000026 F8 16 00     MOV.L     #0x0,[R1]
+   \   000029 F9 12 01 00  MOV.L     #0x3ff00000,0x4[R1]
+
+   \          00 F0 3F
+     10              }
+     11          }
+   \                     ??i_fnc_4_2_0:
+   \   000030 75 A8 10     DPOPM.L   DCMR,DCMR
+   \   000033 75 B8 01     DPOPM.D   DR0,DR1
+   \   000036 02           RTS
+     12          
+     13          #if defined(__CCRX__)
+     14          
+     15          #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+     16          
+     17          #include <stdio.h>
+     18          
+     19          #int write(int fd, const void *buf, size_t byte)
+     20          {
+     21              (void) fd; (void) buf; (void) byte;
+     22              return -1;
+     23          }
+     24          
+     25          int read(int fd, void *buf, size_t byte)
+     26          {
+     27              (void) fd; (void) buf; (void) byte;
+     28              return -1;
+     29          }
+     30          
+     31          #endif
+     32          
+     33          #endif
+     34          
+     35          #if defined(__GNUC__)
+     36          
+     37          #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+     38          
+     39          #include <unistd.h>
+     40          #include <sys/stat.h>
+     41          
+     42          int write(int fd, const void *buf, size_t byte)
+     43          {
+     44              (void) fd; (void) buf; (void) byte;
+     45              return -1;
+     46          }
+     47          
+     48          int read(int fd, void *buf, size_t byte)
+     49          {
+     50              (void) fd; (void) buf; (void) byte;
+     51              return -1;
+     52          }
+     53          
+     54          off_t lseek (int fd, off_t offset, int whence)
+     55          {
+     56              (void) fd; (void) offset; (void) whence;
+     57              return -1;
+     58          }
+     59          
+     60          int isatty(int fd)
+     61          {
+     62              (void) fd;
+     63              return 0;
+     64          }
+     65          
+     66          int close(int fd)
+     67          {
+     68              (void) fd;
+     69              return -1;
+     70          }
+     71          
+     72          int fstat(int fd, struct stat *buf)
+     73          {
+     74              (void) fd; (void) buf;
+     75              return -1;
+     76          }
+     77          
+     78          #endif
+     79          
+     80          #include <stdlib.h>
+     81          
+     82          void abort(void)
+     83          {
+     84             exit(-1);
+     85          }
+     86          
+     87          #endif
+
+   Maximum stack usage in bytes:
+
+   ISTACK Function
+   ------ --------
+     24   i_fnc_4_2
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  cnt
+       8  dbl
+      55  i_fnc_4_2
+
+ 
+ 12 bytes in section .data24.bss
+ 55 bytes in section .text
+ 
+ 55 bytes of CODE memory
+ 12 bytes of DATA memory
+
+Errors: none
+Warnings: none

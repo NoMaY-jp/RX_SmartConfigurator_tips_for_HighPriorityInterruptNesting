@@ -1,0 +1,134 @@
+   1                             		.file	"RXv3_RegBankSave_helper.c"
+   2                             		.section P,"ax"
+   3                             	.Ltext0:
+   4                             		.section	.text.i_fnc_4_2,"ax",@progbits
+   5                             		.global	_i_fnc_4_2
+   7                             	_i_fnc_4_2:
+   8                             	.LFB0:
+   9                             		.file 1 "../src/RXv3_RegBankSave_helper.c"
+   1:../src/RXv3_RegBankSave_helper.c **** unsigned int cnt;
+   2:../src/RXv3_RegBankSave_helper.c **** 
+   3:../src/RXv3_RegBankSave_helper.c **** double dbl;
+   4:../src/RXv3_RegBankSave_helper.c **** void i_fnc_4_2(void);
+   5:../src/RXv3_RegBankSave_helper.c **** void i_fnc_4_2(void)
+   6:../src/RXv3_RegBankSave_helper.c **** {
+  10                             		.loc 1 6 1 view -0
+  11 0000 75 B0 01                		dpushm.d	dr0-dr1
+  12 0003 75 A0 10                		dpushm.l	dcmr-dcmr
+  13                             	.LCFI0:
+   7:../src/RXv3_RegBankSave_helper.c ****     if(dbl > 1.0)
+  14                             		.loc 1 7 5 view .LVU1
+  15                             		.loc 1 7 7 is_stmt 0 view .LVU2
+  16 0006 F9 03 03 00 00 F0 3F    		dmov.D	#0x3ff00000, drh0
+  17                             		.loc 1 7 12 view .LVU3
+  18 000d FB 52 00 00 00 00       		mov.L	#_dbl, r5
+  19                             		.loc 1 7 7 view .LVU4
+  20 0013 FC C8 58 10             		dmov.D	[r5], dr1
+  21 0017 76 90 18 60             		dcmple	dr0, dr1
+  22 001b 75 90 1B                		mvfdr
+  23 001e 15                      		bz	.L1
+   8:../src/RXv3_RegBankSave_helper.c ****     {
+   9:../src/RXv3_RegBankSave_helper.c ****         dbl = 1.0;
+  24                             		.loc 1 9 9 is_stmt 1 view .LVU5
+  25                             		.loc 1 9 13 is_stmt 0 view .LVU6
+  26 001f FC 78 58 00             		dmov.D	dr0, [r5]
+  27                             		.balign 8,3,1
+  28                             	.L1:
+  10:../src/RXv3_RegBankSave_helper.c ****     }
+  11:../src/RXv3_RegBankSave_helper.c **** }
+  29                             		.loc 1 11 1 view .LVU7
+  30 0023 75 A8 10                		dpopm.l	dcmr-dcmr
+  31 0026 75 B8 01                		dpopm.d	dr0-dr1
+  32 0029 02                      		rts
+  33                             	.LFE0:
+  35 002a 74 10 01 00 00 00       		.section	.text.unlikely.abort,"ax",@progbits
+  36                             		.global	_abort
+  38                             	_abort:
+  39                             	.LFB1:
+  12:../src/RXv3_RegBankSave_helper.c **** 
+  13:../src/RXv3_RegBankSave_helper.c **** #if defined(__CCRX__)
+  14:../src/RXv3_RegBankSave_helper.c **** 
+  15:../src/RXv3_RegBankSave_helper.c **** #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+  16:../src/RXv3_RegBankSave_helper.c **** 
+  17:../src/RXv3_RegBankSave_helper.c **** #include <stdio.h>
+  18:../src/RXv3_RegBankSave_helper.c **** 
+  19:../src/RXv3_RegBankSave_helper.c **** #int write(int fd, const void *buf, size_t byte)
+  20:../src/RXv3_RegBankSave_helper.c **** {
+  21:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) buf; (void) byte;
+  22:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  23:../src/RXv3_RegBankSave_helper.c **** }
+  24:../src/RXv3_RegBankSave_helper.c **** 
+  25:../src/RXv3_RegBankSave_helper.c **** int read(int fd, void *buf, size_t byte)
+  26:../src/RXv3_RegBankSave_helper.c **** {
+  27:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) buf; (void) byte;
+  28:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  29:../src/RXv3_RegBankSave_helper.c **** }
+  30:../src/RXv3_RegBankSave_helper.c **** 
+  31:../src/RXv3_RegBankSave_helper.c **** #endif
+  32:../src/RXv3_RegBankSave_helper.c **** 
+  33:../src/RXv3_RegBankSave_helper.c **** #endif
+  34:../src/RXv3_RegBankSave_helper.c **** 
+  35:../src/RXv3_RegBankSave_helper.c **** #if defined(__GNUC__)
+  36:../src/RXv3_RegBankSave_helper.c **** 
+  37:../src/RXv3_RegBankSave_helper.c **** #if 0 /* 1: Without SmartConfigurator, 0: With SmartConfigurator. */
+  38:../src/RXv3_RegBankSave_helper.c **** 
+  39:../src/RXv3_RegBankSave_helper.c **** #include <unistd.h>
+  40:../src/RXv3_RegBankSave_helper.c **** #include <sys/stat.h>
+  41:../src/RXv3_RegBankSave_helper.c **** 
+  42:../src/RXv3_RegBankSave_helper.c **** int write(int fd, const void *buf, size_t byte)
+  43:../src/RXv3_RegBankSave_helper.c **** {
+  44:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) buf; (void) byte;
+  45:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  46:../src/RXv3_RegBankSave_helper.c **** }
+  47:../src/RXv3_RegBankSave_helper.c **** 
+  48:../src/RXv3_RegBankSave_helper.c **** int read(int fd, void *buf, size_t byte)
+  49:../src/RXv3_RegBankSave_helper.c **** {
+  50:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) buf; (void) byte;
+  51:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  52:../src/RXv3_RegBankSave_helper.c **** }
+  53:../src/RXv3_RegBankSave_helper.c **** 
+  54:../src/RXv3_RegBankSave_helper.c **** off_t lseek (int fd, off_t offset, int whence)
+  55:../src/RXv3_RegBankSave_helper.c **** {
+  56:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) offset; (void) whence;
+  57:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  58:../src/RXv3_RegBankSave_helper.c **** }
+  59:../src/RXv3_RegBankSave_helper.c **** 
+  60:../src/RXv3_RegBankSave_helper.c **** int isatty(int fd)
+  61:../src/RXv3_RegBankSave_helper.c **** {
+  62:../src/RXv3_RegBankSave_helper.c ****     (void) fd;
+  63:../src/RXv3_RegBankSave_helper.c ****     return 0;
+  64:../src/RXv3_RegBankSave_helper.c **** }
+  65:../src/RXv3_RegBankSave_helper.c **** 
+  66:../src/RXv3_RegBankSave_helper.c **** int close(int fd)
+  67:../src/RXv3_RegBankSave_helper.c **** {
+  68:../src/RXv3_RegBankSave_helper.c ****     (void) fd;
+  69:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  70:../src/RXv3_RegBankSave_helper.c **** }
+  71:../src/RXv3_RegBankSave_helper.c **** 
+  72:../src/RXv3_RegBankSave_helper.c **** int fstat(int fd, struct stat *buf)
+  73:../src/RXv3_RegBankSave_helper.c **** {
+  74:../src/RXv3_RegBankSave_helper.c ****     (void) fd; (void) buf;
+  75:../src/RXv3_RegBankSave_helper.c ****     return -1;
+  76:../src/RXv3_RegBankSave_helper.c **** }
+  77:../src/RXv3_RegBankSave_helper.c **** 
+  78:../src/RXv3_RegBankSave_helper.c **** #endif
+  79:../src/RXv3_RegBankSave_helper.c **** 
+  80:../src/RXv3_RegBankSave_helper.c **** #include <stdlib.h>
+  81:../src/RXv3_RegBankSave_helper.c **** 
+  82:../src/RXv3_RegBankSave_helper.c **** void abort(void)
+  83:../src/RXv3_RegBankSave_helper.c **** {
+  40                             		.loc 1 83 1 is_stmt 1 view -0
+  84:../src/RXv3_RegBankSave_helper.c ****    exit(-1);
+  41                             		.loc 1 84 4 view .LVU9
+  42 0000 FB 16 FF                		mov.L	#-1, r1
+  43 0003 05 00 00 00             		bsr	_exit
+  44                             	.LVL0:
+  45                             	.LFE1:
+  47                             		.comm	_dbl,8,4
+  48                             		.comm	_cnt,4,4
+  87                             	.Letext0:
+  88                             		.file 2 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\lib\\gcc\\rx-elf\\8.3.0.20
+  89                             		.file 3 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_typ
+  90                             		.file 4 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\reen
+  91                             		.file 5 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\lock
+  92                             		.file 6 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\stdlib.h"

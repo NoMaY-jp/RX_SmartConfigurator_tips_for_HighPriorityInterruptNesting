@@ -1,0 +1,859 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:09:38
+# Copyright 2009-2020 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
+#
+#    Source file       =  ..\src\RXv3_Check_FSQRT_DSQRT_etc.c
+#    Command line      =
+#        ..\src\RXv3_Check_FSQRT_DSQRT_etc.c -o
+#        src\RXv3_Check_FSQRT_DSQRT_etc.o --no_wrap_diagnostics -e
+#        --align_func=1 --tfu=intrinsic_mathlib -Ohs --no_size_constraints
+#        --no_cross_call --debug -lC ./ -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\smc_gen\r_config/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\smc_gen\r_pincfg/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\smc_gen\general/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\smc_gen\r_bsp/
+#        -I
+#        C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\smc_gen\Config_MTU3_MTU4/
+#        --remarks --save_acc --endian l --core rxv3 --fpu=32 --data_model=f
+#        --double=64 --int=32 --dlib_config
+#        C:/Renesas/EWB/8.4/rx/LIB/dlrxdlln.h
+#    Locale            =  C
+#    List file         =  ./RXv3_Check_FSQRT_DSQRT_etc.lst
+#    Object file       =  src\RXv3_Check_FSQRT_DSQRT_etc.o
+#    Runtime model:       
+#      __SystemLibrary =  DLib
+#      __calling_conv  =  abi10
+#      __core          =  3
+#      __dlib_version  =  6
+#      __double_size   =  64
+#      __endian        =  l
+#      __enum_size     =  *
+#      __fpu           =  1
+#      __int_size      =  32
+#      __lock_R10      =  0
+#      __lock_R11      =  0
+#      __lock_R12      =  0
+#      __lock_R13      =  0
+#      __lock_R8       =  0
+#      __lock_R9       =  0
+#      __rt_version    =  5
+#      __size_limit    =  65536
+#
+###############################################################################
+
+C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RX72T_Motor_CG_IAR\src\RXv3_Check_FSQRT_DSQRT_etc.c
+      1          #include <math.h>
+      2          
+      3          #if defined(__CCRX__)
+      4          // Don't use -library=function option for this source file.
+      5          // Don't use -nouse_div_inst option for this source file.
+      6          // Use -tfu=intrinsic,mathlib option for this file.
+      7          #elif defined(__ICCRX__)
+      8          // Don't use --sqrt_must_set_errno option for this source file.
+      9          // Use --tfu intrinsic_mathlib option for this source file.
+     10          #elif defined(__GNUC__)
+     11          // Use -mrxv2-fsqrt option for this source file.
+     12          // Use -mtfu=intrinsic,mathlib option for this source file.
+     13          #endif
+     14          // Be aware that some RXv3 MCUs don't have all features of RXv3 as follows.
+     15          //                      RX66T RX66N RX671 RX660 RX72T RX72N RX72M
+     16          // Max Operating MHz    160   120   120   120   200   240   240
+     17          // Register Bank Save   x     o     o     o     o     o     o
+     18          // DPFPU                x     o     o     x     x     o     o
+     19          // TFU                  x     x     x     o     o     o     o
+     20          
+     21          static double Check_Using_DSQRT(double x);
+
+   \                                 In section .text, align 1, keep-with-next
+     22          static double Check_Using_DSQRT(double x)
+     23          {
+     24              return sqrt(x);  // DSQRT is used here directly.
+   \                     _Check_Using_DSQRT:
+   \   000000 04 ..'....   BRA.A     ___iar_sqrt64 ;  N
+     25          }
+     26          
+     27          static float Check_Using_FSQRT(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     28          static float Check_Using_FSQRT(float x)
+     29          {
+     30              return sqrtf(x); // FSQRT is used here directly.
+   \                     _Check_Using_FSQRT:
+   \   000000 FC A3 11     FSQRT     R1,R1 ;  N
+   \   000003 02           RTS
+     31          }
+     32          
+
+   \                                 In section .data24.data, align 4
+     33          void *m_debug_Check_Using_DSQRT = (void *)Check_Using_DSQRT;
+   \                     _m_debug_Check_Using_DSQRT:
+   \   000000 ....'....    DC32 _Check_Using_DSQRT
+     34          void *m_debug_Check_Using_FSQRT = (void *)Check_Using_FSQRT;
+   \                     _m_debug_Check_Using_FSQRT:
+   \   000004 ....'....    DC32 _Check_Using_FSQRT
+     35          
+
+   \                                 In section .data24.data, align 4
+     36          double d1=1.0, d2=2.0;
+   \                     _d1:
+   \   000000 0000'0000    DC32 0x0
+   \   000004 3FF0'0000    DC32 0x3ff0'0000
+   \                     _d2:
+   \   000008 0000'0000    DC32 0x0
+   \   00000C 4000'0000    DC32 0x4000'0000
+
+   \                                 In section .data24.data, align 4
+     37          float f1=1.0, f2=2.0;
+   \                     _f1:
+   \   000000 3F80'0000    DC32 0x3f80'0000
+
+   \                                 In section .data24.data, align 4
+   \                     _f2:
+   \   000000 4000'0000    DC32 0x4000'0000
+     38          
+     39          #if defined(__CCRX__)
+     40          
+     41          static void Check_Using_DDIV(void);
+     42          static void Check_Using_DDIV(void)
+     43          {
+     44              d2 = d1 / d2;
+     45          }
+     46          
+     47          static void Check_Using_FDIV(void);
+     48          static void Check_Using_FDIV(void)
+     49          {
+     50              f2 = f1 / f2;
+     51          }
+     52          
+     53          void *m_debug_Check_Using_DDIV = (void *)Check_Using_DDIV;
+     54          void *m_debug_Check_Using_FDIV = (void *)Check_Using_FDIV;
+     55          
+     56          #endif
+     57          
+     58          void Check_Using_DSQRT_FSQRT(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     59          void Check_Using_DSQRT_FSQRT(void)
+     60          {
+   \                     _Check_Using_DSQRT_FSQRT:
+   \   000000 7E A6        PUSH.L    R6    ;  N
+     61              ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
+   \   000002 FB 6E        MOV.L     #_m_debug_Check_Using_DSQRT:24,R6     ;  N 
+
+   \          ..'....
+   \   000007 EC 63        MOV.L     [R6],R3       ;  N
+   \   000009 66 01        MOV.L     #0x0,R1       ;  N
+   \   00000B FB 22 00 00  MOV.L     #0x40100000,R2        ;  N 
+
+   \          10 40
+   \   000011 7F 13        JSR       R3    ;  N
+     62              ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
+   \   000013 A8 6C        MOV.L     0x4[R6],R4    ;  N
+   \   000015 FB 12 00 00  MOV.L     #0x40800000,R1        ;  N 
+
+   \          80 40
+   \   00001B 7F 14        JSR       R4    ;  N
+     63          }
+   \   00001D 3F 66 01     RTSD      #0x4,R6-R6
+     64          
+
+   \                                 In section .data24.bss, align 4
+     65          double dA, dB, dC, dD;
+   \                     _dA:
+   \   000000              DS8 8
+   \                     _dB:
+   \   000008              DS8 8
+   \                     _dC:
+   \   000010              DS8 8
+   \                     _dD:
+   \   000018              DS8 8
+     66          static void Check_DPUSHM_DPOPM(void);
+
+   \                                 In section .text, align 1, keep-with-next
+     67          static void Check_DPUSHM_DPOPM(void)
+     68          {
+   \                     _Check_DPUSHM_DPOPM:
+   \   000000 6E 6C        PUSHM     R6-R12        ;  N
+     69              double d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16;
+     70          
+     71              d3  = d1 + d2 +  3.0;
+   \   000002 FB CE        MOV.L     #_d1:24,R12   ;  N 
+
+   \          ..'....
+   \   000007 ED C8 02     MOV.L     0x8[R12],R8   ;  N
+   \   00000A ED C9 03     MOV.L     0xc[R12],R9   ;  N
+   \   00000D EC C3        MOV.L     [R12],R3      ;  N
+   \   00000F ED C4 01     MOV.L     0x4[R12],R4   ;  N
+   \   000012 71 00 A0     ADD       #-0x60,SP,SP  ;  N
+   \   000015 EF 81        MOV.L     R8,R1 ;  N
+   \   000017 EF 92        MOV.L     R9,R2 ;  N
+   \   000019 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00001D EF 16        MOV.L     R1,R6 ;  N
+   \   00001F EF 27        MOV.L     R2,R7 ;  N
+   \   000021 66 03        MOV.L     #0x0,R3       ;  N
+   \   000023 FB 42 00 00  MOV.L     #0x40080000,R4        ;  N 
+
+   \          08 40
+   \   000029 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00002D EF 1A        MOV.L     R1,R10        ;  N
+     72              d4  = d1 - d2 +  4.0;
+   \   00002F EC C1        MOV.L     [R12],R1      ;  N
+   \   000031 EF 2B        MOV.L     R2,R11        ;  N
+   \   000033 ED C2 01     MOV.L     0x4[R12],R2   ;  N
+   \   000036 EF 83        MOV.L     R8,R3 ;  N
+   \   000038 EF 94        MOV.L     R9,R4 ;  N
+   \   00003A 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00003E EF 18        MOV.L     R1,R8 ;  N
+   \   000040 EF 29        MOV.L     R2,R9 ;  N
+   \   000042 66 01        MOV.L     #0x0,R1       ;  N
+   \   000044 FB 22 00 00  MOV.L     #0x40100000,R2        ;  N 
+
+   \          10 40
+   \   00004A EF 83        MOV.L     R8,R3 ;  N
+   \   00004C EF 94        MOV.L     R9,R4 ;  N
+   \   00004E 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000052 A5 81        MOV.L     R1,0x58[SP]   ;  N
+   \   000054 A5 8A        MOV.L     R2,0x5c[SP]   ;  N
+     73              d5  = d1 + d2 +  5.0;
+   \   000056 66 03        MOV.L     #0x0,R3       ;  N
+   \   000058 FB 42 00 00  MOV.L     #0x40140000,R4        ;  N 
+
+   \          14 40
+   \   00005E EF 61        MOV.L     R6,R1 ;  N
+   \   000060 EF 72        MOV.L     R7,R2 ;  N
+   \   000062 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000066 A5 01        MOV.L     R1,0x50[SP]   ;  N
+   \   000068 A5 0A        MOV.L     R2,0x54[SP]   ;  N
+     74              d6  = d1 - d2 +  6.0;
+   \   00006A 66 01        MOV.L     #0x0,R1       ;  N
+   \   00006C FB 22 00 00  MOV.L     #0x40180000,R2        ;  N 
+
+   \          18 40
+   \   000072 EF 83        MOV.L     R8,R3 ;  N
+   \   000074 EF 94        MOV.L     R9,R4 ;  N
+   \   000076 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00007A A4 81        MOV.L     R1,0x48[SP]   ;  N
+   \   00007C A4 8A        MOV.L     R2,0x4c[SP]   ;  N
+     75              d7  = d1 + d2 +  7.0;
+   \   00007E 66 03        MOV.L     #0x0,R3       ;  N
+   \   000080 FB 42 00 00  MOV.L     #0x401c0000,R4        ;  N 
+
+   \          1C 40
+   \   000086 EF 61        MOV.L     R6,R1 ;  N
+   \   000088 EF 72        MOV.L     R7,R2 ;  N
+   \   00008A 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00008E A4 01        MOV.L     R1,0x40[SP]   ;  N
+   \   000090 A4 0A        MOV.L     R2,0x44[SP]   ;  N
+     76              d8  = d1 - d2 +  8.0;
+   \   000092 66 03        MOV.L     #0x0,R3       ;  N
+   \   000094 FB 42 00 00  MOV.L     #0x40200000,R4        ;  N 
+
+   \          20 40
+   \   00009A EF 81        MOV.L     R8,R1 ;  N
+   \   00009C EF 92        MOV.L     R9,R2 ;  N
+   \   00009E 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0000A2 A3 81        MOV.L     R1,0x38[SP]   ;  N
+   \   0000A4 A3 8A        MOV.L     R2,0x3c[SP]   ;  N
+     77              d9  = d1 + d2 +  9.0;
+   \   0000A6 66 01        MOV.L     #0x0,R1       ;  N
+   \   0000A8 FB 22 00 00  MOV.L     #0x40220000,R2        ;  N 
+
+   \          22 40
+   \   0000AE EF 63        MOV.L     R6,R3 ;  N
+   \   0000B0 EF 74        MOV.L     R7,R4 ;  N
+   \   0000B2 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0000B6 A3 01        MOV.L     R1,0x30[SP]   ;  N
+   \   0000B8 A3 0A        MOV.L     R2,0x34[SP]   ;  N
+     78              d10 = d1 - d2 + 10.0;
+   \   0000BA 66 03        MOV.L     #0x0,R3       ;  N
+   \   0000BC FB 42 00 00  MOV.L     #0x40240000,R4        ;  N 
+
+   \          24 40
+   \   0000C2 EF 81        MOV.L     R8,R1 ;  N
+   \   0000C4 EF 92        MOV.L     R9,R2 ;  N
+   \   0000C6 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0000CA A2 81        MOV.L     R1,0x28[SP]   ;  N
+   \   0000CC A2 8A        MOV.L     R2,0x2c[SP]   ;  N
+     79              d11 = d1 + d2 + 11.0;
+   \   0000CE 66 03        MOV.L     #0x0,R3       ;  N
+   \   0000D0 FB 42 00 00  MOV.L     #0x40260000,R4        ;  N 
+
+   \          26 40
+   \   0000D6 EF 61        MOV.L     R6,R1 ;  N
+   \   0000D8 EF 72        MOV.L     R7,R2 ;  N
+   \   0000DA 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0000DE A2 01        MOV.L     R1,0x20[SP]   ;  N
+   \   0000E0 A2 0A        MOV.L     R2,0x24[SP]   ;  N
+     80              d12 = d1 - d2 + 12.0;
+   \   0000E2 66 01        MOV.L     #0x0,R1       ;  N
+   \   0000E4 FB 22 00 00  MOV.L     #0x40280000,R2        ;  N 
+
+   \          28 40
+   \   0000EA EF 83        MOV.L     R8,R3 ;  N
+   \   0000EC EF 94        MOV.L     R9,R4 ;  N
+   \   0000EE 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0000F2 A1 81        MOV.L     R1,0x18[SP]   ;  N
+   \   0000F4 A1 8A        MOV.L     R2,0x1c[SP]   ;  N
+     81              d13 = d1 + d2 + 13.0;
+   \   0000F6 66 03        MOV.L     #0x0,R3       ;  N
+   \   0000F8 FB 42 00 00  MOV.L     #0x402a0000,R4        ;  N 
+
+   \          2A 40
+   \   0000FE EF 61        MOV.L     R6,R1 ;  N
+   \   000100 EF 72        MOV.L     R7,R2 ;  N
+   \   000102 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000106 A1 01        MOV.L     R1,0x10[SP]   ;  N
+   \   000108 A1 0A        MOV.L     R2,0x14[SP]   ;  N
+     82              d14 = d1 - d2 + 14.0;
+   \   00010A 66 03        MOV.L     #0x0,R3       ;  N
+   \   00010C FB 42 00 00  MOV.L     #0x402c0000,R4        ;  N 
+
+   \          2C 40
+   \   000112 EF 81        MOV.L     R8,R1 ;  N
+   \   000114 EF 92        MOV.L     R9,R2 ;  N
+   \   000116 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00011A A0 81        MOV.L     R1,0x8[SP]    ;  N
+   \   00011C A0 8A        MOV.L     R2,0xc[SP]    ;  N
+     83              d15 = d1 + d2 + 15.0;
+   \   00011E 66 01        MOV.L     #0x0,R1       ;  N
+   \   000120 FB 22 00 00  MOV.L     #0x402e0000,R2        ;  N 
+
+   \          2E 40
+   \   000126 EF 63        MOV.L     R6,R3 ;  N
+   \   000128 EF 74        MOV.L     R7,R4 ;  N
+   \   00012A 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00012E E3 01        MOV.L     R1,[SP]       ;  N
+   \   000130 A0 0A        MOV.L     R2,0x4[SP]    ;  N
+     84              d16 = d1 - d2 + 16.0;
+   \   000132 66 03        MOV.L     #0x0,R3       ;  N
+   \   000134 FB 42 00 00  MOV.L     #0x40300000,R4        ;  N 
+
+   \          30 40
+   \   00013A EF 81        MOV.L     R8,R1 ;  N
+   \   00013C EF 92        MOV.L     R9,R2 ;  N
+   \   00013E 05 ..'....   BSR.A     __iar_dadd    ;  N
+     85          
+     86              dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
+   \   000142 AD 83        MOV.L     0x58[SP],R3   ;  N
+   \   000144 AD 8C        MOV.L     0x5c[SP],R4   ;  N
+   \   000146 EF 16        MOV.L     R1,R6 ;  N
+   \   000148 EF 27        MOV.L     R2,R7 ;  N
+   \   00014A FB 8E        MOV.L     #_dA:24,R8    ;  N 
+
+   \          ..'....
+   \   00014F EF A1        MOV.L     R10,R1        ;  N
+   \   000151 EF B2        MOV.L     R11,R2        ;  N
+   \   000153 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000157 AD 03        MOV.L     0x50[SP],R3   ;  N
+   \   000159 AD 0C        MOV.L     0x54[SP],R4   ;  N
+   \   00015B 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00015F EF 13        MOV.L     R1,R3 ;  N
+   \   000161 AC 81        MOV.L     0x48[SP],R1   ;  N
+   \   000163 EF 24        MOV.L     R2,R4 ;  N
+   \   000165 AC 8A        MOV.L     0x4c[SP],R2   ;  N
+   \   000167 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00016B AC 03        MOV.L     0x40[SP],R3   ;  N
+   \   00016D AC 0C        MOV.L     0x44[SP],R4   ;  N
+   \   00016F 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000173 AB 83        MOV.L     0x38[SP],R3   ;  N
+   \   000175 AB 8C        MOV.L     0x3c[SP],R4   ;  N
+   \   000177 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00017B EF 13        MOV.L     R1,R3 ;  N
+   \   00017D AB 01        MOV.L     0x30[SP],R1   ;  N
+   \   00017F EF 24        MOV.L     R2,R4 ;  N
+   \   000181 AB 0A        MOV.L     0x34[SP],R2   ;  N
+   \   000183 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000187 AA 83        MOV.L     0x28[SP],R3   ;  N
+   \   000189 AA 8C        MOV.L     0x2c[SP],R4   ;  N
+   \   00018B 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   00018F AA 03        MOV.L     0x20[SP],R3   ;  N
+   \   000191 AA 0C        MOV.L     0x24[SP],R4   ;  N
+   \   000193 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   000197 EF 13        MOV.L     R1,R3 ;  N
+   \   000199 A9 81        MOV.L     0x18[SP],R1   ;  N
+   \   00019B EF 24        MOV.L     R2,R4 ;  N
+   \   00019D A9 8A        MOV.L     0x1c[SP],R2   ;  N
+   \   00019F 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0001A3 A9 03        MOV.L     0x10[SP],R3   ;  N
+   \   0001A5 A9 0C        MOV.L     0x14[SP],R4   ;  N
+   \   0001A7 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0001AB A8 83        MOV.L     0x8[SP],R3    ;  N
+   \   0001AD A8 8C        MOV.L     0xc[SP],R4    ;  N
+   \   0001AF 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0001B3 EF 13        MOV.L     R1,R3 ;  N
+   \   0001B5 EC 01        MOV.L     [SP],R1       ;  N
+   \   0001B7 EF 24        MOV.L     R2,R4 ;  N
+   \   0001B9 A8 0A        MOV.L     0x4[SP],R2    ;  N
+   \   0001BB 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0001BF EF 63        MOV.L     R6,R3 ;  N
+   \   0001C1 EF 74        MOV.L     R7,R4 ;  N
+   \   0001C3 05 ..'....   BSR.A     __iar_dadd    ;  N
+   \   0001C7 E3 81        MOV.L     R1,[R8]       ;  N
+   \   0001C9 E7 82 01     MOV.L     R2,0x4[R8]    ;  N
+     87              dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
+   \   0001CC AD 83        MOV.L     0x58[SP],R3   ;  N
+   \   0001CE AD 8C        MOV.L     0x5c[SP],R4   ;  N
+   \   0001D0 EF A1        MOV.L     R10,R1        ;  N
+   \   0001D2 EF B2        MOV.L     R11,R2        ;  N
+   \   0001D4 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   0001D8 AD 03        MOV.L     0x50[SP],R3   ;  N
+   \   0001DA AD 0C        MOV.L     0x54[SP],R4   ;  N
+   \   0001DC 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   0001E0 EF 13        MOV.L     R1,R3 ;  N
+   \   0001E2 AC 81        MOV.L     0x48[SP],R1   ;  N
+   \   0001E4 EF 24        MOV.L     R2,R4 ;  N
+   \   0001E6 AC 8A        MOV.L     0x4c[SP],R2   ;  N
+   \   0001E8 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   0001EC AC 03        MOV.L     0x40[SP],R3   ;  N
+   \   0001EE AC 0C        MOV.L     0x44[SP],R4   ;  N
+   \   0001F0 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   0001F4 AB 83        MOV.L     0x38[SP],R3   ;  N
+   \   0001F6 AB 8C        MOV.L     0x3c[SP],R4   ;  N
+   \   0001F8 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   0001FC EF 13        MOV.L     R1,R3 ;  N
+   \   0001FE AB 01        MOV.L     0x30[SP],R1   ;  N
+   \   000200 EF 24        MOV.L     R2,R4 ;  N
+   \   000202 AB 0A        MOV.L     0x34[SP],R2   ;  N
+   \   000204 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000208 AA 83        MOV.L     0x28[SP],R3   ;  N
+   \   00020A AA 8C        MOV.L     0x2c[SP],R4   ;  N
+   \   00020C 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000210 AA 03        MOV.L     0x20[SP],R3   ;  N
+   \   000212 AA 0C        MOV.L     0x24[SP],R4   ;  N
+   \   000214 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000218 EF 13        MOV.L     R1,R3 ;  N
+   \   00021A A9 81        MOV.L     0x18[SP],R1   ;  N
+   \   00021C EF 24        MOV.L     R2,R4 ;  N
+   \   00021E A9 8A        MOV.L     0x1c[SP],R2   ;  N
+   \   000220 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000224 A9 03        MOV.L     0x10[SP],R3   ;  N
+   \   000226 A9 0C        MOV.L     0x14[SP],R4   ;  N
+   \   000228 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   00022C A8 83        MOV.L     0x8[SP],R3    ;  N
+   \   00022E A8 8C        MOV.L     0xc[SP],R4    ;  N
+   \   000230 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000234 EC 03        MOV.L     [SP],R3       ;  N
+   \   000236 A8 0C        MOV.L     0x4[SP],R4    ;  N
+   \   000238 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   00023C EF 13        MOV.L     R1,R3 ;  N
+   \   00023E EF 24        MOV.L     R2,R4 ;  N
+   \   000240 EF 61        MOV.L     R6,R1 ;  N
+   \   000242 EF 72        MOV.L     R7,R2 ;  N
+   \   000244 05 ..'....   BSR.A     __COM_MULd    ;  N
+   \   000248 E7 81 02     MOV.L     R1,0x8[R8]    ;  N
+   \   00024B E7 82 03     MOV.L     R2,0xc[R8]    ;  N
+     88              dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
+   \   00024E AD 83        MOV.L     0x58[SP],R3   ;  N
+   \   000250 AD 8C        MOV.L     0x5c[SP],R4   ;  N
+   \   000252 EF A1        MOV.L     R10,R1        ;  N
+   \   000254 EF B2        MOV.L     R11,R2        ;  N
+   \   000256 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00025A AD 03        MOV.L     0x50[SP],R3   ;  N
+   \   00025C AD 0C        MOV.L     0x54[SP],R4   ;  N
+   \   00025E 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   000262 AC 83        MOV.L     0x48[SP],R3   ;  N
+   \   000264 AC 8C        MOV.L     0x4c[SP],R4   ;  N
+   \   000266 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00026A AC 03        MOV.L     0x40[SP],R3   ;  N
+   \   00026C AC 0C        MOV.L     0x44[SP],R4   ;  N
+   \   00026E 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   000272 AB 83        MOV.L     0x38[SP],R3   ;  N
+   \   000274 AB 8C        MOV.L     0x3c[SP],R4   ;  N
+   \   000276 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00027A AB 03        MOV.L     0x30[SP],R3   ;  N
+   \   00027C AB 0C        MOV.L     0x34[SP],R4   ;  N
+   \   00027E 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   000282 AA 83        MOV.L     0x28[SP],R3   ;  N
+   \   000284 AA 8C        MOV.L     0x2c[SP],R4   ;  N
+   \   000286 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00028A AA 03        MOV.L     0x20[SP],R3   ;  N
+   \   00028C AA 0C        MOV.L     0x24[SP],R4   ;  N
+   \   00028E 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   000292 A9 83        MOV.L     0x18[SP],R3   ;  N
+   \   000294 A9 8C        MOV.L     0x1c[SP],R4   ;  N
+   \   000296 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   00029A A9 03        MOV.L     0x10[SP],R3   ;  N
+   \   00029C A9 0C        MOV.L     0x14[SP],R4   ;  N
+   \   00029E 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   0002A2 A8 83        MOV.L     0x8[SP],R3    ;  N
+   \   0002A4 A8 8C        MOV.L     0xc[SP],R4    ;  N
+   \   0002A6 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   0002AA EC 03        MOV.L     [SP],R3       ;  N
+   \   0002AC A8 0C        MOV.L     0x4[SP],R4    ;  N
+   \   0002AE 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   0002B2 EF 63        MOV.L     R6,R3 ;  N
+   \   0002B4 EF 74        MOV.L     R7,R4 ;  N
+   \   0002B6 05 ..'....   BSR.A     __iar_dsub    ;  N
+   \   0002BA E7 81 04     MOV.L     R1,0x10[R8]   ;  N
+   \   0002BD E7 82 05     MOV.L     R2,0x14[R8]   ;  N
+     89              dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
+   \   0002C0 AD 83        MOV.L     0x58[SP],R3   ;  N
+   \   0002C2 AD 8C        MOV.L     0x5c[SP],R4   ;  N
+   \   0002C4 EF A1        MOV.L     R10,R1        ;  N
+   \   0002C6 EF B2        MOV.L     R11,R2        ;  N
+   \   0002C8 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002CC AD 03        MOV.L     0x50[SP],R3   ;  N
+   \   0002CE AD 0C        MOV.L     0x54[SP],R4   ;  N
+   \   0002D0 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002D4 AC 83        MOV.L     0x48[SP],R3   ;  N
+   \   0002D6 AC 8C        MOV.L     0x4c[SP],R4   ;  N
+   \   0002D8 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002DC AC 03        MOV.L     0x40[SP],R3   ;  N
+   \   0002DE AC 0C        MOV.L     0x44[SP],R4   ;  N
+   \   0002E0 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002E4 AB 83        MOV.L     0x38[SP],R3   ;  N
+   \   0002E6 AB 8C        MOV.L     0x3c[SP],R4   ;  N
+   \   0002E8 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002EC AB 03        MOV.L     0x30[SP],R3   ;  N
+   \   0002EE AB 0C        MOV.L     0x34[SP],R4   ;  N
+   \   0002F0 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002F4 AA 83        MOV.L     0x28[SP],R3   ;  N
+   \   0002F6 AA 8C        MOV.L     0x2c[SP],R4   ;  N
+   \   0002F8 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   0002FC AA 03        MOV.L     0x20[SP],R3   ;  N
+   \   0002FE AA 0C        MOV.L     0x24[SP],R4   ;  N
+   \   000300 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   000304 A9 83        MOV.L     0x18[SP],R3   ;  N
+   \   000306 A9 8C        MOV.L     0x1c[SP],R4   ;  N
+   \   000308 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   00030C A9 03        MOV.L     0x10[SP],R3   ;  N
+   \   00030E A9 0C        MOV.L     0x14[SP],R4   ;  N
+   \   000310 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   000314 A8 83        MOV.L     0x8[SP],R3    ;  N
+   \   000316 A8 8C        MOV.L     0xc[SP],R4    ;  N
+   \   000318 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   00031C EC 03        MOV.L     [SP],R3       ;  N
+   \   00031E A8 0C        MOV.L     0x4[SP],R4    ;  N
+   \   000320 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   000324 EF 63        MOV.L     R6,R3 ;  N
+   \   000326 EF 74        MOV.L     R7,R4 ;  N
+   \   000328 05 ..'....   BSR.A     __COM_DIVd    ;  N
+   \   00032C E7 81 06     MOV.L     R1,0x18[R8]   ;  N
+   \   00032F E7 82 07     MOV.L     R2,0x1c[R8]   ;  N
+     90          }
+   \   000332 3F 6C 1F     RTSD      #0x7c,R6-R12
+     91          
+
+   \                                 In section .data24.data, align 4
+     92          void *m_debug_U_Check_DPUSHM_DPOPM = (void *)Check_DPUSHM_DPOPM;
+   \                     _m_debug_U_Check_DPUSHM_DPOPM:
+   \   000000 ....'....    DC32 _Check_DPUSHM_DPOPM
+     93          
+     94          static float Check_TFU_sinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+     95          static float Check_TFU_sinf(float x)
+   \                     _Check_TFU_sinf:
+   \   000000              REQUIRE __iar_init_tfu
+     96          {
+     97              return sinf(x);
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2   ;  N 
+
+   \          08
+   \   000005 A0 29        MOV.L     R1,0x4[R2]    ;  N
+   \   000007 A8 29        MOV.L     0x4[R2],R1    ;  N
+   \   000009 02           RTS
+     98          }
+     99          
+    100          static float Check_TFU_cosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    101          static float Check_TFU_cosf(float x)
+   \                     _Check_TFU_cosf:
+   \   000000              REQUIRE __iar_init_tfu
+    102          {
+    103              return cosf(x);
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2   ;  N 
+
+   \          08
+   \   000005 A0 29        MOV.L     R1,0x4[R2]    ;  N
+   \   000007 EC 21        MOV.L     [R2],R1       ;  N
+   \   000009 02           RTS
+    104          }
+    105          
+    106          static float Check_TFU_atan2f(float y, float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    107          static float Check_TFU_atan2f(float y, float x)
+   \                     _Check_TFU_atan2f:
+   \   000000              REQUIRE __iar_init_tfu
+    108          {
+    109              return atan2f(y, x);
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3   ;  N 
+
+   \          08
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]    ;  N
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]    ;  N
+   \   000009 A8 B9        MOV.L     0xc[R3],R1    ;  N
+   \   00000B 02           RTS
+    110          }
+    111          
+    112          static float Check_TFU_hypotf(float x, float y);
+
+   \                                 In section .text, align 1, keep-with-next
+    113          static float Check_TFU_hypotf(float x, float y)
+   \                     _Check_TFU_hypotf:
+   \   000000              REQUIRE __iar_init_tfu
+    114          {
+    115              return hypotf(x, y);
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3   ;  N 
+
+   \          08
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]    ;  N
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]    ;  N
+   \   000009 A8 B1        MOV.L     0x8[R3],R1    ;  N
+   \   00000B FD 72 31 EE  FMUL      #0x3f1b74ee,R1        ;  N 
+
+   \          74 1B 3F
+   \   000012 02           RTS
+    116          }
+    117          
+    118          static float Check_TFU_asinf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    119          static float Check_TFU_asinf(float x)
+    120          {
+    121              return asinf(x);
+   \                     _Check_TFU_asinf:
+   \   000000 04 ..'....   BRA.A     _asinf        ;  N
+    122          }
+    123          
+    124          static float Check_TFU_acosf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    125          static float Check_TFU_acosf(float x)
+    126          {
+    127              return acosf(x);
+   \                     _Check_TFU_acosf:
+   \   000000 04 ..'....   BRA.A     _acosf        ;  N
+    128          }
+    129          
+    130          static float Check_TFU_atanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    131          static float Check_TFU_atanf(float x)
+    132          {
+    133              return atanf(x);
+   \                     _Check_TFU_atanf:
+   \   000000 04 ..'....   BRA.A     _atanf        ;  N
+    134          }
+    135          
+    136          static float Check_TFU_tanf(float x);
+
+   \                                 In section .text, align 1, keep-with-next
+    137          static float Check_TFU_tanf(float x)
+    138          {
+    139              return tanf(x);
+   \                     _Check_TFU_tanf:
+   \   000000 04 ..'....   BRA.A     _tanf ;  N
+    140          }
+    141          
+
+   \                                 In section .data24.data, align 4
+    142          void *m_debug_U_Check_TFU_sinf   = (void *)Check_TFU_sinf;
+   \                     _m_debug_U_Check_TFU_sinf:
+   \   000000 ....'....    DC32 _Check_TFU_sinf
+
+   \                                 In section .data24.data, align 4
+    143          void *m_debug_U_Check_TFU_cosf   = (void *)Check_TFU_cosf;
+   \                     _m_debug_U_Check_TFU_cosf:
+   \   000000 ....'....    DC32 _Check_TFU_cosf
+
+   \                                 In section .data24.data, align 4
+    144          void *m_debug_U_Check_TFU_atan2f = (void *)Check_TFU_atan2f;
+   \                     _m_debug_U_Check_TFU_atan2f:
+   \   000000 ....'....    DC32 _Check_TFU_atan2f
+
+   \                                 In section .data24.data, align 4
+    145          void *m_debug_U_Check_TFU_hypotf = (void *)Check_TFU_hypotf;
+   \                     _m_debug_U_Check_TFU_hypotf:
+   \   000000 ....'....    DC32 _Check_TFU_hypotf
+
+   \                                 In section .data24.data, align 4
+    146          void *m_debug_U_Check_TFU_asinf  = (void *)Check_TFU_asinf;
+   \                     _m_debug_U_Check_TFU_asinf:
+   \   000000 ....'....    DC32 _Check_TFU_asinf
+
+   \                                 In section .data24.data, align 4
+    147          void *m_debug_U_Check_TFU_acosf  = (void *)Check_TFU_acosf;
+   \                     _m_debug_U_Check_TFU_acosf:
+   \   000000 ....'....    DC32 _Check_TFU_acosf
+
+   \                                 In section .data24.data, align 4
+    148          void *m_debug_U_Check_TFU_atanf  = (void *)Check_TFU_atanf;
+   \                     _m_debug_U_Check_TFU_atanf:
+   \   000000 ....'....    DC32 _Check_TFU_atanf
+
+   \                                 In section .data24.data, align 4
+    149          void *m_debug_U_Check_TFU_tanf   = (void *)Check_TFU_tanf;
+   \                     _m_debug_U_Check_TFU_tanf:
+   \   000000 ....'....    DC32 _Check_TFU_tanf
+    150          
+    151          struct vec { float X; float Y; };
+    152          void rot(float t, struct vec *v1, struct vec *v2);
+
+   \                                 In section .text, align 1, keep-with-next
+    153          void rot(float t, struct vec *v1, struct vec *v2)
+   \                     _rot:
+   \   000000              REQUIRE __iar_init_tfu
+    154          {
+    155              v2->X = - sinf(t) * v1->Y + cosf(t) * v1->X;
+   \   000000 FB 5E 10 14  MOV.L     #0x81410,R5   ;  N 
+
+   \          08
+   \   000005 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   000007 A8 5C        MOV.L     0x4[R5],R4    ;  N
+   \   000009 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   00000B EC 5E        MOV.L     [R5],R14      ;  N
+   \   00000D EC 25        MOV.L     [R2],R5       ;  N
+   \   00000F FC 8F E5     FMUL      R14,R5        ;  N
+   \   000012 ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   000015 FC 8F E4     FMUL      R14,R4        ;  N
+   \   000018 FF 84 45     FSUB      R4,R5,R4      ;  N
+    156              v2->Y =   sinf(t) * v1->X + cosf(t) * v1->Y;
+   \   00001B FB 5E 10 14  MOV.L     #0x81410,R5   ;  N 
+
+   \          08
+   \   000020 E3 34        MOV.L     R4,[R3]       ;  N
+   \   000022 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   000024 A8 5C        MOV.L     0x4[R5],R4    ;  N
+   \   000026 EC 2F        MOV.L     [R2],R15      ;  N
+   \   000028 FC 8F 4F     FMUL      R4,R15        ;  N
+   \   00002B A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   00002D EC 51        MOV.L     [R5],R1       ;  N
+   \   00002F A8 2D        MOV.L     0x4[R2],R5    ;  N
+   \   000031 FC 8F 51     FMUL      R5,R1 ;  N
+   \   000034 FC 8B F1     FADD      R15,R1        ;  N
+   \   000037 A0 39        MOV.L     R1,0x4[R3]    ;  N
+    157          }
+   \   000039 02           RTS
+    158          
+    159          #if defined(__ICCRX__)
+    160          #include <intrinsics.h>
+    161          #endif
+    162          
+    163          void rot_2(float t, struct vec *v1, struct vec *v2);
+
+   \                                 In section .text, align 1, keep-with-next
+    164          void rot_2(float t, struct vec *v1, struct vec *v2)
+   \                     _rot_2:
+   \   000000              REQUIRE __iar_init_tfu
+    165          {
+   \   000000 60 80        SUB       #0x8,SP       ;  N
+    166              float sinf_t, cosf_t;
+    167          
+    168          #if defined(__CCRX__)
+    169              __sincosf(t, &sinf_t, &cosf_t);
+    170          #elif defined(__ICCRX__)
+    171              __sincosf(t, &sinf_t, &cosf_t);
+   \   000002 FB 4E 10 14  MOV.L     #0x81410,R4   ;  N 
+
+   \          08
+   \   000007 A0 49        MOV.L     R1,0x4[R4]    ;  N
+   \   000009 A8 49        MOV.L     0x4[R4],R1
+   \   00000B A0 09        MOV.L     R1,0x4[SP]
+   \   00000D EC 44        MOV.L     [R4],R4
+    172          #elif defined(__GNUC__)
+    173              __builtin_rx_sincosf(t, &sinf_t, &cosf_t);
+    174          #endif
+    175          
+    176              v2->X = - sinf_t * v1->Y + cosf_t * v1->X;
+   \   00000F E3 04        MOV.L     R4,[SP]
+   \   000011 EC 01        MOV.L     [SP],R1       ;  N
+   \   000013 EC 24        MOV.L     [R2],R4       ;  N
+   \   000015 ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   000018 A8 0D        MOV.L     0x4[SP],R5    ;  N
+   \   00001A FC 8F 14     FMUL      R1,R4 ;  N
+   \   00001D FC 8F 5E     FMUL      R5,R14        ;  N
+   \   000020 FF 8E E4     FSUB      R14,R4,R14    ;  N
+   \   000023 E3 3E        MOV.L     R14,[R3]      ;  N
+    177              v2->Y =   sinf_t * v1->X + cosf_t * v1->Y;
+   \   000025 A8 09        MOV.L     0x4[SP],R1    ;  N
+   \   000027 EC 24        MOV.L     [R2],R4       ;  N
+   \   000029 EC 05        MOV.L     [SP],R5       ;  N
+   \   00002B ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   00002E FC 8F 14     FMUL      R1,R4 ;  N
+   \   000031 FF B2 E5     FMUL      R14,R5,R2     ;  N
+   \   000034 FC 8B 42     FADD      R4,R2 ;  N
+   \   000037 A0 3A        MOV.L     R2,0x4[R3]    ;  N
+    178          }
+   \   000039 67 02        RTSD      #0x8
+
+   Maximum stack usage in bytes:
+
+   ISTACK Function
+   ------ --------
+    128   Check_DPUSHM_DPOPM
+      4   Check_TFU_acosf
+        4   -> acosf
+      4   Check_TFU_asinf
+        4   -> asinf
+      4   Check_TFU_atan2f
+      4   Check_TFU_atanf
+        4   -> atanf
+      4   Check_TFU_cosf
+      4   Check_TFU_hypotf
+      4   Check_TFU_sinf
+      4   Check_TFU_tanf
+        4   -> tanf
+      4   Check_Using_DSQRT
+      8   Check_Using_DSQRT_FSQRT
+        8   -- Indirect call
+      4   Check_Using_FSQRT
+      4   rot
+     12   rot_2
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     821  Check_DPUSHM_DPOPM
+       4  Check_TFU_acosf
+       4  Check_TFU_asinf
+      12  Check_TFU_atan2f
+       4  Check_TFU_atanf
+      10  Check_TFU_cosf
+      19  Check_TFU_hypotf
+      10  Check_TFU_sinf
+       4  Check_TFU_tanf
+       4  Check_Using_DSQRT
+      32  Check_Using_DSQRT_FSQRT
+       4  Check_Using_FSQRT
+      16  d1
+          d2
+      32  dA
+          dB
+          dC
+          dD
+       4  f1
+       4  f2
+       8  m_debug_Check_Using_DSQRT
+          m_debug_Check_Using_FSQRT
+       4  m_debug_U_Check_DPUSHM_DPOPM
+       4  m_debug_U_Check_TFU_acosf
+       4  m_debug_U_Check_TFU_asinf
+       4  m_debug_U_Check_TFU_atan2f
+       4  m_debug_U_Check_TFU_atanf
+       4  m_debug_U_Check_TFU_cosf
+       4  m_debug_U_Check_TFU_hypotf
+       4  m_debug_U_Check_TFU_sinf
+       4  m_debug_U_Check_TFU_tanf
+      58  rot
+      59  rot_2
+
+ 
+    32 bytes in section .data24.bss
+    68 bytes in section .data24.data
+ 1'045 bytes in section .text
+ 
+ 1'045 bytes of CODE memory
+   100 bytes of DATA memory
+
+Errors: none
+Warnings: none

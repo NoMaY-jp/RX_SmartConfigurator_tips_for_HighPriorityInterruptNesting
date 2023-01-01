@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<QE>
+    <Segment id="Project">
+        <Setting id="SrcGeneratedPath" value="src/smc_gen"/>
+    </Segment>
+    <Segment id="Pin">
+        <Setting id="EMLE" value="EMLE"/>
+        <Setting id="P30" value="SSCL1"/>
+        <Setting id="P21" value="SCL1"/>
+        <Setting id="P32" value="SSDA0"/>
+        <Setting id="P31" value="MTIOC4D"/>
+        <Setting id="P20" value="SDA1"/>
+        <Setting id="P23" value="MTIOC3D"/>
+        <Setting id="P12" value="SCL0"/>
+        <Setting id="P22" value="MTIOC3B"/>
+        <Setting id="P33" value="SSCL0"/>
+        <Setting id="P25" value="MTIOC4C"/>
+        <Setting id="P24" value="MTIOC4A"/>
+        <Setting id="P13" value="SDA0"/>
+        <Setting id="P26" value="SSDA1"/>
+        <Setting id="MD" value="FINED"/>
+        <Setting id="P17" value="MTIOC4B"/>
+    </Segment>
+    <Segment id="Device">
+        <Setting id="Series" value="RX600"/>
+        <Setting id="Group" value="RX65N"/>
+        <Setting id="Board" value="TargetBoardRX65N (V1.12)"/>
+        <Setting id="PartNo" value="R5F565NEDxFP"/>
+        <Setting id="PinCount" value="100"/>
+    </Segment>
+    <Segment id="Clock">
+        <Setting id="PCLKD" value="60000.0"/>
+        <Setting id="PLLCLK" value="240000.0"/>
+        <Setting id="PCLKB" value="60000.0"/>
+        <Setting id="CacHocoCLK" value="16000.0"/>
+        <Setting id="VCC" value="3.3"/>
+        <Setting id="PCLKC" value="60000.0"/>
+        <Setting id="BusCLK" value="120000.0"/>
+        <Setting id="PCLKA" value="120000.0"/>
+        <Setting id="ICLK" value="120000.0"/>
+        <Setting id="FCLK" value="60000.0"/>
+        <Setting id="SysCLKSrc" value="4.0"/>
+        <Setting id="ExtCLK" value="24000.0"/>
+    </Segment>
+    <Segment id="Component">
+        <Setting id="Config_MTU3_MTU4" value="CG"/>
+        <Setting id="r_bsp" value="FIT"/>
+        <Setting id="Config_SCI0" value="CG"/>
+        <Setting id="r_riic_rx" value="FIT"/>
+        <Setting id="Config_RIIC0" value="CG"/>
+        <Setting id="r_sci_iic_rx" value="FIT"/>
+    </Segment>
+</QE>
