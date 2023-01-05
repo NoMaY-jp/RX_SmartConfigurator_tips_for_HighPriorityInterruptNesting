@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:05:32
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      05/Jan/2023  16:04:37
 # Copyright 2009-2020 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
 #
@@ -61,86 +61,139 @@
 C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv2_NestedInterrupt_IAR\src\main.c
       1          #include "r_smc_entry.h"
       2          
-      3          void main(void);
-      4          
-      5          #define VECT_TRAP_0 0
-      6          #define VECT_TRAP_1 1
-      7          #define VECT_TRAP_2 2
-      8          
+      3          #if defined(__RXV3) && !defined(BSP_BOARD_GENERIC_RX66T)
+      4          #define __BANK 1
+      5          #endif
+      6          
+      7          void main(void);
+      8          #if defined(__RXV3)
+      9          void Check_Using_DSQRT_FSQRT(void);
+     10          void Check_Not_Using_DSQRT_FSQRT(void);
+     11          void (*fp_Check_Using_DSQRT_FSQRT)(void);
+     12          void (*fp_Check_Not_Using_DSQRT_FSQRT)(void);
+     13          #endif
+     14          
+     15          #define VECT_TRAP_0 0
+     16          #define VECT_TRAP_1 1
+     17          #define VECT_TRAP_2 2
+     18          #if defined(__BANK)
+     19          #define VECT_TRAP_3 3
+     20          #define VECT_TRAP_4 4
+     21          #endif
+     22          
 
    \                                 In section .text, align 1, keep-with-next
-      9          void main(void)
-     10          {
-     11              R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX - 1 );
+     23          void main(void)
+     24          {
+     25              R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX - 1 );
    \                     _main:
-   \   000000 75 70 07     MVTIPL    #0x7
-     12              R_BSP_INT( VECT( TRAP, 0 ) );
+   \   000000 75 70 08     MVTIPL    #0x8
+     26              R_BSP_INT( VECT( TRAP, 0 ) );
    \   000003 75 60 00     INT       #0x0
-     13              R_BSP_INT( VECT( TRAP, 1 ) );
+     27              R_BSP_INT( VECT( TRAP, 1 ) );
    \   000006 75 60 01     INT       #0x1
-     14              R_BSP_INT( VECT( TRAP, 2 ) );
+     28              R_BSP_INT( VECT( TRAP, 2 ) );
    \   000009 75 60 02     INT       #0x2
-     15          
-     16              R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX );
-   \   00000C 75 70 08     MVTIPL    #0x8
-     17              R_BSP_INT( VECT( TRAP, 0 ) );
+     29          #if defined(__BANK)
+     30              R_BSP_INT( VECT( TRAP, 3 ) );
+     31              R_BSP_INT( VECT( TRAP, 4 ) );
+     32          #endif
+     33          
+     34              R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX );
+   \   00000C 75 70 09     MVTIPL    #0x9
+     35              R_BSP_INT( VECT( TRAP, 0 ) );
    \   00000F 75 60 00     INT       #0x0
-     18              R_BSP_INT( VECT( TRAP, 1 ) );
+     36              R_BSP_INT( VECT( TRAP, 1 ) );
    \   000012 75 60 01     INT       #0x1
-     19              R_BSP_INT( VECT( TRAP, 2 ) );
+     37              R_BSP_INT( VECT( TRAP, 2 ) );
    \   000015 75 60 02     INT       #0x2
-     20          
-     21              R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX + 1 );
-   \   000018 75 70 09     MVTIPL    #0x9
-     22              R_BSP_INT( VECT( TRAP, 0 ) );
-   \   00001B 75 60 00     INT       #0x0
-     23              R_BSP_INT( VECT( TRAP, 1 ) );
-   \   00001E 75 60 01     INT       #0x1
-     24              R_BSP_INT( VECT( TRAP, 2 ) );
-   \   000021 75 60 02     INT       #0x2
-     25          
-     26          #if 0 /* later */
-     27              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
-     28              R_BSP_INT( VECT( TRAP, 0 ) );
-     29              R_BSP_INT( VECT( TRAP, 1 ) );
-     30              R_BSP_INT( VECT( TRAP, 2 ) );
-     31          
-     32              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
-     33              R_BSP_INT( VECT( TRAP, 0 ) );
-     34              R_BSP_INT( VECT( TRAP, 1 ) );
-     35              R_BSP_INT( VECT( TRAP, 2 ) );
-     36          
-     37              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
-     38              R_BSP_INT( VECT( TRAP, 0 ) );
-     39              R_BSP_INT( VECT( TRAP, 1 ) );
-     40              R_BSP_INT( VECT( TRAP, 2 ) );
+     38          #if defined(__BANK)
+     39              R_BSP_INT( VECT( TRAP, 3 ) );
+     40              R_BSP_INT( VECT( TRAP, 4 ) );
      41          #endif
      42          
-     43              R_BSP_NOP();
+     43              R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX + 1 );
+   \   000018 75 70 0A     MVTIPL    #0xa
+     44              R_BSP_INT( VECT( TRAP, 0 ) );
+   \   00001B 75 60 00     INT       #0x0
+     45              R_BSP_INT( VECT( TRAP, 1 ) );
+   \   00001E 75 60 01     INT       #0x1
+     46              R_BSP_INT( VECT( TRAP, 2 ) );
+   \   000021 75 60 02     INT       #0x2
+     47          #if defined(__BANK)
+     48              R_BSP_INT( VECT( TRAP, 3 ) );
+     49              R_BSP_INT( VECT( TRAP, 4 ) );
+     50          #endif
+     51          
+     52          #if 0 /* later */
+     53              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
+     54              R_BSP_INT( VECT( TRAP, 0 ) );
+     55              R_BSP_INT( VECT( TRAP, 1 ) );
+     56              R_BSP_INT( VECT( TRAP, 2 ) );
+     57          #if defined(__BANK)
+     58              R_BSP_INT( VECT( TRAP, 3 ) );
+     59              R_BSP_INT( VECT( TRAP, 4 ) );
+     60          #endif
+     61          
+     62              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
+     63              R_BSP_INT( VECT( TRAP, 0 ) );
+     64              R_BSP_INT( VECT( TRAP, 1 ) );
+     65              R_BSP_INT( VECT( TRAP, 2 ) );
+     66          #if defined(__BANK)
+     67              R_BSP_INT( VECT( TRAP, 3 ) );
+     68              R_BSP_INT( VECT( TRAP, 4 ) );
+     69          #endif
+     70          
+     71              R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
+     72              R_BSP_INT( VECT( TRAP, 0 ) );
+     73              R_BSP_INT( VECT( TRAP, 1 ) );
+     74              R_BSP_INT( VECT( TRAP, 2 ) );
+     75          #if defined(__BANK)
+     76              R_BSP_INT( VECT( TRAP, 3 ) );
+     77              R_BSP_INT( VECT( TRAP, 4 ) );
+     78          #endif
+     79          #endif
+     80          
+     81              R_BSP_NOP();
    \   000024 03           NOP
-     44          
-     45              for(;;);
+     82          
+     83          #if defined(__RXV3)
+     84              fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
+     85              fp_Check_Not_Using_DSQRT_FSQRT = &Check_Not_Using_DSQRT_FSQRT;
+     86          #endif
+     87          
+     88              for(;;);
    \                     ??main_0:
-   \   000025 2E 00        BRA.B     ??main_0
-     46          }
-     47          
+   \   000025 2E 00        BRA.B     ??main_0      ;  I 01
+     89          }
+     90          
+     91          #if defined(__CCRX__)
+     92          #pragma inline_asm _acc_
+     93          static void _acc_(void){/* Nothing is enough for debugging with the `-save_acc` compiler option. */}
+     94          #else
+     95          #define _acc_() do{}while(0)/* This is enough as of today. */
+     96          #if 0
+     97          static void _acc_(void){/* T.B.D. */}
+     98          #endif
+     99          #endif
+    100          
 
    \                                 In section .data24.data, align 4
-     48          uint32_t debug = 0x5a5a5a5a;
+    101          uint32_t debug = 0x5a5a5a5a;
    \                     _debug:
    \   000000 5A5A'5A5A    DC32 1'515'870'810
-     49          
+    102          
 
    \                                 In section .text, align 1, keep-with-next
-     50          R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
+    103          R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
    \                     ___interrupt_0:
    \   000000 7E A1        PUSH.L R1
    \   000002 FD 6A 01     MVFC PSW, R1
    \   000005 69 81        SHLR #24, R1
    \   000007 64 F1        AND #15, R1
-   \   000009 61 81        CMP #0x8, R1
+   \   000009 61 91        CMP #0x9, R1
    \   00000B 22 05        BGEU ??_lab1
-   \   00000D 75 70 08     MVTIPL #0x8
+   \   00000D 75 70 09     MVTIPL #0x9
    \                     ??_lab1:
    \   000010 7F A8        SETPSW I
    \   000012 7E B1        POP R1
@@ -149,62 +202,104 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv2_Ne
    \   000019              REQUIRE _trap0_isr
 
    \                                 In section .text, align 1, keep-with-next
-     51          R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
-     52          {
+    104          R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
+    105          {
    \                     _trap0_isr:
-   \   000000 7E A1        PUSH.L    R1
-     53              debug = 0;
-   \   000002 FB 1E        MOV.L     #_debug:24,R1
+   \   000000 7E A1        PUSH.L    R1    ;  N
+    106              debug = 0; _acc_();
+   \   000002 FB 1E        MOV.L     #_debug:24,R1 ;  N 
 
    \          ..'....
-   \   000007 F8 16 00     MOV.L     #0x0,[R1]
-     54          }
-   \   00000A 7E B1        POP       R1
+   \   000007 F8 16 00     MOV.L     #0x0,[R1]     ;  N
+    107          }
+   \   00000A 7E B1        POP       R1    ;  N
    \   00000C 7F 95        RTE
-     55          
-     56          #if defined(__CCRX__) /*----------------------------------------------------*/
-     57          
-     58          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-     59          /**/
-     60          #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
-     61          static void trap1_isr(void)
-     62          {
-     63              debug = 1;
-     64          }
-     65          
-     66          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-     67          /**/
-     68          #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
-     69          static void trap2_isr(void)
-     70          {
-     71              debug = 2;
-     72          }
-     73          
-     74          #elif defined(__GNUC__) /*--------------------------------------------------*/
-     75          
-     76          void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
-     77          /**/
-     78          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-     79          /**/
-     80          void trap1_isr(void)
-     81          {
-     82              debug = 1;
-     83          }
-     84          
-     85          void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
-     86          /**/
-     87          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-     88          /**/
-     89          void trap2_isr(void)
-     90          {
-     91              debug = 2;
-     92          }
-     93          
-     94          #elif defined(__ICCRX__) /*-------------------------------------------------*/
-     95          
-     96          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-     97          /**/
-     98          #pragma vector = VECT(TRAP, 1)
+    108          
+    109          #if defined(__CCRX__) /*----------------------------------------------------*/
+    110          
+    111          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+    112          /**/
+    113          #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
+    114          static void trap1_isr(void)
+    115          {
+    116              debug = 1; _acc_();
+    117          }
+    118          
+    119          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+    120          /**/
+    121          #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
+    122          static void trap2_isr(void)
+    123          {
+    124              debug = 2; _acc_();
+    125          }
+    126          
+    127          #if defined(__BANK)
+    128          
+    129          #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+    130          /**/
+    131          #pragma interrupt trap3_isr(vect = VECT(TRAP, 3))
+    132          static void trap3_isr(void)
+    133          {
+    134              debug = 3; _acc_();
+    135          }
+    136          
+    137          #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+    138          /**/
+    139          #pragma interrupt trap4_isr(vect = VECT(TRAP, 4))
+    140          static void trap4_isr(void)
+    141          {
+    142              debug = 4; _acc_();
+    143          }
+    144          
+    145          #endif
+    146          
+    147          #elif defined(__GNUC__) /*--------------------------------------------------*/
+    148          
+    149          void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
+    150          /**/
+    151          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+    152          /**/
+    153          void trap1_isr(void)
+    154          {
+    155              debug = 1; _acc_();
+    156          }
+    157          
+    158          void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
+    159          /**/
+    160          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+    161          /**/
+    162          void trap2_isr(void)
+    163          {
+    164              debug = 2; _acc_();
+    165          }
+    166          
+    167          #if defined(__BANK)
+    168          
+    169          void trap3_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 3))));
+    170          /**/
+    171          #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+    172          /**/
+    173          void trap3_isr(void)
+    174          {
+    175              debug = 3; _acc_();
+    176          }
+    177          
+    178          void trap4_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 4))));
+    179          /**/
+    180          #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+    181          /**/
+    182          void trap4_isr(void)
+    183          {
+    184              debug = 4; _acc_();
+    185          }
+    186          
+    187          #endif
+    188          
+    189          #elif defined(__ICCRX__) /*-------------------------------------------------*/
+    190          
+    191          #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+    192          /**/
+    193          #pragma vector = VECT(TRAP, 1)
 
    \                                 In section .text, align 1, keep-with-next
    \                     ___interrupt_1:
@@ -212,9 +307,9 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv2_Ne
    \   000002 FD 6A 01     MVFC PSW, R1
    \   000005 69 81        SHLR #24, R1
    \   000007 64 F1        AND #15, R1
-   \   000009 61 81        CMP #0x8, R1
+   \   000009 61 91        CMP #0x9, R1
    \   00000B 22 05        BGEU ??_lab1_1
-   \   00000D 75 70 08     MVTIPL #0x8
+   \   00000D 75 70 09     MVTIPL #0x9
    \                     ??_lab1_1:
    \   000010 7F A8        SETPSW I
    \   000012 7E B1        POP R1
@@ -223,24 +318,24 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv2_Ne
    \   000017              REQUIRE _trap1_isr
 
    \                                 In section .text, align 1, keep-with-next
-     99          __interrupt static void trap1_isr(void) // Remark[Pe082]: storage class is not first
+    194          __interrupt static void trap1_isr(void) // Remark[Pe082]: storage class is not first
                              ^
 Remark[Pe082]: storage class is not first
-    100          {
+    195          {
    \                     _trap1_isr:
-   \   000000 7E A1        PUSH.L    R1
-    101              debug = 1;
-   \   000002 FB 1E        MOV.L     #_debug:24,R1
+   \   000000 7E A1        PUSH.L    R1    ;  N
+    196              debug = 1; _acc_();
+   \   000002 FB 1E        MOV.L     #_debug:24,R1 ;  N 
 
    \          ..'....
-   \   000007 F8 16 01     MOV.L     #0x1,[R1]
-    102          }
-   \   00000A 7E B1        POP       R1
+   \   000007 F8 16 01     MOV.L     #0x1,[R1]     ;  N
+    197          }
+   \   00000A 7E B1        POP       R1    ;  N
    \   00000C 7F 95        RTE
-    103          
-    104          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-    105          /**/
-    106          #pragma vector = VECT(TRAP, 2)
+    198          
+    199          #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+    200          /**/
+    201          #pragma vector = VECT(TRAP, 2)
 
    \                                 In section .text, align 1, keep-with-next
    \                     ___interrupt_2:
@@ -250,7 +345,7 @@ Remark[Pe082]: storage class is not first
    \   000005              REQUIRE _trap2_isr
 
    \                                 In section .text, align 1, keep-with-next
-    107          __interrupt static void trap2_isr(void) // Remark[Pe082]: storage class is not first
+    202          __interrupt static void trap2_isr(void) // Remark[Pe082]: storage class is not first
                              ^
 Remark[Pe082]: storage class is not first
 
@@ -273,19 +368,39 @@ Remark[Pe082]: storage class is not first
   static void r_Config_RIIC0_callback_error(MD_STATUS status);
               ^
 "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv2_NestedInterrupt_IAR\src\smc_gen\Config_RIIC0\Config_RIIC0.h",65  Remark[Pe177]: function "r_Config_RIIC0_callback_error" was declared but never referenced
-    108          {
+    203          {
    \                     _trap2_isr:
-   \   000000 7E A1        PUSH.L    R1
-    109              debug = 2;
-   \   000002 FB 1E        MOV.L     #_debug:24,R1
+   \   000000 7E A1        PUSH.L    R1    ;  N
+    204              debug = 2; _acc_();
+   \   000002 FB 1E        MOV.L     #_debug:24,R1 ;  N 
 
    \          ..'....
-   \   000007 F8 16 02     MOV.L     #0x2,[R1]
-    110          }
-   \   00000A 7E B1        POP       R1
+   \   000007 F8 16 02     MOV.L     #0x2,[R1]     ;  N
+    205          }
+   \   00000A 7E B1        POP       R1    ;  N
    \   00000C 7F 95        RTE
-    111          
-    112          #endif /*-------------------------------------------------------------------*/
+    206          
+    207          #if defined(__BANK)
+    208          
+    209          #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+    210          /**/
+    211          #pragma vector = VECT(TRAP, 3)
+    212          __interrupt static void trap3_isr(void) // Remark[Pe082]: storage class is not first
+    213          {
+    214              debug = 3; _acc_();
+    215          }
+    216          
+    217          #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+    218          /**/
+    219          #pragma vector = VECT(TRAP, 4)
+    220          __interrupt static void trap4_isr(void) // Remark[Pe082]: storage class is not first
+    221          {
+    222              debug = 4; _acc_();
+    223          }
+    224          
+    225          #endif
+    226          
+    227          #endif /*-------------------------------------------------------------------*/
 
    Maximum stack usage in bytes:
 

@@ -14245,57 +14245,63 @@ ffc046d5:	00                            	brk
 	...
 
 ffc046d8 <_main>:
-#define VECT_TRAP_3 3
 #define VECT_TRAP_4 4
+#endif
 
 void main(void)
 {
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX - 1 );
-ffc046d8:	75 70 07                      	mvtipl	#7
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX - 1 );
+ffc046d8:	75 70 08                      	mvtipl	#8
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffc046db:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffc046de:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffc046e1:	75 60 02                      	int #2
+#if defined(__BANK)
     R_BSP_INT( VECT( TRAP, 3 ) );
 ffc046e4:	75 60 03                      	int #3
     R_BSP_INT( VECT( TRAP, 4 ) );
 ffc046e7:	75 60 04                      	int #4
+#endif
 
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX );
-ffc046ea:	75 70 08                      	mvtipl	#8
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX );
+ffc046ea:	75 70 09                      	mvtipl	#9
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffc046ed:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffc046f0:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffc046f3:	75 60 02                      	int #2
+#if defined(__BANK)
     R_BSP_INT( VECT( TRAP, 3 ) );
 ffc046f6:	75 60 03                      	int #3
     R_BSP_INT( VECT( TRAP, 4 ) );
 ffc046f9:	75 60 04                      	int #4
+#endif
 
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX + 1 );
-ffc046fc:	75 70 09                      	mvtipl	#9
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX + 1 );
+ffc046fc:	75 70 0a                      	mvtipl	#10
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffc046ff:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffc04702:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffc04705:	75 60 02                      	int #2
+#if defined(__BANK)
     R_BSP_INT( VECT( TRAP, 3 ) );
 ffc04708:	75 60 03                      	int #3
     R_BSP_INT( VECT( TRAP, 4 ) );
 ffc0470b:	75 60 04                      	int #4
-    R_BSP_INT( VECT( TRAP, 2 ) );
     R_BSP_INT( VECT( TRAP, 3 ) );
     R_BSP_INT( VECT( TRAP, 4 ) );
+#endif
 #endif
 
     R_BSP_NOP();
 ffc0470e:	03                            	nop
 
+#if defined(__RXV3)
     fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
 ffc0470f:	fb 52 b0 08 00 00             	mov.l	#0x8b0, r5
 ffc04715:	f8 52 18 46 c0 ff             	mov.l	#0xffc04618, [r5]
@@ -14303,6 +14309,7 @@ ffc04715:	f8 52 18 46 c0 ff             	mov.l	#0xffc04618, [r5]
 ffc0471b:	fb 52 b4 08 00 00             	mov.l	#0x8b4, r5
 ffc04721:	f8 52 9c 46 c0 ff             	mov.l	#0xffc0469c, [r5]
 ffc04727:	03                            	nop
+#endif
 
     for(;;);
 ffc04728:	2e 00                         	bra.b	ffc04728 <_Reset_Vector+0xffc0472c>
@@ -14413,9 +14420,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(sci_iic_int_sci_iic1_txi_isr, VECT_SCI1_TXI1)
 ffc0482e:	7e a1                         	push.l	r1
 ffc04830:	fd 6a 01                      	mvfc	psw, r1
 ffc04833:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc04838:	61 81                         	cmp	#8, r1
+ffc04838:	61 91                         	cmp	#9, r1
 ffc0483a:	22 05                         	bc.b	ffc0483f <_Reset_Vector+0xffc04843>
-ffc0483c:	75 70 08                      	mvtipl	#8
+ffc0483c:	75 70 09                      	mvtipl	#9
 ffc0483f:	7f a8                         	setpsw	i
 ffc04841:	fd 6a 01                      	mvfc	psw, r1
 ffc04844:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -14442,9 +14449,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(riic1_txi_isr, VECT(RIIC1,TXI1))
 ffc0486c:	7e a1                         	push.l	r1
 ffc0486e:	fd 6a 01                      	mvfc	psw, r1
 ffc04871:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc04876:	61 81                         	cmp	#8, r1
+ffc04876:	61 91                         	cmp	#9, r1
 ffc04878:	22 05                         	bc.b	ffc0487d <_Reset_Vector+0xffc04881>
-ffc0487a:	75 70 08                      	mvtipl	#8
+ffc0487a:	75 70 09                      	mvtipl	#9
 ffc0487d:	7f a8                         	setpsw	i
 ffc0487f:	fd 6a 01                      	mvfc	psw, r1
 ffc04882:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -14464,9 +14471,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(riic1_rxi_isr, VECT(RIIC1,RXI1))
 ffc0489c:	7e a1                         	push.l	r1
 ffc0489e:	fd 6a 01                      	mvfc	psw, r1
 ffc048a1:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc048a6:	61 81                         	cmp	#8, r1
+ffc048a6:	61 91                         	cmp	#9, r1
 ffc048a8:	22 05                         	bc.b	ffc048ad <_Reset_Vector+0xffc048b1>
-ffc048aa:	75 70 08                      	mvtipl	#8
+ffc048aa:	75 70 09                      	mvtipl	#9
 ffc048ad:	7f a8                         	setpsw	i
 ffc048af:	fd 6a 01                      	mvfc	psw, r1
 ffc048b2:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -14491,9 +14498,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_bl0_handler_isr, VECT(ICU,GROUPBL0))
 ffc048d0:	7e a1                         	push.l	r1
 ffc048d2:	fd 6a 01                      	mvfc	psw, r1
 ffc048d5:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc048da:	61 81                         	cmp	#8, r1
+ffc048da:	61 91                         	cmp	#9, r1
 ffc048dc:	22 05                         	bc.b	ffc048e1 <_Reset_Vector+0xffc048e5>
-ffc048de:	75 70 08                      	mvtipl	#8
+ffc048de:	75 70 09                      	mvtipl	#9
 ffc048e1:	7f a8                         	setpsw	i
 ffc048e3:	fd 6a 01                      	mvfc	psw, r1
 ffc048e6:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -15158,9 +15165,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_bl1_handler_isr, VECT(ICU,GROUPBL1))
 ffc04df8:	7e a1                         	push.l	r1
 ffc04dfa:	fd 6a 01                      	mvfc	psw, r1
 ffc04dfd:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc04e02:	61 81                         	cmp	#8, r1
+ffc04e02:	61 91                         	cmp	#9, r1
 ffc04e04:	22 05                         	bc.b	ffc04e09 <_Reset_Vector+0xffc04e0d>
-ffc04e06:	75 70 08                      	mvtipl	#8
+ffc04e06:	75 70 09                      	mvtipl	#9
 ffc04e09:	7f a8                         	setpsw	i
 ffc04e0b:	fd 6a 01                      	mvfc	psw, r1
 ffc04e0e:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -15704,9 +15711,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_bl2_handler_isr, VECT(ICU,GROUPBL2))
 ffc05230:	7e a1                         	push.l	r1
 ffc05232:	fd 6a 01                      	mvfc	psw, r1
 ffc05235:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc0523a:	61 81                         	cmp	#8, r1
+ffc0523a:	61 91                         	cmp	#9, r1
 ffc0523c:	22 05                         	bc.b	ffc05241 <_Reset_Vector+0xffc05245>
-ffc0523e:	75 70 08                      	mvtipl	#8
+ffc0523e:	75 70 09                      	mvtipl	#9
 ffc05241:	7f a8                         	setpsw	i
 ffc05243:	fd 6a 01                      	mvfc	psw, r1
 ffc05246:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -15818,9 +15825,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_al0_handler_isr, VECT(ICU,GROUPAL0))
 ffc05300:	7e a1                         	push.l	r1
 ffc05302:	fd 6a 01                      	mvfc	psw, r1
 ffc05305:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc0530a:	61 81                         	cmp	#8, r1
+ffc0530a:	61 91                         	cmp	#9, r1
 ffc0530c:	22 05                         	bc.b	ffc05311 <_Reset_Vector+0xffc05315>
-ffc0530e:	75 70 08                      	mvtipl	#8
+ffc0530e:	75 70 09                      	mvtipl	#9
 ffc05311:	7f a8                         	setpsw	i
 ffc05313:	fd 6a 01                      	mvfc	psw, r1
 ffc05316:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16220,9 +16227,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_al1_handler_isr, VECT(ICU,GROUPAL1))
 ffc05618:	7e a1                         	push.l	r1
 ffc0561a:	fd 6a 01                      	mvfc	psw, r1
 ffc0561d:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05622:	61 81                         	cmp	#8, r1
+ffc05622:	61 91                         	cmp	#9, r1
 ffc05624:	22 05                         	bc.b	ffc05629 <_Reset_Vector+0xffc0562d>
-ffc05626:	75 70 08                      	mvtipl	#8
+ffc05626:	75 70 09                      	mvtipl	#9
 ffc05629:	7f a8                         	setpsw	i
 ffc0562b:	fd 6a 01                      	mvfc	psw, r1
 ffc0562e:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16358,9 +16365,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_ie0_handler_isr, VECT(ICU,GROUPIE0))
 ffc05718:	7e a1                         	push.l	r1
 ffc0571a:	fd 6a 01                      	mvfc	psw, r1
 ffc0571d:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05722:	61 81                         	cmp	#8, r1
+ffc05722:	61 91                         	cmp	#9, r1
 ffc05724:	22 05                         	bc.b	ffc05729 <_Reset_Vector+0xffc0572d>
-ffc05726:	75 70 08                      	mvtipl	#8
+ffc05726:	75 70 09                      	mvtipl	#9
 ffc05729:	7f a8                         	setpsw	i
 ffc0572b:	fd 6a 01                      	mvfc	psw, r1
 ffc0572e:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16413,9 +16420,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_be0_handler_isr, VECT(ICU,GROUPBE0))
 ffc05770:	7e a1                         	push.l	r1
 ffc05772:	fd 6a 01                      	mvfc	psw, r1
 ffc05775:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc0577a:	61 81                         	cmp	#8, r1
+ffc0577a:	61 91                         	cmp	#9, r1
 ffc0577c:	22 05                         	bc.b	ffc05781 <_Reset_Vector+0xffc05785>
-ffc0577e:	75 70 08                      	mvtipl	#8
+ffc0577e:	75 70 09                      	mvtipl	#9
 ffc05781:	7f a8                         	setpsw	i
 ffc05783:	fd 6a 01                      	mvfc	psw, r1
 ffc05786:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16526,9 +16533,9 @@ void r_Config_SCI0_transmit_interrupt(void)
 ffc05838:	7e a1                         	push.l	r1
 ffc0583a:	fd 6a 01                      	mvfc	psw, r1
 ffc0583d:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05842:	61 81                         	cmp	#8, r1
+ffc05842:	61 91                         	cmp	#9, r1
 ffc05844:	22 05                         	bc.b	ffc05849 <_Reset_Vector+0xffc0584d>
-ffc05846:	75 70 08                      	mvtipl	#8
+ffc05846:	75 70 09                      	mvtipl	#9
 ffc05849:	7f a8                         	setpsw	i
 ffc0584b:	fd 6a 01                      	mvfc	psw, r1
 ffc0584e:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16585,9 +16592,9 @@ void r_Config_SCI0_receive_interrupt(void)
 ffc058a0:	7e a1                         	push.l	r1
 ffc058a2:	fd 6a 01                      	mvfc	psw, r1
 ffc058a5:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc058aa:	61 81                         	cmp	#8, r1
+ffc058aa:	61 91                         	cmp	#9, r1
 ffc058ac:	22 05                         	bc.b	ffc058b1 <_Reset_Vector+0xffc058b5>
-ffc058ae:	75 70 08                      	mvtipl	#8
+ffc058ae:	75 70 09                      	mvtipl	#9
 ffc058b1:	7f a8                         	setpsw	i
 ffc058b3:	fd 6a 01                      	mvfc	psw, r1
 ffc058b6:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16782,9 +16789,9 @@ void r_Config_RIIC0_transmit_interrupt(void)
 ffc059e0:	7e a1                         	push.l	r1
 ffc059e2:	fd 6a 01                      	mvfc	psw, r1
 ffc059e5:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc059ea:	61 81                         	cmp	#8, r1
+ffc059ea:	61 91                         	cmp	#9, r1
 ffc059ec:	22 05                         	bc.b	ffc059f1 <_Reset_Vector+0xffc059f5>
-ffc059ee:	75 70 08                      	mvtipl	#8
+ffc059ee:	75 70 09                      	mvtipl	#9
 ffc059f1:	7f a8                         	setpsw	i
 ffc059f3:	fd 6a 01                      	mvfc	psw, r1
 ffc059f6:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -16946,9 +16953,9 @@ void r_Config_RIIC0_receive_interrupt(void)
 ffc05b30:	7e a1                         	push.l	r1
 ffc05b32:	fd 6a 01                      	mvfc	psw, r1
 ffc05b35:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05b3a:	61 81                         	cmp	#8, r1
+ffc05b3a:	61 91                         	cmp	#9, r1
 ffc05b3c:	22 05                         	bc.b	ffc05b41 <_Reset_Vector+0xffc05b45>
-ffc05b3e:	75 70 08                      	mvtipl	#8
+ffc05b3e:	75 70 09                      	mvtipl	#9
 ffc05b41:	7f a8                         	setpsw	i
 ffc05b43:	fd 6a 01                      	mvfc	psw, r1
 ffc05b46:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -17225,7 +17232,8 @@ ffc05cbf <__r_Config_MTU3_MTU4_c4_tciv4_interrupt>:
 ffc05cbf:	02                            	rts
 
 ffc05cc0 <__trap0_isr>:
-}
+#endif
+#endif
 
 uint32_t debug = 0x5a5a5a5a;
 
@@ -17233,9 +17241,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
 ffc05cc0:	7e a1                         	push.l	r1
 ffc05cc2:	fd 6a 01                      	mvfc	psw, r1
 ffc05cc5:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05cca:	61 81                         	cmp	#8, r1
+ffc05cca:	61 91                         	cmp	#9, r1
 ffc05ccc:	22 05                         	bc.b	ffc05cd1 <_Reset_Vector+0xffc05cd5>
-ffc05cce:	75 70 08                      	mvtipl	#8
+ffc05cce:	75 70 09                      	mvtipl	#9
 ffc05cd1:	7f a8                         	setpsw	i
 ffc05cd3:	fd 6a 01                      	mvfc	psw, r1
 ffc05cd6:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -17249,7 +17257,7 @@ ffc05cea:	7f 95                         	rte
 ffc05cec <_trap0_isr>:
 R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
 {
-    debug = 0;
+    debug = 0; _acc_();
 ffc05cec:	fb 52 30 00 00 00             	mov.l	#48, r5
 ffc05cf2:	f8 56 00                      	mov.l	#0, [r5]
 }
@@ -17259,15 +17267,15 @@ ffc05cf6 <_trap1_isr>:
 
 void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
 /**/
-#define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
+#define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
 /**/
 void trap1_isr(void)
 ffc05cf6:	7e a1                         	push.l	r1
 ffc05cf8:	fd 6a 01                      	mvfc	psw, r1
 ffc05cfb:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-ffc05d00:	61 81                         	cmp	#8, r1
+ffc05d00:	61 91                         	cmp	#9, r1
 ffc05d02:	22 05                         	bc.b	ffc05d07 <_Reset_Vector+0xffc05d0b>
-ffc05d04:	75 70 08                      	mvtipl	#8
+ffc05d04:	75 70 09                      	mvtipl	#9
 ffc05d07:	7f a8                         	setpsw	i
 ffc05d09:	fd 6a 01                      	mvfc	psw, r1
 ffc05d0c:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -17280,7 +17288,7 @@ ffc05d20:	7f 95                         	rte
 
 ffc05d22 <__trap1_isr>:
 {
-    debug = 1;
+    debug = 1; _acc_();
 ffc05d22:	fb 52 30 00 00 00             	mov.l	#48, r5
 ffc05d28:	f8 56 01                      	mov.l	#1, [r5]
 }
@@ -17308,7 +17316,7 @@ ffc05d40:	6e 56                         	pushm	r5-r6
 ffc05d42:	fd 1f 85                      	mvfachi	#0, a1, r5
 ffc05d45:	fd 1f b6                      	mvfacgu	#0, a1, r6
 ffc05d48:	6e 56                         	pushm	r5-r6
-    debug = 2;
+    debug = 2; _acc_();
 ffc05d4a:	fb 52 30 00 00 00             	mov.l	#48, r5
 ffc05d50:	f8 56 02                      	mov.l	#2, [r5]
 }
@@ -17338,7 +17346,7 @@ ffc05d7a:	7f 95                         	rte
 
 ffc05d7c <__trap3_isr>:
 {
-    debug = 3;
+    debug = 3; _acc_();
 ffc05d7c:	fb 52 30 00 00 00             	mov.l	#48, r5
 ffc05d82:	f8 56 03                      	mov.l	#3, [r5]
 }
@@ -17359,7 +17367,7 @@ ffc05d93:	7f 95                         	rte
 
 ffc05d95 <__trap4_isr>:
 {
-    debug = 4;
+    debug = 4; _acc_();
 ffc05d95:	fb 52 30 00 00 00             	mov.l	#48, r5
 ffc05d9b:	f8 56 04                      	mov.l	#4, [r5]
 }

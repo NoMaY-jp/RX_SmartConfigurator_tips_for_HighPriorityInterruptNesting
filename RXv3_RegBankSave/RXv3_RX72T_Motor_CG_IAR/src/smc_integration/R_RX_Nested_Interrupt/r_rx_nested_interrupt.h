@@ -6,14 +6,14 @@
 #undef R_BSP_ATTRIB_STATIC_INTERRUPT
 
 #if defined(__RXV1) || defined(__RXV2) || defined(BSP_BOARD_GENERIC_RX66T)
-#define MY_BSP_CFG_FIT_UNNESTED_IPL_MAX 8  // 1 <= defined value <= BSP_CFG_FIT_IPL_MAX(default)
+#define MY_BSP_CFG_UNNESTED_IPL_MAX  9 // 0 <= defined value <= 15 (default value is BSP_CFG_FIT_IPL_MAX)
 #else
 /*
- * Register save banks of MY_BSP_CFG_FIT_UNNESTED_IPL_MAX ... BSP_CFG_FIT_IPL_MAX are used. Moreover, 
- * in case of CC-RX, additional register save bank of MY_BSP_CFG_FIT_REG_BANK_SCRATCH is temporally used.
+ * Register save banks of MY_BSP_CFG_UNNESTED_IPL_MAX ... maximum interrupt priority level among IPRs are used.
+ * Moreover,  in case of CC-RX, additional register save bank of MY_BSP_CFG_REG_BANK_SCRATCH is temporally used.
  */
-#define MY_BSP_CFG_FIT_UNNESTED_IPL_MAX 8  // 1 <= defined value <= BSP_CFG_FIT_IPL_MAX(default)
-#define MY_BSP_CFG_FIT_REG_BANK_SCRATCH 15 // 0 <= defined value < MY_BSP_CFG_FIT_UNNESTED_IPL_MAX or BSP_CFG_FIT_IPL_MAX(default) <= defined value <= 15
+#define MY_BSP_CFG_UNNESTED_IPL_MAX  9 // 0 <= defined value <= 15 (default value is BSP_CFG_FIT_IPL_MAX)
+#define MY_BSP_CFG_REG_BANK_SCRATCH 15 // 0 <= defined value < MY_BSP_CFG_UNNESTED_IPL_MAX or maximum interrupt priority level among IPRs <= defined value <= 15 (default value is 15)
 #endif
 
 #if defined(__RXV1) || defined(__RXV2) || defined(BSP_BOARD_GENERIC_RX66T)
@@ -21,8 +21,12 @@
 #if defined(__CCRX__)
 
 #define R_BSP_ASM_TOKEN_SHARP  #
+#define R_BSP_ASM_IMM(imm) R_BSP_ASM_TOKEN_SHARP (imm)
+
+#define R_BSP_PRAGMA_INTERRUPT_Helper_concat(t1, t2) t1##t2
 
 #define R_BSP_PRAGMA_STATIC_INTERRUPT(function_name, vect_no)         R_BSP_PRAGMA(interrupt _##function_name(vect=vect_no, no_acc))\
+                                                                      R_BSP_PRAGMA(interrupt R_BSP_PRAGMA_INTERRUPT_Helper_concat(_##function_name##__vect, vect_no))\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_111)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_112)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_113)\
@@ -31,42 +35,42 @@
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_201)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_202)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_203)\
-                                                                      R_BSP_PRAGMA(inline_asm _##function_name##_asm_301)\
                                                                       static void _##function_name##_asm_111(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_112(void){ SHLR R_BSP_ASM_TOKEN_SHARP 24, R1 }\
-                                                                      static void _##function_name##_asm_113(void){ AND R_BSP_ASM_TOKEN_SHARP 15, R1  }\
+                                                                      static void _##function_name##_asm_112(void){ SHLR R_BSP_ASM_IMM(24), R1 }\
+                                                                      static void _##function_name##_asm_113(void){ AND R_BSP_ASM_IMM(15), R1  }\
                                                                       static uint32_t _##function_name##_asm_114(void){ /* Non */ }/* return R1(i.e. return PSW.IPL) */\
                                                                       static void _##function_name##_asm_115(void){ SETPSW I      }\
                                                                       static void _##function_name##_asm_201(void){ POP R1        }\
-                                                                      static void _##function_name##_asm_202(void){ ADD R_BSP_ASM_TOKEN_SHARP ((7 - 1) * 4), R0 }\
-                                                                      static void _##function_name##_asm_203(void){ PUSHC PSW     }\
-                                                                      static void _##function_name##_asm_301(void){ RTE           }\
+                                                                      static void _##function_name##_asm_202(void){ ADD R_BSP_ASM_IMM((7 - 1) * 4), R0 }\
+                                                                      static void _##function_name##_asm_203(void){ BRA.W R_BSP_PRAGMA_INTERRUPT_Helper_concat(__##function_name##__vect, vect_no) }\
+                                                                      /* The above BRA.`W` is necessary because _func and _func__vectXXX may be far from each other in this case. */\
                                                                       static void _##function_name(void)\
                                                                       {\
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           _##function_name##_asm_111();\
                                                                           _##function_name##_asm_112();\
                                                                           _##function_name##_asm_113();\
-                                                                          if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > _##function_name##_asm_114())/* label is unavailable in inline_asm code in macro. */\
+                                                                          if(MY_BSP_CFG_UNNESTED_IPL_MAX > _##function_name##_asm_114())/* label is unavailable in inline_asm code in macro. */\
                                                                           {\
-                                                                              R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 *//* label is unavailable in inline_asm code in macro. */\
+                                                                              R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 */\
                                                                           }\
                                                                           _##function_name##_asm_115();\
                                                                           _##function_name##_asm_201();\
                                                                           _##function_name##_asm_202();\
+                                                                          /* The following function never return. */\
                                                                           _##function_name##_asm_203();\
-                                                                          static void function_name(void);\
-                                                                          /* The following interrupt function will return here */\
-                                                                          /* after executing the RTE instruction of the function. */\
-                                                                          (*(void (*)(void))(uint32_t)&function_name)();\
-                                                                          _##function_name##_asm_301();\
                                                                       }\
-                                                                      R_BSP_PRAGMA(interrupt function_name)
+                                                                      R_BSP_PRAGMA(inline function_name)\
+                                                                      void R_BSP_PRAGMA_INTERRUPT_Helper_concat(_##function_name##__vect, vect_no)(void)\
+                                                                      {\
+                                                                          static void function_name(void);\
+                                                                          function_name();\
+                                                                      }
 
 #define R_BSP_ATTRIB_STATIC_INTERRUPT                                 static
 
@@ -81,9 +85,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1    \n"\
@@ -97,7 +101,7 @@
                                                                           "SETPSW I     \n"\
                                                                           "POP R1       \n"\
                                                                           "BRA.B _" #function_name " \n"/* BRA.B may not be necessary but it is intended for the safe. */\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       U_BSP_ASM_END_WITH_NO_RETURN \
                                                                       }
 
@@ -112,9 +116,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1    \n"\
@@ -128,7 +132,7 @@
                                                                           "SETPSW I     \n"\
                                                                           "POP R1       \n"\
                                                                           "BRA.W _" #function_name " \n"/* BRA.`W` is necessary because _func and func may be far from each other in this case. */\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       R_BSP_ASM_END \
                                                                       }/* RTE is here. */
 
@@ -138,13 +142,11 @@
 
 #if defined(__CCRX__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* No longer necessary but for only the backward compatibility for a while. */
-
-#define _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...)
-#define _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect(...) vect __VA_ARGS__, save, no_acc)
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect(
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_void_R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...) void);\
-                                                                      R_BSP_PRAGMA(interrupt function_name)\
+#define _R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...)
+#define _R_CG_ATTRIB_INTERRUPT_EHI_vect(...) vect __VA_ARGS__, save, no_acc)
+#define R_CG_ATTRIB_INTERRUPT_EHI_vect _R_CG_ATTRIB_INTERRUPT_EHI_vect(
+#define R_CG_ATTRIB_INTERRUPT_EHI_void_R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...) void);\
+                                                                      R_BSP_PRAGMA(interrupt _##function_name##__vectXXX)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_111)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_112)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_113)\
@@ -153,43 +155,44 @@
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_201)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_202)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_203)\
-                                                                      R_BSP_PRAGMA(inline_asm _##function_name##_asm_301)\
                                                                       static void _##function_name##_asm_111(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_112(void){ SHLR R_BSP_ASM_TOKEN_SHARP 24, R1 }\
-                                                                      static void _##function_name##_asm_113(void){ AND R_BSP_ASM_TOKEN_SHARP 15, R1  }\
+                                                                      static void _##function_name##_asm_112(void){ SHLR R_BSP_ASM_IMM(24), R1 }\
+                                                                      static void _##function_name##_asm_113(void){ AND R_BSP_ASM_IMM(15), R1  }\
                                                                       static uint32_t _##function_name##_asm_114(void){ /* Non */ }/* return R1(i.e. return PSW.IPL) */\
                                                                       static void _##function_name##_asm_115(void){ SETPSW I      }\
                                                                       static void _##function_name##_asm_201(void){ POP R1        }\
-                                                                      static void _##function_name##_asm_202(void){ ADD R_BSP_ASM_TOKEN_SHARP ((7 - 1) * 4), R0 }\
-                                                                      static void _##function_name##_asm_203(void){ PUSHC PSW     }\
-                                                                      static void _##function_name##_asm_301(void){ RTE           }\
+                                                                      static void _##function_name##_asm_202(void){ ADD R_BSP_ASM_IMM((7 - 1) * 4), R0 }\
+                                                                      static void _##function_name##_asm_203(void){ BRA.S __##function_name##__vectXXX }\
+                                                                      /* The above BRA.S is intended to skip POPM R1-R5, POPM R14-R15, RTE at the end of the following interrupt function. */\
                                                                       static void _##function_name(void)\
                                                                       {\
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           _##function_name##_asm_111();\
                                                                           _##function_name##_asm_112();\
                                                                           _##function_name##_asm_113();\
-                                                                          if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > _##function_name##_asm_114())/* label is unavailable in inline_asm code in macro. */\
+                                                                          if(MY_BSP_CFG_UNNESTED_IPL_MAX > _##function_name##_asm_114())/* label is unavailable in inline_asm code in macro. */\
                                                                           {\
-                                                                              R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 *//* label is unavailable in inline_asm code in macro. */\
+                                                                              R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 */\
                                                                           }\
                                                                           _##function_name##_asm_115();\
                                                                           _##function_name##_asm_201();\
                                                                           _##function_name##_asm_202();\
+                                                                          /* The following function never return. */\
                                                                           _##function_name##_asm_203();\
+                                                                      }\
+                                                                      R_BSP_PRAGMA(inline function_name)\
+                                                                      void _##function_name##__vectXXX(void)\
+                                                                      {\
                                                                           static void function_name(void);\
-                                                                          /* The following interrupt function will return here */\
-                                                                          /* after executing the RTE instruction of the function. */\
-                                                                          (*(void (*)(void))(uint32_t)&function_name)();\
-                                                                          _##function_name##_asm_301();\
+                                                                          function_name();\
                                                                       }\
                                                                       static void function_name(void
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...) _##function_name(R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_##__VA_ARGS__##_R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, __VA_ARGS__))
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...) _##function_name(R_CG_ATTRIB_INTERRUPT_EHI_##__VA_ARGS__##_R_CG_ATTRIB_INTERRUPT_EHI(function_name, __VA_ARGS__))
 
 #define _R_CG_ATTRIB_INTERRUPT_EI_vect(...) enable, vect __VA_ARGS__)
 #define R_CG_ATTRIB_INTERRUPT_EI_vect _R_CG_ATTRIB_INTERRUPT_EI_vect(
@@ -198,18 +201,16 @@
 
 #elif defined(__GNUC__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* Unnecessary but for only the compatibility between CC-RX and this compiler. */
-
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
                                                                       function_name(void) __attribute__((naked, section(U_BSP_SECNAME_ISRTEXT "." #function_name), used));\
                                                                       void _##function_name(void) __attribute__((interrupt, section(U_BSP_SECNAME_ISRTEXT "." #function_name)));\
                                                                       void function_name(void)\
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1    \n"\
@@ -223,7 +224,7 @@
                                                                           "SETPSW I     \n"\
                                                                           "POP R1       \n"\
                                                                           "BRA.B __" #function_name " \n"/* BRA.B may not be necessary but it is intended for the safe. */\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       U_BSP_ASM_END_WITH_NO_RETURN \
                                                                       }\
                                                                       void _##function_name(void)/* Be aware that the leading `_` is necessary here. */
@@ -242,9 +243,7 @@
 
 #elif defined(__ICCRX__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* Unnecessary but for only the compatibility between CC-RX and this compiler. */
-
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
                                                                       _##function_name(void);\
                                                                       static __interrupt void function_name(void);\
                                                                       R_BSP_PRAGMA(required=function_name)\
@@ -252,9 +251,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1    \n"\
@@ -268,7 +267,7 @@
                                                                           "SETPSW I     \n"\
                                                                           "POP R1       \n"\
                                                                           "BRA.S _" #function_name " \n"/* BRA.S is intended to skip RTE at the end of this interrupt function. */\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       R_BSP_ASM_END \
                                                                       }/* RTE is here. */\
                                                                       static __interrupt void function_name(void)
@@ -293,8 +292,9 @@
 #if defined(__CCRX__)
 
 #define R_BSP_ASM_TOKEN_SHARP #
+#define R_BSP_ASM_IMM(imm) R_BSP_ASM_TOKEN_SHARP (imm)
 
-#define R_BSP_PRAGMA_STATIC_INTERRUPT(function_name, vect_no)         R_BSP_PRAGMA(interrupt _##function_name(vect=vect_no, bank=MY_BSP_CFG_FIT_REG_BANK_SCRATCH))\
+#define R_BSP_PRAGMA_STATIC_INTERRUPT(function_name, vect_no)         R_BSP_PRAGMA(interrupt _##function_name(vect=vect_no, bank=MY_BSP_CFG_REG_BANK_SCRATCH))\
                                                                       R_BSP_PRAGMA(noinline function_name)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_101)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_111)\
@@ -310,11 +310,11 @@
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_303)\
                                                                       static void _##function_name##_asm_101(void){ PUSH.L R1     }\
                                                                       static void _##function_name##_asm_111(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_112(void){ BFMOVZ R_BSP_ASM_TOKEN_SHARP 24, R_BSP_ASM_TOKEN_SHARP 0, R_BSP_ASM_TOKEN_SHARP 4, R1, R1 }\
+                                                                      static void _##function_name##_asm_112(void){ BFMOVZ R_BSP_ASM_IMM(24), R_BSP_ASM_IMM(0), R_BSP_ASM_IMM(4), R1, R1 }\
                                                                       static uint32_t _##function_name##_asm_113(void){ /* Non */ }/* return R1(i.e. return PSW.IPL) */\
                                                                       static void _##function_name##_asm_114(void){ SETPSW I      }\
                                                                       static void _##function_name##_asm_201(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_202(void){ BFMOVZ R_BSP_ASM_TOKEN_SHARP 24, R_BSP_ASM_TOKEN_SHARP 0, R_BSP_ASM_TOKEN_SHARP 4, R1, R1 }\
+                                                                      static void _##function_name##_asm_202(void){ BFMOVZ R_BSP_ASM_IMM(24), R_BSP_ASM_IMM(0), R_BSP_ASM_IMM(4), R1, R1 }\
                                                                       static void _##function_name##_asm_203(void){ SAVE R1       }\
                                                                       static void _##function_name##_asm_204(void){ MOV.L R1, R6  }/* R6 is either unmodified or saved/restored in any function. */\
                                                                       static void _##function_name##_asm_301(void){ RSTR R6       }\
@@ -323,17 +323,17 @@
                                                                       static void _##function_name(void)\
                                                                       {\
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           _##function_name##_asm_101();\
                                                                           _##function_name##_asm_111();\
                                                                           _##function_name##_asm_112();\
-                                                                          if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > _##function_name##_asm_113())/* label is unavailable in inline_asm code in macro. */\
+                                                                          if(MY_BSP_CFG_UNNESTED_IPL_MAX > _##function_name##_asm_113())/* label is unavailable in inline_asm code in macro. */\
                                                                           {\
-                                                                              R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 *//* label is unavailable in inline_asm code in macro. */\
+                                                                              R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 */\
                                                                           }\
                                                                           _##function_name##_asm_114();\
                                                                           /* Basic concept of Register Save Bank usage: */\
@@ -364,9 +364,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1                   \n"\
@@ -389,7 +389,7 @@
                                                                           "RSTR R6                     \n"\
                                                                           "POP R1                      \n"\
                                                                           "RTE                         \n"\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       U_BSP_ASM_END_WITH_NO_RETURN \
                                                                       }
 
@@ -404,9 +404,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1                   \n"\
@@ -428,7 +428,7 @@
                                                                           "BSR.W _" #function_name   " \n"/* BSR.`W` is necessary because neither BSR.S nor BSR.B exist. */\
                                                                           "RSTR R6                     \n"\
                                                                           "POP R1                      \n"\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       R_BSP_ASM_END \
                                                                       }/* RTE is here. */
 
@@ -438,12 +438,10 @@
 
 #if defined(__CCRX__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* No longer necessary but for only the backward compatibility for a while. */
-
-#define _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...)
-#define _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect(...) vect __VA_ARGS__, bank=MY_BSP_CFG_FIT_REG_BANK_SCRATCH)
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect _R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_vect(
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_void_R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...) void);\
+#define _R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...)
+#define _R_CG_ATTRIB_INTERRUPT_EHI_vect(...) vect __VA_ARGS__, bank=MY_BSP_CFG_REG_BANK_SCRATCH)
+#define R_CG_ATTRIB_INTERRUPT_EHI_vect _R_CG_ATTRIB_INTERRUPT_EHI_vect(
+#define R_CG_ATTRIB_INTERRUPT_EHI_void_R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...) void);\
                                                                       R_BSP_PRAGMA(noinline function_name)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_101)\
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_111)\
@@ -459,11 +457,11 @@
                                                                       R_BSP_PRAGMA(inline_asm _##function_name##_asm_303)\
                                                                       static void _##function_name##_asm_101(void){ PUSH.L R1     }\
                                                                       static void _##function_name##_asm_111(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_112(void){ BFMOVZ R_BSP_ASM_TOKEN_SHARP 24, R_BSP_ASM_TOKEN_SHARP 0, R_BSP_ASM_TOKEN_SHARP 4, R1, R1 }\
+                                                                      static void _##function_name##_asm_112(void){ BFMOVZ R_BSP_ASM_IMM(24), R_BSP_ASM_IMM(0), R_BSP_ASM_IMM(4), R1, R1 }\
                                                                       static uint32_t _##function_name##_asm_113(void){ /* Non */ }/* return R1(i.e. return PSW.IPL) */\
                                                                       static void _##function_name##_asm_114(void){ SETPSW I      }\
                                                                       static void _##function_name##_asm_201(void){ MVFC PSW, R1  }\
-                                                                      static void _##function_name##_asm_202(void){ BFMOVZ R_BSP_ASM_TOKEN_SHARP 24, R_BSP_ASM_TOKEN_SHARP 0, R_BSP_ASM_TOKEN_SHARP 4, R1, R1 }\
+                                                                      static void _##function_name##_asm_202(void){ BFMOVZ R_BSP_ASM_IMM(24), R_BSP_ASM_IMM(0), R_BSP_ASM_IMM(4), R1, R1 }\
                                                                       static void _##function_name##_asm_203(void){ SAVE R1       }\
                                                                       static void _##function_name##_asm_204(void){ MOV.L R1, R6  }/* R6 is either unmodified or saved/restored in any function. */\
                                                                       static void _##function_name##_asm_301(void){ RSTR R6       }\
@@ -472,17 +470,17 @@
                                                                       static void _##function_name(void)\
                                                                       {\
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           _##function_name##_asm_101();\
                                                                           _##function_name##_asm_111();\
                                                                           _##function_name##_asm_112();\
-                                                                          if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > _##function_name##_asm_113())/* label is unavailable in inline_asm code in macro. */\
+                                                                          if(MY_BSP_CFG_UNNESTED_IPL_MAX > _##function_name##_asm_113())/* label is unavailable in inline_asm code in macro. */\
                                                                           {\
-                                                                              R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 *//* label is unavailable in inline_asm code in macro. */\
+                                                                              R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);/* MVTIPL #IMM:4 */\
                                                                           }\
                                                                           _##function_name##_asm_114();\
                                                                           /* Basic concept of Register Save Bank usage: */\
@@ -500,7 +498,7 @@
                                                                           _##function_name##_asm_303();\
                                                                       }\
                                                                       static void function_name(void
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, ...) _##function_name(R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI_##__VA_ARGS__##_R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, __VA_ARGS__))
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, ...) _##function_name(R_CG_ATTRIB_INTERRUPT_EHI_##__VA_ARGS__##_R_CG_ATTRIB_INTERRUPT_EHI(function_name, __VA_ARGS__))
 
 #define _R_CG_ATTRIB_INTERRUPT_EI_vect(...) enable, vect __VA_ARGS__)
 #define R_CG_ATTRIB_INTERRUPT_EI_vect _R_CG_ATTRIB_INTERRUPT_EI_vect(
@@ -521,18 +519,16 @@
 
 #elif defined(__GNUC__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* Unnecessary but for only the compatibility between CC-RX and this compiler. */
-
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
                                                                       function_name(void) __attribute__((naked, section(U_BSP_SECNAME_ISRTEXT "." #function_name), used));\
                                                                       void _##function_name(void) __attribute__((section(U_BSP_SECNAME_ISRTEXT "." #function_name)));\
                                                                       void function_name(void)\
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1                   \n"\
@@ -555,7 +551,7 @@
                                                                           "RSTR R6                     \n"\
                                                                           "POP R1                      \n"\
                                                                           "RTE                         \n"\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       U_BSP_ASM_END_WITH_NO_RETURN \
                                                                       }\
                                                                       void _##function_name(void)/* Be aware that the leading `_` is necessary here. */
@@ -605,9 +601,7 @@
 
 #elif defined(__ICCRX__)
 
-#define R_CG_PRAGMA_INTERRUPT_FIT_IPL_MAX_EI(function_name, vect_no) /* Unnecessary but for only the compatibility between CC-RX and this compiler. */
-
-#define R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
+#define R_CG_ATTRIB_INTERRUPT_EHI(function_name, .../* This argument is unnecessary but for the compatibility between CC-RX and this compiler. */)\
                                                                       _##function_name(void);\
                                                                       static void function_name(void);\
                                                                       R_BSP_PRAGMA(required=function_name)\
@@ -615,9 +609,9 @@
                                                                       {\
                                                                       R_BSP_ASM_BEGIN \
                                                                           /* Basic concept of unnested/nested interrupt: */\
-                                                                          /* if(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
+                                                                          /* if(MY_BSP_CFG_UNNESTED_IPL_MAX > (((R_BSP_GET_PSW()) >> 24) & 0xF)) */\
                                                                           /* { */\
-                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
+                                                                          /*     R_BSP_SET_IPL(MY_BSP_CFG_UNNESTED_IPL_MAX);*//* MVTIPL #IMM:4 */\
                                                                           /* } */\
                                                                           /* R_BSP_SETPSW_I(); */\
                                                                           "PUSH.L R1                   \n"\
@@ -639,7 +633,7 @@
                                                                           "BSR.W _" #function_name   " \n"/* BSR.`W` is necessary because neither BSR.S nor BSR.B exist. */\
                                                                           "RSTR R6                     \n"\
                                                                           "POP R1                      \n"\
-                                                                          ::"i"(MY_BSP_CFG_FIT_UNNESTED_IPL_MAX)\
+                                                                          ::"i"(MY_BSP_CFG_UNNESTED_IPL_MAX)\
                                                                       R_BSP_ASM_END \
                                                                       }/* RTE is here. */\
                                                                       static void function_name(void)

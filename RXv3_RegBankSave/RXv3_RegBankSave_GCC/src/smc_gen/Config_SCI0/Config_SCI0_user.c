@@ -54,8 +54,8 @@ extern volatile uint16_t  g_sci0_rx_length;                  /* SCI0 receive dat
 
 #if 1
 
-#define r_Config_SCI0_transmit_interrupt(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(r_Config_SCI0_transmit_interrupt, __VA_ARGS__)
-#define r_Config_SCI0_receive_interrupt(...)  R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(r_Config_SCI0_receive_interrupt,  __VA_ARGS__)
+#define r_Config_SCI0_transmit_interrupt(...) R_CG_ATTRIB_INTERRUPT_EHI(r_Config_SCI0_transmit_interrupt, __VA_ARGS__)
+#define r_Config_SCI0_receive_interrupt(...)  R_CG_ATTRIB_INTERRUPT_EHI(r_Config_SCI0_receive_interrupt,  __VA_ARGS__)
 
 #else
 

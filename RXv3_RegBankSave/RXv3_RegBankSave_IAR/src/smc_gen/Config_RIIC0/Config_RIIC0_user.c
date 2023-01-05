@@ -55,8 +55,8 @@ extern volatile uint8_t    g_riic0_stop_generation;         /* RIIC0 stop condit
 
 #if 1
 
-#define r_Config_RIIC0_transmit_interrupt(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(r_Config_RIIC0_transmit_interrupt, __VA_ARGS__)
-#define r_Config_RIIC0_receive_interrupt(...)  R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(r_Config_RIIC0_receive_interrupt,  __VA_ARGS__)
+#define r_Config_RIIC0_transmit_interrupt(...) R_CG_ATTRIB_INTERRUPT_EHI(r_Config_RIIC0_transmit_interrupt, __VA_ARGS__)
+#define r_Config_RIIC0_receive_interrupt(...)  R_CG_ATTRIB_INTERRUPT_EHI(r_Config_RIIC0_receive_interrupt,  __VA_ARGS__)
 
 #else
 

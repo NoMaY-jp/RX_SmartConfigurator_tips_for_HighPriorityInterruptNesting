@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:19:08
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      05/Jan/2023  16:13:34
 # Copyright 2009-2020 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
 #
@@ -85,10 +85,10 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      19          static __interrupt __nested void i_hdr_4_1(void)
      20          {
    \                     _i_hdr_4_1:
-   \   000000 7F A8        SETPSW    I     ;  N
-   \   000002 6E EF        PUSHM     R14-R15       ;  N
-   \   000004 6E 1B        PUSHM     R1-R11        ;  N
-   \   000006 71 00 C8     ADD       #-0x38,SP,SP  ;  N
+   \   000000 7F A8        SETPSW    I
+   \   000002 6E EF        PUSHM     R14-R15
+   \   000004 6E 1B        PUSHM     R1-R11
+   \   000006 71 00 C8     ADD       #-0x38,SP,SP
      21              long data[10];
      22              int i;
      23              char tmp[2];
@@ -98,33 +98,33 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      27          //    while(1){
      28          
      29                  printf("### Data Input ###\n");
-   \   000009 F8 0E        MOV.L     #?_0:24,[SP]  ;  N 
+   \   000009 F8 0E        MOV.L     #?_0:24,[SP]
 
    \          ..'....
-   \   00000E 05 ..'....   BSR.A     _printf       ;  N
+   \   00000E 05 ..'....   BSR.A     _printf
      30          
      31                  for( i=0; i<10; i++ ){
-   \   000012 66 09        MOV.L     #0x0,R9       ;  N
-   \   000014 71 0A 10     ADD       #0x10,SP,R10  ;  N
-   \   000017 FB 6E        MOV.L     #?_3:24,R6    ;  N 
+   \   000012 66 09        MOV.L     #0x0,R9
+   \   000014 71 0A 10     ADD       #0x10,SP,R10
+   \   000017 FB 6E        MOV.L     #?_3:24,R6
 
    \          ..'....
-   \   00001C FB 72        MOV.L     #?_2:32,R7    ;  N 
+   \   00001C FB 72        MOV.L     #?_2:32,R7
 
    \          ....'....
-   \   000022 FB 82        MOV.L     #?_1:32,R8    ;  N 
+   \   000022 FB 82        MOV.L     #?_1:32,R8
 
    \          ....'....
      32                      printf("data[%d]=",i);
    \                     ??i_hdr_4_1_0:
-   \   000028 E7 09 01     MOV.L     R9,0x4[SP]    ;  O 01
-   \   00002B E3 08        MOV.L     R8,[SP]       ;  O 01
-   \   00002D 05 ..'....   BSR.A     _printf       ;  O 01
+   \   000028 E7 09 01     MOV.L     R9,0x4[SP]
+   \   00002B E3 08        MOV.L     R8,[SP]
+   \   00002D 05 ..'....   BSR.A     _printf
      33                      data[i]= 0;
-   \   000031 F8 A6 00     MOV.L     #0x0,[R10]    ;  O 01
+   \   000031 F8 A6 00     MOV.L     #0x0,[R10]
      34                      isnuminput = FALSE;
-   \   000034 66 0B        MOV.L     #0x0,R11      ;  O 01
-   \   000036 2E 16        BRA.B     ??i_hdr_4_1_1 ;  O 01
+   \   000034 66 0B        MOV.L     #0x0,R11
+   \   000036 2E 16        BRA.B     ??i_hdr_4_1_1
      35                      while(1){
      36                          ret = scanf("%c",&tmp);
                                                   ^
@@ -153,122 +153,122 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
      58                          }else{
      59                              printf("\n+++You can input only the decimal number.+++\n");
    \                     ??i_hdr_4_1_2:
-   \   000038 E3 06        MOV.L     R6,[SP]       ;  I 02
-   \   00003A 05 ..'....   BSR.A     _printf       ;  I 02
+   \   000038 E3 06        MOV.L     R6,[SP]
+   \   00003A 05 ..'....   BSR.A     _printf
      60                              data[i] = 0;
-   \   00003E F8 A6 00     MOV.L     #0x0,[R10]    ;  I 02
+   \   00003E F8 A6 00     MOV.L     #0x0,[R10]
      61                              isnuminput = FALSE;
      62                              printf("data[%d]=",i);
-   \   000041 E7 09 01     MOV.L     R9,0x4[SP]    ;  I 02
-   \   000044 E3 08        MOV.L     R8,[SP]       ;  I 02
-   \   000046 66 0B        MOV.L     #0x0,R11      ;  I 02
-   \   000048 05 ..'....   BSR.A     _printf       ;  I 02
+   \   000041 E7 09 01     MOV.L     R9,0x4[SP]
+   \   000044 E3 08        MOV.L     R8,[SP]
+   \   000046 66 0B        MOV.L     #0x0,R11
+   \   000048 05 ..'....   BSR.A     _printf
      63                          }
    \                     ??i_hdr_4_1_1:
-   \   00004C 71 01 0C     ADD       #0xc,SP,R1    ;  I 02
-   \   00004F A0 09        MOV.L     R1,0x4[SP]    ;  I 02
-   \   000051 E3 07        MOV.L     R7,[SP]       ;  I 02
-   \   000053 05 ..'....   BSR.A     _scanf        ;  I 02
-   \   000057 75 01 FF     CMP       #-0x1,R1      ;  I 02
-   \   00005A 20 DE        BEQ.B     ??i_hdr_4_1_2 ;  I 02
-   \   00005C B3 02        MOVU.B    0xc[SP],R2    ;  I 02
-   \   00005E 61 A2        CMP       #0xa,R2       ;  I 02
-   \   000060 20 1C        BEQ.B     ??i_hdr_4_1_3 ;  I 02
-   \   000062 71 21 D0     ADD       #-0x30,R2,R1  ;  I 02
-   \   000065 61 A1        CMP       #0xa,R1       ;  I 02
-   \   000067 22 D1        BGEU      ??i_hdr_4_1_2 ;  I 02
-   \   000069 71 01 0C     ADD       #0xc,SP,R1    ;  I 02
-   \   00006C 05 ..'....   BSR.A     _atoi ;  I 02
-   \   000070 EC A2        MOV.L     [R10],R2      ;  I 02
-   \   000072 66 1B        MOV.L     #0x1,R11      ;  I 02
-   \   000074 63 A2        MUL       #0xa,R2       ;  I 02
-   \   000076 4B 21        ADD       R2,R1 ;  I 02
-   \   000078 E3 A1        MOV.L     R1,[R10]      ;  I 02
-   \   00007A 2E D2        BRA.B     ??i_hdr_4_1_1 ;  I 02
+   \   00004C 71 01 0C     ADD       #0xc,SP,R1
+   \   00004F A0 09        MOV.L     R1,0x4[SP]
+   \   000051 E3 07        MOV.L     R7,[SP]
+   \   000053 05 ..'....   BSR.A     _scanf
+   \   000057 75 01 FF     CMP       #-0x1,R1
+   \   00005A 20 DE        BEQ.B     ??i_hdr_4_1_2
+   \   00005C B3 02        MOVU.B    0xc[SP],R2
+   \   00005E 61 A2        CMP       #0xa,R2
+   \   000060 20 1C        BEQ.B     ??i_hdr_4_1_3
+   \   000062 71 21 D0     ADD       #-0x30,R2,R1
+   \   000065 61 A1        CMP       #0xa,R1
+   \   000067 22 D1        BGEU      ??i_hdr_4_1_2
+   \   000069 71 01 0C     ADD       #0xc,SP,R1
+   \   00006C 05 ..'....   BSR.A     _atoi
+   \   000070 EC A2        MOV.L     [R10],R2
+   \   000072 66 1B        MOV.L     #0x1,R11
+   \   000074 63 A2        MUL       #0xa,R2
+   \   000076 4B 21        ADD       R2,R1
+   \   000078 E3 A1        MOV.L     R1,[R10]
+   \   00007A 2E D2        BRA.B     ??i_hdr_4_1_1
    \                     ??i_hdr_4_1_3:
-   \   00007C 61 0B        CMP       #0x0,R11      ;  I 02
-   \   00007E 20 BA        BEQ.B     ??i_hdr_4_1_2 ;  I 02
+   \   00007C 61 0B        CMP       #0x0,R11
+   \   00007E 20 BA        BEQ.B     ??i_hdr_4_1_2
      64                      }
      65                  }
-   \   000080 62 19        ADD       #0x1,R9       ;  O 01
-   \   000082 62 4A        ADD       #0x4,R10      ;  O 01
-   \   000084 61 A9        CMP       #0xa,R9       ;  O 01
-   \   000086 29 A2        BLT       ??i_hdr_4_1_0 ;  O 01
+   \   000080 62 19        ADD       #0x1,R9
+   \   000082 62 4A        ADD       #0x4,R10
+   \   000084 61 A9        CMP       #0xa,R9
+   \   000086 29 A2        BLT       ??i_hdr_4_1_0
      66          
      67                  sort(data);
-   \   000088 71 01 10     ADD       #0x10,SP,R1   ;  N
-   \   00008B 39 ....      BSR.W     _sort ;  N
+   \   000088 71 01 10     ADD       #0x10,SP,R1
+   \   00008B 39 ....      BSR.W     _sort
      68          
      69                  printf("*** Sorting results ***\n");
-   \   00008E F8 0E        MOV.L     #?_4:24,[SP]  ;  N 
+   \   00008E F8 0E        MOV.L     #?_4:24,[SP]
 
    \          ..'....
-   \   000093 05 ..'....   BSR.A     _printf       ;  N
+   \   000093 05 ..'....   BSR.A     _printf
      70          
      71                  for( i=0; i<10; i++ ){
      72                      printf("data[%d]=%ld\n",i,data[i]);
    \   000097 A9 01        MOV.L     0x10[SP],R1
-   \   000099 FB 6E        MOV.L     #?_5:24,R6    ;  N 
+   \   000099 FB 6E        MOV.L     #?_5:24,R6
 
    \          ..'....
-   \   00009E 3E 01 00     MOV.L     #0x0,0x4[SP]  ;  N
+   \   00009E 3E 01 00     MOV.L     #0x0,0x4[SP]
    \   0000A1 A0 81        MOV.L     R1,0x8[SP]
-   \   0000A3 E3 06        MOV.L     R6,[SP]       ;  N
-   \   0000A5 05 ..'....   BSR.A     _printf       ;  N
+   \   0000A3 E3 06        MOV.L     R6,[SP]
+   \   0000A5 05 ..'....   BSR.A     _printf
    \   0000A9 A9 09        MOV.L     0x14[SP],R1
-   \   0000AB 3E 01 01     MOV.L     #0x1,0x4[SP]  ;  N
-   \   0000AE E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000AB 3E 01 01     MOV.L     #0x1,0x4[SP]
+   \   0000AE E3 06        MOV.L     R6,[SP]
    \   0000B0 A0 81        MOV.L     R1,0x8[SP]
-   \   0000B2 05 ..'....   BSR.A     _printf       ;  N
+   \   0000B2 05 ..'....   BSR.A     _printf
    \   0000B6 A9 81        MOV.L     0x18[SP],R1
-   \   0000B8 3E 01 02     MOV.L     #0x2,0x4[SP]  ;  N
-   \   0000BB E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000B8 3E 01 02     MOV.L     #0x2,0x4[SP]
+   \   0000BB E3 06        MOV.L     R6,[SP]
    \   0000BD A0 81        MOV.L     R1,0x8[SP]
-   \   0000BF 05 ..'....   BSR.A     _printf       ;  N
+   \   0000BF 05 ..'....   BSR.A     _printf
    \   0000C3 A9 89        MOV.L     0x1c[SP],R1
-   \   0000C5 3E 01 03     MOV.L     #0x3,0x4[SP]  ;  N
-   \   0000C8 E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000C5 3E 01 03     MOV.L     #0x3,0x4[SP]
+   \   0000C8 E3 06        MOV.L     R6,[SP]
    \   0000CA A0 81        MOV.L     R1,0x8[SP]
-   \   0000CC 05 ..'....   BSR.A     _printf       ;  N
+   \   0000CC 05 ..'....   BSR.A     _printf
    \   0000D0 AA 01        MOV.L     0x20[SP],R1
-   \   0000D2 3E 01 04     MOV.L     #0x4,0x4[SP]  ;  N
-   \   0000D5 E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000D2 3E 01 04     MOV.L     #0x4,0x4[SP]
+   \   0000D5 E3 06        MOV.L     R6,[SP]
    \   0000D7 A0 81        MOV.L     R1,0x8[SP]
-   \   0000D9 05 ..'....   BSR.A     _printf       ;  N
+   \   0000D9 05 ..'....   BSR.A     _printf
    \   0000DD AA 09        MOV.L     0x24[SP],R1
-   \   0000DF 3E 01 05     MOV.L     #0x5,0x4[SP]  ;  N
-   \   0000E2 E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000DF 3E 01 05     MOV.L     #0x5,0x4[SP]
+   \   0000E2 E3 06        MOV.L     R6,[SP]
    \   0000E4 A0 81        MOV.L     R1,0x8[SP]
-   \   0000E6 05 ..'....   BSR.A     _printf       ;  N
+   \   0000E6 05 ..'....   BSR.A     _printf
    \   0000EA AA 81        MOV.L     0x28[SP],R1
-   \   0000EC 3E 01 06     MOV.L     #0x6,0x4[SP]  ;  N
-   \   0000EF E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000EC 3E 01 06     MOV.L     #0x6,0x4[SP]
+   \   0000EF E3 06        MOV.L     R6,[SP]
    \   0000F1 A0 81        MOV.L     R1,0x8[SP]
-   \   0000F3 05 ..'....   BSR.A     _printf       ;  N
+   \   0000F3 05 ..'....   BSR.A     _printf
    \   0000F7 AA 89        MOV.L     0x2c[SP],R1
-   \   0000F9 3E 01 07     MOV.L     #0x7,0x4[SP]  ;  N
-   \   0000FC E3 06        MOV.L     R6,[SP]       ;  N
+   \   0000F9 3E 01 07     MOV.L     #0x7,0x4[SP]
+   \   0000FC E3 06        MOV.L     R6,[SP]
    \   0000FE A0 81        MOV.L     R1,0x8[SP]
-   \   000100 05 ..'....   BSR.A     _printf       ;  N
+   \   000100 05 ..'....   BSR.A     _printf
    \   000104 AB 01        MOV.L     0x30[SP],R1
-   \   000106 3E 01 08     MOV.L     #0x8,0x4[SP]  ;  N
-   \   000109 E3 06        MOV.L     R6,[SP]       ;  N
+   \   000106 3E 01 08     MOV.L     #0x8,0x4[SP]
+   \   000109 E3 06        MOV.L     R6,[SP]
    \   00010B A0 81        MOV.L     R1,0x8[SP]
-   \   00010D 05 ..'....   BSR.A     _printf       ;  N
+   \   00010D 05 ..'....   BSR.A     _printf
    \   000111 AB 09        MOV.L     0x34[SP],R1
-   \   000113 3E 01 09     MOV.L     #0x9,0x4[SP]  ;  N
-   \   000116 E3 06        MOV.L     R6,[SP]       ;  N
+   \   000113 3E 01 09     MOV.L     #0x9,0x4[SP]
+   \   000116 E3 06        MOV.L     R6,[SP]
    \   000118 A0 81        MOV.L     R1,0x8[SP]
-   \   00011A 05 ..'....   BSR.A     _printf       ;  N
+   \   00011A 05 ..'....   BSR.A     _printf
      73                  }
      74          
      75                  change(data);
      76          
      77          //    }
      78          }
-   \   00011E 71 00 38     ADD       #0x38,SP,SP   ;  N
-   \   000121 6F 1B        POPM      R1-R11        ;  N
-   \   000123 6F EF        POPM      R14-R15       ;  N
+   \   00011E 71 00 38     ADD       #0x38,SP,SP
+   \   000121 6F 1B        POPM      R1-R11
+   \   000123 6F EF        POPM      R14-R15
    \   000125 7F 95        RTE
      79          
 
@@ -276,81 +276,81 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
      80          void sort(long *data)
      81          {
    \                     _sort:
-   \   000000 6E 68        PUSHM     R6-R8 ;  N
+   \   000000 6E 68        PUSHM     R6-R8
      82              long t;
      83              int i, j, k, gap;
      84          
      85              gap = 5;
-   \   000002 FB 22 05 00  MOV.L     #0x5:32,R2    ;  N 
+   \   000002 FB 22 05 00  MOV.L     #0x5:32,R2
 
    \          00 00
      86              while( gap > 0 ){
      87                  for( k=0; k<gap; k++){
    \                     ??sort_0:
-   \   000008 FB 32 00 00  MOV.L     #0x0:32,R3    ;  O 01
+   \   000008 FB 32 00 00  MOV.L     #0x0:32,R3
 
    \          00 00
-   \   00000E EF 24        MOV.L     R2,R4 ;  O 01
+   \   00000E EF 24        MOV.L     R2,R4
      88                      for( i=k+gap; i<10; i=i+gap ){
    \                     ??sort_1:
-   \   000010 76 04 0A 00  CMP       #0xa:16,R4    ;  O 02
-   \   000014 EF 45        MOV.L     R4,R5 ;  O 02
-   \   000016 28 42        BGE       ??sort_2      ;  O 02
+   \   000010 76 04 0A 00  CMP       #0xa:16,R4
+   \   000014 EF 45        MOV.L     R4,R5
+   \   000016 28 42        BGE       ??sort_2
      89                          for(j=i-gap; j>=k; j=j-gap){
    \                     ??sort_3:
-   \   000018 FF 0E 25     SUB       R2,R5,R14     ;  O 03
-   \   00001B FD C2 EF     SHLL      #0x2,R14,R15  ;  O 03
-   \   00001E 4B 1F        ADD       R1,R15        ;  O 03
-   \   000020 0A           BRA.S     ??sort_4      ;  O 03
+   \   000018 FF 0E 25     SUB       R2,R5,R14
+   \   00001B FD C2 EF     SHLL      #0x2,R14,R15
+   \   00001E 4B 1F        ADD       R1,R15
+   \   000020 0A           BRA.S     ??sort_4
      90                              if(data[j]>data[j+gap]){
      91                                  t = data[j];
      92                                  data[j] = data[j+gap];
    \                     ??sort_5:
-   \   000021 E3 F7        MOV.L     R7,[R15]      ;  I 04
+   \   000021 E3 F7        MOV.L     R7,[R15]
      93                                  data[j+gap] = t;
-   \   000023 FE 22 F6     MOV.L     R6,[R2,R15]   ;  I 04
-   \   000026 43 2E        SUB       R2,R14        ;  I 04
-   \   000028 4B 8F        ADD       R8,R15        ;  I 04
+   \   000023 FE 22 F6     MOV.L     R6,[R2,R15]
+   \   000026 43 2E        SUB       R2,R14
+   \   000028 4B 8F        ADD       R8,R15
    \                     ??sort_4:
-   \   00002A 47 3E        CMP       R3,R14        ;  I 04
-   \   00002C 29 26        BLT       ??sort_6      ;  I 04
-   \   00002E FE 62 F6     MOV.L     [R2,R15],R6   ;  I 04
-   \   000031 EC F7        MOV.L     [R15],R7      ;  I 04
-   \   000033 47 76        CMP       R7,R6 ;  I 04
-   \   000035 28 1D        BGE       ??sort_6      ;  I 04
+   \   00002A 47 3E        CMP       R3,R14
+   \   00002C 29 26        BLT       ??sort_6
+   \   00002E FE 62 F6     MOV.L     [R2,R15],R6
+   \   000031 EC F7        MOV.L     [R15],R7
+   \   000033 47 76        CMP       R7,R6
+   \   000035 28 1D        BGE       ??sort_6
      94                              }
-   \   000037 FC 07 28     NEG       R2,R8 ;  I 04
-   \   00003A 43 2E        SUB       R2,R14        ;  I 04
-   \   00003C 6C 28        SHLL      #0x2,R8       ;  I 04
-   \   00003E E3 F6        MOV.L     R6,[R15]      ;  I 04
-   \   000040 FE 22 F7     MOV.L     R7,[R2,R15]   ;  I 04
-   \   000043 4B 8F        ADD       R8,R15        ;  I 04
-   \   000045 47 3E        CMP       R3,R14        ;  I 04
-   \   000047 29 0B        BLT       ??sort_6      ;  I 04
-   \   000049 FE 62 F7     MOV.L     [R2,R15],R7   ;  I 04
-   \   00004C EC F6        MOV.L     [R15],R6      ;  I 04
-   \   00004E 47 67        CMP       R6,R7 ;  I 04
-   \   000050 29 D1        BLT       ??sort_5      ;  I 04
+   \   000037 FC 07 28     NEG       R2,R8
+   \   00003A 43 2E        SUB       R2,R14
+   \   00003C 6C 28        SHLL      #0x2,R8
+   \   00003E E3 F6        MOV.L     R6,[R15]
+   \   000040 FE 22 F7     MOV.L     R7,[R2,R15]
+   \   000043 4B 8F        ADD       R8,R15
+   \   000045 47 3E        CMP       R3,R14
+   \   000047 29 0B        BLT       ??sort_6
+   \   000049 FE 62 F7     MOV.L     [R2,R15],R7
+   \   00004C EC F6        MOV.L     [R15],R6
+   \   00004E 47 67        CMP       R6,R7
+   \   000050 29 D1        BLT       ??sort_5
      95                              else
      96                                  break;
      97                          }
      98                      }
    \                     ??sort_6:
-   \   000052 4B 25        ADD       R2,R5 ;  O 03
-   \   000054 61 A5        CMP       #0xa,R5       ;  O 03
-   \   000056 29 C2        BLT       ??sort_3      ;  O 03
+   \   000052 4B 25        ADD       R2,R5
+   \   000054 61 A5        CMP       #0xa,R5
+   \   000056 29 C2        BLT       ??sort_3
      99                  }
    \                     ??sort_2:
-   \   000058 62 13        ADD       #0x1,R3       ;  O 02
-   \   00005A 62 14        ADD       #0x1,R4       ;  O 02
-   \   00005C 47 23        CMP       R2,R3 ;  O 02
-   \   00005E 29 B2        BLT       ??sort_1      ;  O 02
+   \   000058 62 13        ADD       #0x1,R3
+   \   00005A 62 14        ADD       #0x1,R4
+   \   00005C 47 23        CMP       R2,R3
+   \   00005E 29 B2        BLT       ??sort_1
     100                  gap = gap/2;
-   \   000060 FD 9F 24     SHLR      #0x1f,R2,R4   ;  O 01
-   \   000063 4B 42        ADD       R4,R2 ;  O 01
-   \   000065 6A 12        SHAR      #0x1,R2       ;  O 01
-   \   000067 61 12        CMP       #0x1,R2       ;  O 01
-   \   000069 28 9F        BGE       ??sort_0      ;  O 01
+   \   000060 FD 9F 24     SHLR      #0x1f,R2,R4
+   \   000063 4B 42        ADD       R4,R2
+   \   000065 6A 12        SHAR      #0x1,R2
+   \   000067 61 12        CMP       #0x1,R2
+   \   000069 28 9F        BGE       ??sort_0
     101              }
     102          }
    \   00006B 3F 68 03     RTSD      #0xc,R6-R8
@@ -360,40 +360,40 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
     104          void change(long *data)
     105          {
    \                     _change:
-   \   000000 71 00 D8     ADD       #-0x28,SP,SP  ;  N
-   \   000003 EF 14        MOV.L     R1,R4 ;  N
+   \   000000 71 00 D8     ADD       #-0x28,SP,SP
+   \   000003 EF 14        MOV.L     R1,R4
     106              long tmp[10];
     107              int i;
     108          
     109              for(i=0; i<10; i++){
     110                  tmp[i] = data[i];
-   \   000005 EF 12        MOV.L     R1,R2 ;  N
-   \   000007 EF 01        MOV.L     SP,R1 ;  N
-   \   000009 FB 36 28     MOV.L     #0x28,R3      ;  N
+   \   000005 EF 12        MOV.L     R1,R2
+   \   000007 EF 01        MOV.L     SP,R1
+   \   000009 FB 36 28     MOV.L     #0x28,R3
    \   00000C 7F 8F        SMOVF
     111              }
     112              for(i=0; i<10; i++){
     113                  data[i] = tmp[9 - i];
-   \   00000E AA 09        MOV.L     0x24[SP],R1   ;  N
-   \   000010 E3 41        MOV.L     R1,[R4]       ;  N
-   \   000012 AA 02        MOV.L     0x20[SP],R2   ;  N
-   \   000014 A0 4A        MOV.L     R2,0x4[R4]    ;  N
-   \   000016 A9 89        MOV.L     0x1c[SP],R1   ;  N
-   \   000018 A0 C1        MOV.L     R1,0x8[R4]    ;  N
-   \   00001A A9 82        MOV.L     0x18[SP],R2   ;  N
-   \   00001C A0 CA        MOV.L     R2,0xc[R4]    ;  N
-   \   00001E A9 09        MOV.L     0x14[SP],R1   ;  N
-   \   000020 A1 41        MOV.L     R1,0x10[R4]   ;  N
-   \   000022 A9 02        MOV.L     0x10[SP],R2   ;  N
-   \   000024 A1 4A        MOV.L     R2,0x14[R4]   ;  N
-   \   000026 A8 89        MOV.L     0xc[SP],R1    ;  N
-   \   000028 A1 C1        MOV.L     R1,0x18[R4]   ;  N
-   \   00002A A8 82        MOV.L     0x8[SP],R2    ;  N
-   \   00002C A1 CA        MOV.L     R2,0x1c[R4]   ;  N
-   \   00002E A8 09        MOV.L     0x4[SP],R1    ;  N
-   \   000030 A2 41        MOV.L     R1,0x20[R4]   ;  N
-   \   000032 EC 02        MOV.L     [SP],R2       ;  N
-   \   000034 A2 4A        MOV.L     R2,0x24[R4]   ;  N
+   \   00000E AA 09        MOV.L     0x24[SP],R1
+   \   000010 E3 41        MOV.L     R1,[R4]
+   \   000012 AA 02        MOV.L     0x20[SP],R2
+   \   000014 A0 4A        MOV.L     R2,0x4[R4]
+   \   000016 A9 89        MOV.L     0x1c[SP],R1
+   \   000018 A0 C1        MOV.L     R1,0x8[R4]
+   \   00001A A9 82        MOV.L     0x18[SP],R2
+   \   00001C A0 CA        MOV.L     R2,0xc[R4]
+   \   00001E A9 09        MOV.L     0x14[SP],R1
+   \   000020 A1 41        MOV.L     R1,0x10[R4]
+   \   000022 A9 02        MOV.L     0x10[SP],R2
+   \   000024 A1 4A        MOV.L     R2,0x14[R4]
+   \   000026 A8 89        MOV.L     0xc[SP],R1
+   \   000028 A1 C1        MOV.L     R1,0x18[R4]
+   \   00002A A8 82        MOV.L     0x8[SP],R2
+   \   00002C A1 CA        MOV.L     R2,0x1c[R4]
+   \   00002E A8 09        MOV.L     0x4[SP],R1
+   \   000030 A2 41        MOV.L     R1,0x20[R4]
+   \   000032 EC 02        MOV.L     [SP],R2
+   \   000034 A2 4A        MOV.L     R2,0x24[R4]
     114              }
     115          }
    \   000036 67 0A        RTSD      #0x28
@@ -414,14 +414,14 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
     124          static __interrupt __nested void i_hdr_4_2(void)
     125          {
    \                     _i_hdr_4_2:
-   \   000000 7F A8        SETPSW    I     ;  N
-   \   000002 6E EF        PUSHM     R14-R15       ;  N
-   \   000004 6E 15        PUSHM     R1-R5 ;  N
+   \   000000 7F A8        SETPSW    I
+   \   000002 6E EF        PUSHM     R14-R15
+   \   000004 6E 15        PUSHM     R1-R5
     126             i_fnc_4_2();
-   \   000006 05 ..'....   BSR.A     _i_fnc_4_2    ;  N
+   \   000006 05 ..'....   BSR.A     _i_fnc_4_2
     127          }
-   \   00000A 6F 15        POPM      R1-R5 ;  N
-   \   00000C 6F EF        POPM      R14-R15       ;  N
+   \   00000A 6F 15        POPM      R1-R5
+   \   00000C 6F EF        POPM      R14-R15
    \   00000E 7F 95        RTE
     128          
 
@@ -440,18 +440,18 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
     136          static __interrupt __nested void i_hdr_4_3(void)
     137          {
    \                     _i_hdr_4_3:
-   \   000000 7F A8        SETPSW    I     ;  N
-   \   000002 6E 13        PUSHM     R1-R3 ;  N
+   \   000000 7F A8        SETPSW    I
+   \   000002 6E 13        PUSHM     R1-R3
     138              cnt = cnt * cnt;
-   \   000004 FB 2E        MOV.L     #_cnt:24,R2   ;  N 
+   \   000004 FB 2E        MOV.L     #_cnt:24,R2
 
    \          ..'....
-   \   000009 EC 23        MOV.L     [R2],R3       ;  N
-   \   00000B EF 31        MOV.L     R3,R1 ;  N
-   \   00000D 4F 13        MUL       R1,R3 ;  N
-   \   00000F E3 23        MOV.L     R3,[R2]       ;  N
+   \   000009 EC 23        MOV.L     [R2],R3
+   \   00000B EF 31        MOV.L     R3,R1
+   \   00000D 4F 13        MUL       R1,R3
+   \   00000F E3 23        MOV.L     R3,[R2]
     139          }
-   \   000011 6F 13        POPM      R1-R3 ;  N
+   \   000011 6F 13        POPM      R1-R3
    \   000013 7F 95        RTE
     140          
 
@@ -470,17 +470,17 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
     148          static __interrupt __nested void i_hdr_4_4(void)
     149          {
    \                     _i_hdr_4_4:
-   \   000000 7F A8        SETPSW    I     ;  N
-   \   000002 6E 12        PUSHM     R1-R2 ;  N
+   \   000000 7F A8        SETPSW    I
+   \   000002 6E 12        PUSHM     R1-R2
     150             cnt++;
-   \   000004 FB 1E        MOV.L     #_cnt:24,R1   ;  N 
+   \   000004 FB 1E        MOV.L     #_cnt:24,R1
 
    \          ..'....
-   \   000009 EC 12        MOV.L     [R1],R2       ;  N
-   \   00000B 62 12        ADD       #0x1,R2       ;  N
-   \   00000D E3 12        MOV.L     R2,[R1]       ;  N
+   \   000009 EC 12        MOV.L     [R1],R2
+   \   00000B 62 12        ADD       #0x1,R2
+   \   00000D E3 12        MOV.L     R2,[R1]
     151          }
-   \   00000F 6F 12        POPM      R1-R2 ;  N
+   \   00000F 6F 12        POPM      R1-R2
    \   000011 7F 95        RTE
     152          
 
@@ -500,29 +500,29 @@ Warning[Pe181]: argument is incompatible with corresponding format string conver
     161          static __interrupt __nested void i_hdr_4_5(void)
     162          {
    \                     _i_hdr_4_5:
-   \   000000 7F A8        SETPSW    I     ;  N
-   \   000002 6E 15        PUSHM     R1-R5 ;  N
+   \   000000 7F A8        SETPSW    I
+   \   000002 6E 15        PUSHM     R1-R5
     163              __macl(0, 0, 2);
-   \   000004 66 21        MOV.L     #0x2,R1       ;  N
-   \   000006 66 04        MOV.L     #0x0,R4       ;  N
+   \   000004 66 21        MOV.L     #0x2,R1
+   \   000006 66 04        MOV.L     #0x0,R4
    \   000008 FD 01 44     MULLO     R4,R4,A0
-   \   00000B 66 02        MOV.L     #0x0,R2       ;  N
-   \   00000D 66 03        MOV.L     #0x0,R3       ;  N
-   \   00000F 60 11        SUB       #0x1,R1       ;  N
+   \   00000B 66 02        MOV.L     #0x0,R2
+   \   00000D 66 03        MOV.L     #0x0,R3
+   \   00000F 60 11        SUB       #0x1,R1
    \                     ??i_hdr_4_5_0:
-   \   000011 FD 2A 34     MOV.L     [R3+],R4      ;  I 01
-   \   000014 FD 2A 25     MOV.L     [R2+],R5      ;  I 01
-   \   000017 60 21        SUB       #0x2,R1       ;  I 01
+   \   000011 FD 2A 34     MOV.L     [R3+],R4
+   \   000014 FD 2A 25     MOV.L     [R2+],R5
+   \   000017 60 21        SUB       #0x2,R1
    \   000019 FD 05 45     MACLO     R4,R5,A0
    \   00001C FD 04 45     MACHI     R4,R5,A0
-   \   00001F 2A F2        BGT       ??i_hdr_4_5_0 ;  I 01
-   \   000021 18           BNE.S     ??i_hdr_4_5_1 ;  N
-   \   000022 DC 34        MOV.W     [R3],R4       ;  N
-   \   000024 DC 25        MOV.W     [R2],R5       ;  N
+   \   00001F 2A F2        BGT       ??i_hdr_4_5_0
+   \   000021 18           BNE.S     ??i_hdr_4_5_1
+   \   000022 DC 34        MOV.W     [R3],R4
+   \   000024 DC 25        MOV.W     [R2],R5
    \   000026 FD 05 45     MACLO     R4,R5,A0
     164          }
    \                     ??i_hdr_4_5_1:
-   \   000029 6F 15        POPM      R1-R5 ;  N
+   \   000029 6F 15        POPM      R1-R5
    \   00002B 7F 95        RTE
     165          
 

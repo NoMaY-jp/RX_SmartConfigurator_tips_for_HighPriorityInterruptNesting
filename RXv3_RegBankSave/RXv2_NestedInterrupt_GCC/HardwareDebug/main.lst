@@ -8,108 +8,161 @@
    9                             		.file 1 "../src/main.c"
    1:../src/main.c **** #include "r_smc_entry.h"
    2:../src/main.c **** 
-   3:../src/main.c **** void main(void);
-   4:../src/main.c **** 
-   5:../src/main.c **** #define VECT_TRAP_0 0
-   6:../src/main.c **** #define VECT_TRAP_1 1
-   7:../src/main.c **** #define VECT_TRAP_2 2
-   8:../src/main.c **** 
-   9:../src/main.c **** void main(void)
-  10:../src/main.c **** {
-  10                             		.loc 1 10 1 view -0
-  11:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX - 1 );
-  11                             		.loc 1 11 5 view .LVU1
-  12 0000 75 70 07                		mvtipl	#7
-  12:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  13                             		.loc 1 12 5 view .LVU2
+   3:../src/main.c **** #if defined(__RXV3) && !defined(BSP_BOARD_GENERIC_RX66T)
+   4:../src/main.c **** #define __BANK 1
+   5:../src/main.c **** #endif
+   6:../src/main.c **** 
+   7:../src/main.c **** void main(void);
+   8:../src/main.c **** #if defined(__RXV3)
+   9:../src/main.c **** void Check_Using_DSQRT_FSQRT(void);
+  10:../src/main.c **** void Check_Not_Using_DSQRT_FSQRT(void);
+  11:../src/main.c **** void (*fp_Check_Using_DSQRT_FSQRT)(void);
+  12:../src/main.c **** void (*fp_Check_Not_Using_DSQRT_FSQRT)(void);
+  13:../src/main.c **** #endif
+  14:../src/main.c **** 
+  15:../src/main.c **** #define VECT_TRAP_0 0
+  16:../src/main.c **** #define VECT_TRAP_1 1
+  17:../src/main.c **** #define VECT_TRAP_2 2
+  18:../src/main.c **** #if defined(__BANK)
+  19:../src/main.c **** #define VECT_TRAP_3 3
+  20:../src/main.c **** #define VECT_TRAP_4 4
+  21:../src/main.c **** #endif
+  22:../src/main.c **** 
+  23:../src/main.c **** void main(void)
+  24:../src/main.c **** {
+  10                             		.loc 1 24 1 view -0
+  25:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX - 1 );
+  11                             		.loc 1 25 5 view .LVU1
+  12 0000 75 70 08                		mvtipl	#8
+  26:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  13                             		.loc 1 26 5 view .LVU2
   14 0003 75 60 00                		int	#0
-  13:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  15                             		.loc 1 13 5 view .LVU3
+  27:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  15                             		.loc 1 27 5 view .LVU3
   16 0006 75 60 01                		int	#1
-  14:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
-  17                             		.loc 1 14 5 view .LVU4
+  28:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  17                             		.loc 1 28 5 view .LVU4
   18 0009 75 60 02                		int	#2
-  15:../src/main.c **** 
-  16:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX );
-  19                             		.loc 1 16 5 view .LVU5
-  20 000c 75 70 08                		mvtipl	#8
-  17:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  21                             		.loc 1 17 5 view .LVU6
+  29:../src/main.c **** #if defined(__BANK)
+  30:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  31:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
+  32:../src/main.c **** #endif
+  33:../src/main.c **** 
+  34:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX );
+  19                             		.loc 1 34 5 view .LVU5
+  20 000c 75 70 09                		mvtipl	#9
+  35:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  21                             		.loc 1 35 5 view .LVU6
   22 000f 75 60 00                		int	#0
-  18:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  23                             		.loc 1 18 5 view .LVU7
+  36:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  23                             		.loc 1 36 5 view .LVU7
   24 0012 75 60 01                		int	#1
-  19:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
-  25                             		.loc 1 19 5 view .LVU8
+  37:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  25                             		.loc 1 37 5 view .LVU8
   26 0015 75 60 02                		int	#2
-  20:../src/main.c **** 
-  21:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX + 1 );
-  27                             		.loc 1 21 5 view .LVU9
-  28 0018 75 70 09                		mvtipl	#9
-  22:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  29                             		.loc 1 22 5 view .LVU10
-  30 001b 75 60 00                		int	#0
-  23:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  31                             		.loc 1 23 5 view .LVU11
-  32 001e 75 60 01                		int	#1
-  24:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
-  33                             		.loc 1 24 5 view .LVU12
-  34 0021 75 60 02                		int	#2
-  25:../src/main.c **** 
-  26:../src/main.c **** #if 0 /* later */
-  27:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
-  28:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  29:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  30:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
-  31:../src/main.c **** 
-  32:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
-  33:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  34:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  35:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
-  36:../src/main.c **** 
-  37:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
-  38:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
-  39:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
-  40:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  38:../src/main.c **** #if defined(__BANK)
+  39:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  40:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
   41:../src/main.c **** #endif
   42:../src/main.c **** 
-  43:../src/main.c ****     R_BSP_NOP();
-  35                             		.loc 1 43 5 view .LVU13
-  36                             	 ; 43 "../src/main.c" 1
+  43:../src/main.c ****     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX + 1 );
+  27                             		.loc 1 43 5 view .LVU9
+  28 0018 75 70 0A                		mvtipl	#10
+  44:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  29                             		.loc 1 44 5 view .LVU10
+  30 001b 75 60 00                		int	#0
+  45:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  31                             		.loc 1 45 5 view .LVU11
+  32 001e 75 60 01                		int	#1
+  46:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  33                             		.loc 1 46 5 view .LVU12
+  34 0021 75 60 02                		int	#2
+  47:../src/main.c **** #if defined(__BANK)
+  48:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  49:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
+  50:../src/main.c **** #endif
+  51:../src/main.c **** 
+  52:../src/main.c **** #if 0 /* later */
+  53:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
+  54:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  55:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  56:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  57:../src/main.c **** #if defined(__BANK)
+  58:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  59:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
+  60:../src/main.c **** #endif
+  61:../src/main.c **** 
+  62:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
+  63:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  64:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  65:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  66:../src/main.c **** #if defined(__BANK)
+  67:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  68:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
+  69:../src/main.c **** #endif
+  70:../src/main.c **** 
+  71:../src/main.c ****     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
+  72:../src/main.c ****     R_BSP_INT( VECT( TRAP, 0 ) );
+  73:../src/main.c ****     R_BSP_INT( VECT( TRAP, 1 ) );
+  74:../src/main.c ****     R_BSP_INT( VECT( TRAP, 2 ) );
+  75:../src/main.c **** #if defined(__BANK)
+  76:../src/main.c ****     R_BSP_INT( VECT( TRAP, 3 ) );
+  77:../src/main.c ****     R_BSP_INT( VECT( TRAP, 4 ) );
+  78:../src/main.c **** #endif
+  79:../src/main.c **** #endif
+  80:../src/main.c **** 
+  81:../src/main.c ****     R_BSP_NOP();
+  35                             		.loc 1 81 5 view .LVU13
+  36                             	 ; 81 "../src/main.c" 1
   37 0024 03                      		nop
   38                             	 ; 0 "" 2
   39 0025 FC 13 00                		.balign 8,3,3
   40                             	.L2:
-  44:../src/main.c **** 
-  45:../src/main.c ****     for(;;);
-  41                             		.loc 1 45 5 discriminator 1 view .LVU14
-  42                             		.loc 1 45 12 discriminator 1 view .LVU15
-  43                             		.loc 1 45 5 discriminator 1 view .LVU16
-  44                             		.loc 1 45 12 discriminator 1 view .LVU17
+  82:../src/main.c **** 
+  83:../src/main.c **** #if defined(__RXV3)
+  84:../src/main.c ****     fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
+  85:../src/main.c ****     fp_Check_Not_Using_DSQRT_FSQRT = &Check_Not_Using_DSQRT_FSQRT;
+  86:../src/main.c **** #endif
+  87:../src/main.c **** 
+  88:../src/main.c ****     for(;;);
+  41                             		.loc 1 88 5 discriminator 1 view .LVU14
+  42                             		.loc 1 88 12 discriminator 1 view .LVU15
+  43                             		.loc 1 88 5 discriminator 1 view .LVU16
+  44                             		.loc 1 88 12 discriminator 1 view .LVU17
   45 0028 2E 00                   		bra	.L2
   46                             	.LFE3:
   48 002a 74 10 01 00 00 00       		.section	.isrtext.trap0_isr,"ax",@progbits
   50                             	__trap0_isr:
   51                             	.LFB4:
-  46:../src/main.c **** }
-  47:../src/main.c **** 
-  48:../src/main.c **** uint32_t debug = 0x5a5a5a5a;
-  49:../src/main.c **** 
-  50:../src/main.c **** R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
-  52                             		.loc 1 50 1 view -0
+  89:../src/main.c **** }
+  90:../src/main.c **** 
+  91:../src/main.c **** #if defined(__CCRX__)
+  92:../src/main.c **** #pragma inline_asm _acc_
+  93:../src/main.c **** static void _acc_(void){/* Nothing is enough for debugging with the `-save_acc` compiler option. */
+  94:../src/main.c **** #else
+  95:../src/main.c **** #define _acc_() do{}while(0)/* This is enough as of today. */
+  96:../src/main.c **** #if 0
+  97:../src/main.c **** static void _acc_(void){/* T.B.D. */}
+  98:../src/main.c **** #endif
+  99:../src/main.c **** #endif
+ 100:../src/main.c **** 
+ 101:../src/main.c **** uint32_t debug = 0x5a5a5a5a;
+ 102:../src/main.c **** 
+ 103:../src/main.c **** R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
+  52                             		.loc 1 103 1 view -0
   53                             		.global	$tableentry$0$.rvectors
   54                             	$tableentry$0$.rvectors:
   55                             		; Note: Interrupt Handler
   56                             		; Note: Naked Function
-  57                             		.loc 1 50 1 view .LVU19
-  58                             	 ; 50 "../src/main.c" 1
+  57                             		.loc 1 103 1 view .LVU19
+  58                             	 ; 103 "../src/main.c" 1
   59 0000 7E A1                   		PUSH.L R1    
   60 0002 FD 6A 01                	MVFC PSW, R1 
   61 0005 69 81                   	SHLR #24, R1 
   62 0007 64 F1                   	AND #15, R1  
-  63 0009 61 81                   	CMP #8, R1   
+  63 0009 61 91                   	CMP #9, R1   
   64 000b 22 05                   	BGEU ?+      
-  65 000d 75 70 08                	MVTIPL #8    
+  65 000d 75 70 09                	MVTIPL #9    
   66                             	?:           
   67 0010 7F A8                   	SETPSW I     
   68 0012 7E B1                   	POP R1       
@@ -120,9 +173,9 @@
   73                             	.LFE4:
   76                             	_trap0_isr:
   77                             	.LFB5:
-  51:../src/main.c **** R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
-  52:../src/main.c **** {
-  78                             		.loc 1 52 1 view -0
+ 104:../src/main.c **** R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
+ 105:../src/main.c **** {
+  78                             		.loc 1 105 1 view -0
   79                             		; Note: Interrupt Handler
   80 0016 6E 56                   		pushm	r5-r6
   81                             	.LCFI0:
@@ -135,186 +188,212 @@
   88 0028 FD 1F 85                		mvfachi	#0, A1, r5
   89 002b FD 1F B6                		mvfacgu	#0, A1, r6
   90 002e 6E 56                   		pushm	r5-r6
-  53:../src/main.c ****     debug = 0;
-  91                             		.loc 1 53 5 view .LVU21
-  92                             		.loc 1 53 11 is_stmt 0 view .LVU22
+ 106:../src/main.c ****     debug = 0; _acc_();
+  91                             		.loc 1 106 5 view .LVU21
+  92                             		.loc 1 106 11 is_stmt 0 view .LVU22
   93 0030 FB 52 00 00 00 00       		mov.L	#_debug, r5
   94 0036 F8 56 00                		mov.L	#0, [r5]
-  54:../src/main.c **** }
-  95                             		.loc 1 54 1 view .LVU23
-  96 0039 6F 56                   		popm	r5-r6
-  97 003b FD 17 85                		mvtachi	r5, A1
-  98 003e FD 17 B6                		mvtacgu	r6, A1
-  99 0041 6F 56                   		popm	r5-r6
- 100 0043 FD 17 35                		mvtacgu	r5, A0
- 101 0046 FD 17 96                		mvtaclo	r6, A1
- 102 0049 6F 56                   		popm	r5-r6
- 103 004b FD 17 15                		mvtaclo	r5
- 104 004e FD 17 06                		mvtachi	r6
- 105 0051 6F 56                   		popm	r5-r6
- 106 0053 7F 95                   		rte
- 107                             	.LFE5:
- 109                             		.section	.isrtext.trap1_isr,"ax",@progbits
- 110                             		.global	_trap1_isr
- 112                             	_trap1_isr:
- 113                             	.LFB6:
-  55:../src/main.c **** 
-  56:../src/main.c **** #if defined(__CCRX__) /*----------------------------------------------------*/
-  57:../src/main.c **** 
-  58:../src/main.c **** #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-  59:../src/main.c **** /**/
-  60:../src/main.c **** #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
-  61:../src/main.c **** static void trap1_isr(void)
-  62:../src/main.c **** {
-  63:../src/main.c ****     debug = 1;
-  64:../src/main.c **** }
-  65:../src/main.c **** 
-  66:../src/main.c **** #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-  67:../src/main.c **** /**/
-  68:../src/main.c **** #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
-  69:../src/main.c **** static void trap2_isr(void)
-  70:../src/main.c **** {
-  71:../src/main.c ****     debug = 2;
-  72:../src/main.c **** }
-  73:../src/main.c **** 
-  74:../src/main.c **** #elif defined(__GNUC__) /*--------------------------------------------------*/
-  75:../src/main.c **** 
-  76:../src/main.c **** void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
-  77:../src/main.c **** /**/
-  78:../src/main.c **** #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-  79:../src/main.c **** /**/
-  80:../src/main.c **** void trap1_isr(void)
- 114                             		.loc 1 80 6 is_stmt 1 view -0
- 115                             		.global	$tableentry$1$.rvectors
- 116                             	$tableentry$1$.rvectors:
- 117                             		; Note: Interrupt Handler
- 118                             		; Note: Naked Function
- 119                             		.loc 1 80 6 view .LVU25
- 120                             	 ; 80 "../src/main.c" 1
- 121 0000 7E A1                   		PUSH.L R1    
- 122 0002 FD 6A 01                	MVFC PSW, R1 
- 123 0005 69 81                   	SHLR #24, R1 
- 124 0007 64 F1                   	AND #15, R1  
- 125 0009 61 81                   	CMP #8, R1   
- 126 000b 22 05                   	BGEU ?+      
- 127 000d 75 70 08                	MVTIPL #8    
- 128                             	?:           
- 129 0010 7F A8                   	SETPSW I     
- 130 0012 7E B1                   	POP R1       
- 131 0014 2E 00                   	BRA.B __trap1_isr 
- 132                             	
- 133                             	 ; 0 "" 2
- 134                             		.loc 1 80 1 is_stmt 0 view .LVU26
- 135                             		; Naked function: epilogue provided by programmer.
- 136                             	.LFE6:
- 138                             		.global	__trap1_isr
- 140                             	__trap1_isr:
- 141                             	.LFB7:
-  81:../src/main.c **** {
- 142                             		.loc 1 81 1 is_stmt 1 view -0
- 143                             		; Note: Interrupt Handler
- 144 0016 6E 56                   		pushm	r5-r6
- 145                             	.LCFI1:
- 146 0018 FD 1F 15                		mvfaclo	#0, A0, r5
- 147 001b FD 1F 06                		mvfachi	r6
- 148 001e 6E 56                   		pushm	r5-r6
- 149 0020 FD 1F 35                		mvfacgu	#0, A0, r5
- 150 0023 FD 1F 96                		mvfaclo	#0, A1, r6
- 151 0026 6E 56                   		pushm	r5-r6
- 152 0028 FD 1F 85                		mvfachi	#0, A1, r5
- 153 002b FD 1F B6                		mvfacgu	#0, A1, r6
- 154 002e 6E 56                   		pushm	r5-r6
-  82:../src/main.c ****     debug = 1;
- 155                             		.loc 1 82 5 view .LVU28
- 156                             		.loc 1 82 11 is_stmt 0 view .LVU29
- 157 0030 FB 52 00 00 00 00       		mov.L	#_debug, r5
- 158 0036 F8 56 01                		mov.L	#1, [r5]
-  83:../src/main.c **** }
- 159                             		.loc 1 83 1 view .LVU30
- 160 0039 6F 56                   		popm	r5-r6
- 161 003b FD 17 85                		mvtachi	r5, A1
- 162 003e FD 17 B6                		mvtacgu	r6, A1
- 163 0041 6F 56                   		popm	r5-r6
- 164 0043 FD 17 35                		mvtacgu	r5, A0
- 165 0046 FD 17 96                		mvtaclo	r6, A1
- 166 0049 6F 56                   		popm	r5-r6
- 167 004b FD 17 15                		mvtaclo	r5
- 168 004e FD 17 06                		mvtachi	r6
- 169 0051 6F 56                   		popm	r5-r6
- 170 0053 7F 95                   		rte
- 171                             	.LFE7:
- 173                             		.section	.isrtext.trap2_isr,"ax",@progbits
- 174                             		.global	_trap2_isr
- 176                             	_trap2_isr:
- 177                             	.LFB8:
-  84:../src/main.c **** 
-  85:../src/main.c **** void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
-  86:../src/main.c **** /**/
-  87:../src/main.c **** #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-  88:../src/main.c **** /**/
-  89:../src/main.c **** void trap2_isr(void)
- 178                             		.loc 1 89 6 is_stmt 1 view -0
- 179                             		.global	$tableentry$2$.rvectors
- 180                             	$tableentry$2$.rvectors:
- 181                             		; Note: Interrupt Handler
- 182                             		; Note: Naked Function
- 183                             		.loc 1 89 6 view .LVU32
- 184                             	 ; 89 "../src/main.c" 1
- 185 0000 7F A8                   		SETPSW I     
- 186 0002 2E 00                   	BRA.B __trap2_isr 
- 187                             	
- 188                             	 ; 0 "" 2
- 189                             		.loc 1 89 1 is_stmt 0 view .LVU33
- 190                             		; Naked function: epilogue provided by programmer.
- 191                             	.LFE8:
- 193                             		.global	__trap2_isr
- 195                             	__trap2_isr:
- 196                             	.LFB9:
-  90:../src/main.c **** {
- 197                             		.loc 1 90 1 is_stmt 1 view -0
- 198                             		; Note: Interrupt Handler
- 199 0004 6E 56                   		pushm	r5-r6
- 200                             	.LCFI2:
- 201 0006 FD 1F 15                		mvfaclo	#0, A0, r5
- 202 0009 FD 1F 06                		mvfachi	r6
- 203 000c 6E 56                   		pushm	r5-r6
- 204 000e FD 1F 35                		mvfacgu	#0, A0, r5
- 205 0011 FD 1F 96                		mvfaclo	#0, A1, r6
- 206 0014 6E 56                   		pushm	r5-r6
- 207 0016 FD 1F 85                		mvfachi	#0, A1, r5
- 208 0019 FD 1F B6                		mvfacgu	#0, A1, r6
- 209 001c 6E 56                   		pushm	r5-r6
-  91:../src/main.c ****     debug = 2;
- 210                             		.loc 1 91 5 view .LVU35
- 211                             		.loc 1 91 11 is_stmt 0 view .LVU36
- 212 001e FB 52 00 00 00 00       		mov.L	#_debug, r5
- 213 0024 F8 56 02                		mov.L	#2, [r5]
-  92:../src/main.c **** }
- 214                             		.loc 1 92 1 view .LVU37
- 215 0027 6F 56                   		popm	r5-r6
- 216 0029 FD 17 85                		mvtachi	r5, A1
- 217 002c FD 17 B6                		mvtacgu	r6, A1
- 218 002f 6F 56                   		popm	r5-r6
- 219 0031 FD 17 35                		mvtacgu	r5, A0
- 220 0034 FD 17 96                		mvtaclo	r6, A1
- 221 0037 6F 56                   		popm	r5-r6
- 222 0039 FD 17 15                		mvtaclo	r5
- 223 003c FD 17 06                		mvtachi	r6
- 224 003f 6F 56                   		popm	r5-r6
- 225 0041 7F 95                   		rte
- 226                             	.LFE9:
- 228                             		.global	_debug
- 229                             		.section	.data.debug,"aw"
- 230                             		.balign 4
- 233                             	_debug:
- 234 0000 5A 5A 5A 5A             		.long	0x5a5a5a5a
- 333                             	.Letext0:
- 334                             		.file 2 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\machine\\
- 335                             		.file 3 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_std
- 336                             		.file 4 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\lib\\gcc\\rx-elf\\8.3.0.20
- 337                             		.file 5 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_typ
- 338                             		.file 6 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\reen
- 339                             		.file 7 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\lock
- 340                             		.file 8 "C:\\Renesas\\GitHubDesktop\\workspaces\\workspace_e2v202210\\RXv3_RegBankSave\\RXv2_Neste
- 341                             		.file 9 "c:\\renesas\\githubdesktop\\workspaces\\workspace_e2v202210\\rxv3_regbanksave\\rxv2_neste
- 342                             		.file 10 "C:\\Renesas\\GitHubDesktop\\workspaces\\workspace_e2v202210\\RXv3_RegBankSave\\RXv2_Nest
+  95                             		.loc 1 106 16 is_stmt 1 view .LVU23
+  96                             		.loc 1 106 16 view .LVU24
+ 107:../src/main.c **** }
+  97                             		.loc 1 107 1 is_stmt 0 view .LVU25
+  98 0039 6F 56                   		popm	r5-r6
+  99 003b FD 17 85                		mvtachi	r5, A1
+ 100 003e FD 17 B6                		mvtacgu	r6, A1
+ 101 0041 6F 56                   		popm	r5-r6
+ 102 0043 FD 17 35                		mvtacgu	r5, A0
+ 103 0046 FD 17 96                		mvtaclo	r6, A1
+ 104 0049 6F 56                   		popm	r5-r6
+ 105 004b FD 17 15                		mvtaclo	r5
+ 106 004e FD 17 06                		mvtachi	r6
+ 107 0051 6F 56                   		popm	r5-r6
+ 108 0053 7F 95                   		rte
+ 109                             	.LFE5:
+ 111                             		.section	.isrtext.trap1_isr,"ax",@progbits
+ 112                             		.global	_trap1_isr
+ 114                             	_trap1_isr:
+ 115                             	.LFB6:
+ 108:../src/main.c **** 
+ 109:../src/main.c **** #if defined(__CCRX__) /*----------------------------------------------------*/
+ 110:../src/main.c **** 
+ 111:../src/main.c **** #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+ 112:../src/main.c **** /**/
+ 113:../src/main.c **** #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
+ 114:../src/main.c **** static void trap1_isr(void)
+ 115:../src/main.c **** {
+ 116:../src/main.c ****     debug = 1; _acc_();
+ 117:../src/main.c **** }
+ 118:../src/main.c **** 
+ 119:../src/main.c **** #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+ 120:../src/main.c **** /**/
+ 121:../src/main.c **** #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
+ 122:../src/main.c **** static void trap2_isr(void)
+ 123:../src/main.c **** {
+ 124:../src/main.c ****     debug = 2; _acc_();
+ 125:../src/main.c **** }
+ 126:../src/main.c **** 
+ 127:../src/main.c **** #if defined(__BANK)
+ 128:../src/main.c **** 
+ 129:../src/main.c **** #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+ 130:../src/main.c **** /**/
+ 131:../src/main.c **** #pragma interrupt trap3_isr(vect = VECT(TRAP, 3))
+ 132:../src/main.c **** static void trap3_isr(void)
+ 133:../src/main.c **** {
+ 134:../src/main.c ****     debug = 3; _acc_();
+ 135:../src/main.c **** }
+ 136:../src/main.c **** 
+ 137:../src/main.c **** #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+ 138:../src/main.c **** /**/
+ 139:../src/main.c **** #pragma interrupt trap4_isr(vect = VECT(TRAP, 4))
+ 140:../src/main.c **** static void trap4_isr(void)
+ 141:../src/main.c **** {
+ 142:../src/main.c ****     debug = 4; _acc_();
+ 143:../src/main.c **** }
+ 144:../src/main.c **** 
+ 145:../src/main.c **** #endif
+ 146:../src/main.c **** 
+ 147:../src/main.c **** #elif defined(__GNUC__) /*--------------------------------------------------*/
+ 148:../src/main.c **** 
+ 149:../src/main.c **** void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
+ 150:../src/main.c **** /**/
+ 151:../src/main.c **** #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+ 152:../src/main.c **** /**/
+ 153:../src/main.c **** void trap1_isr(void)
+ 116                             		.loc 1 153 6 is_stmt 1 view -0
+ 117                             		.global	$tableentry$1$.rvectors
+ 118                             	$tableentry$1$.rvectors:
+ 119                             		; Note: Interrupt Handler
+ 120                             		; Note: Naked Function
+ 121                             		.loc 1 153 6 view .LVU27
+ 122                             	 ; 153 "../src/main.c" 1
+ 123 0000 7E A1                   		PUSH.L R1    
+ 124 0002 FD 6A 01                	MVFC PSW, R1 
+ 125 0005 69 81                   	SHLR #24, R1 
+ 126 0007 64 F1                   	AND #15, R1  
+ 127 0009 61 91                   	CMP #9, R1   
+ 128 000b 22 05                   	BGEU ?+      
+ 129 000d 75 70 09                	MVTIPL #9    
+ 130                             	?:           
+ 131 0010 7F A8                   	SETPSW I     
+ 132 0012 7E B1                   	POP R1       
+ 133 0014 2E 00                   	BRA.B __trap1_isr 
+ 134                             	
+ 135                             	 ; 0 "" 2
+ 136                             		.loc 1 153 1 is_stmt 0 view .LVU28
+ 137                             		; Naked function: epilogue provided by programmer.
+ 138                             	.LFE6:
+ 140                             		.global	__trap1_isr
+ 142                             	__trap1_isr:
+ 143                             	.LFB7:
+ 154:../src/main.c **** {
+ 144                             		.loc 1 154 1 is_stmt 1 view -0
+ 145                             		; Note: Interrupt Handler
+ 146 0016 6E 56                   		pushm	r5-r6
+ 147                             	.LCFI1:
+ 148 0018 FD 1F 15                		mvfaclo	#0, A0, r5
+ 149 001b FD 1F 06                		mvfachi	r6
+ 150 001e 6E 56                   		pushm	r5-r6
+ 151 0020 FD 1F 35                		mvfacgu	#0, A0, r5
+ 152 0023 FD 1F 96                		mvfaclo	#0, A1, r6
+ 153 0026 6E 56                   		pushm	r5-r6
+ 154 0028 FD 1F 85                		mvfachi	#0, A1, r5
+ 155 002b FD 1F B6                		mvfacgu	#0, A1, r6
+ 156 002e 6E 56                   		pushm	r5-r6
+ 155:../src/main.c ****     debug = 1; _acc_();
+ 157                             		.loc 1 155 5 view .LVU30
+ 158                             		.loc 1 155 11 is_stmt 0 view .LVU31
+ 159 0030 FB 52 00 00 00 00       		mov.L	#_debug, r5
+ 160 0036 F8 56 01                		mov.L	#1, [r5]
+ 161                             		.loc 1 155 16 is_stmt 1 view .LVU32
+ 162                             		.loc 1 155 16 view .LVU33
+ 156:../src/main.c **** }
+ 163                             		.loc 1 156 1 is_stmt 0 view .LVU34
+ 164 0039 6F 56                   		popm	r5-r6
+ 165 003b FD 17 85                		mvtachi	r5, A1
+ 166 003e FD 17 B6                		mvtacgu	r6, A1
+ 167 0041 6F 56                   		popm	r5-r6
+ 168 0043 FD 17 35                		mvtacgu	r5, A0
+ 169 0046 FD 17 96                		mvtaclo	r6, A1
+ 170 0049 6F 56                   		popm	r5-r6
+ 171 004b FD 17 15                		mvtaclo	r5
+ 172 004e FD 17 06                		mvtachi	r6
+ 173 0051 6F 56                   		popm	r5-r6
+ 174 0053 7F 95                   		rte
+ 175                             	.LFE7:
+ 177                             		.section	.isrtext.trap2_isr,"ax",@progbits
+ 178                             		.global	_trap2_isr
+ 180                             	_trap2_isr:
+ 181                             	.LFB8:
+ 157:../src/main.c **** 
+ 158:../src/main.c **** void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
+ 159:../src/main.c **** /**/
+ 160:../src/main.c **** #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+ 161:../src/main.c **** /**/
+ 162:../src/main.c **** void trap2_isr(void)
+ 182                             		.loc 1 162 6 is_stmt 1 view -0
+ 183                             		.global	$tableentry$2$.rvectors
+ 184                             	$tableentry$2$.rvectors:
+ 185                             		; Note: Interrupt Handler
+ 186                             		; Note: Naked Function
+ 187                             		.loc 1 162 6 view .LVU36
+ 188                             	 ; 162 "../src/main.c" 1
+ 189 0000 7F A8                   		SETPSW I     
+ 190 0002 2E 00                   	BRA.B __trap2_isr 
+ 191                             	
+ 192                             	 ; 0 "" 2
+ 193                             		.loc 1 162 1 is_stmt 0 view .LVU37
+ 194                             		; Naked function: epilogue provided by programmer.
+ 195                             	.LFE8:
+ 197                             		.global	__trap2_isr
+ 199                             	__trap2_isr:
+ 200                             	.LFB9:
+ 163:../src/main.c **** {
+ 201                             		.loc 1 163 1 is_stmt 1 view -0
+ 202                             		; Note: Interrupt Handler
+ 203 0004 6E 56                   		pushm	r5-r6
+ 204                             	.LCFI2:
+ 205 0006 FD 1F 15                		mvfaclo	#0, A0, r5
+ 206 0009 FD 1F 06                		mvfachi	r6
+ 207 000c 6E 56                   		pushm	r5-r6
+ 208 000e FD 1F 35                		mvfacgu	#0, A0, r5
+ 209 0011 FD 1F 96                		mvfaclo	#0, A1, r6
+ 210 0014 6E 56                   		pushm	r5-r6
+ 211 0016 FD 1F 85                		mvfachi	#0, A1, r5
+ 212 0019 FD 1F B6                		mvfacgu	#0, A1, r6
+ 213 001c 6E 56                   		pushm	r5-r6
+ 164:../src/main.c ****     debug = 2; _acc_();
+ 214                             		.loc 1 164 5 view .LVU39
+ 215                             		.loc 1 164 11 is_stmt 0 view .LVU40
+ 216 001e FB 52 00 00 00 00       		mov.L	#_debug, r5
+ 217 0024 F8 56 02                		mov.L	#2, [r5]
+ 218                             		.loc 1 164 16 is_stmt 1 view .LVU41
+ 219                             		.loc 1 164 16 view .LVU42
+ 165:../src/main.c **** }
+ 220                             		.loc 1 165 1 is_stmt 0 view .LVU43
+ 221 0027 6F 56                   		popm	r5-r6
+ 222 0029 FD 17 85                		mvtachi	r5, A1
+ 223 002c FD 17 B6                		mvtacgu	r6, A1
+ 224 002f 6F 56                   		popm	r5-r6
+ 225 0031 FD 17 35                		mvtacgu	r5, A0
+ 226 0034 FD 17 96                		mvtaclo	r6, A1
+ 227 0037 6F 56                   		popm	r5-r6
+ 228 0039 FD 17 15                		mvtaclo	r5
+ 229 003c FD 17 06                		mvtachi	r6
+ 230 003f 6F 56                   		popm	r5-r6
+ 231 0041 7F 95                   		rte
+ 232                             	.LFE9:
+ 234                             		.global	_debug
+ 235                             		.section	.data.debug,"aw"
+ 236                             		.balign 4
+ 239                             	_debug:
+ 240 0000 5A 5A 5A 5A             		.long	0x5a5a5a5a
+ 339                             	.Letext0:
+ 340                             		.file 2 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\machine\\
+ 341                             		.file 3 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_std
+ 342                             		.file 4 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\lib\\gcc\\rx-elf\\8.3.0.20
+ 343                             		.file 5 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\_typ
+ 344                             		.file 6 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\reen
+ 345                             		.file 7 "c:\\renesas\\gccllvm\\gnurx-elf\\8.3.0.202204\\rx-elf\\rx-elf\\rx-elf\\include\\sys\\lock
+ 346                             		.file 8 "C:\\Renesas\\GitHubDesktop\\workspaces\\workspace_e2v202210\\RXv3_RegBankSave\\RXv2_Neste
+ 347                             		.file 9 "c:\\renesas\\githubdesktop\\workspaces\\workspace_e2v202210\\rxv3_regbanksave\\rxv2_neste
+ 348                             		.file 10 "C:\\Renesas\\GitHubDesktop\\workspaces\\workspace_e2v202210\\RXv3_RegBankSave\\RXv2_Nest

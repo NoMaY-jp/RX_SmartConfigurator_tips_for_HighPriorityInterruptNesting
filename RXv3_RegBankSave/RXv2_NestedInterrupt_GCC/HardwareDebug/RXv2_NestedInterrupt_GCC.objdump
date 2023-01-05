@@ -13520,45 +13520,57 @@ ffe04055:	00                            	brk
 	...
 
 ffe04058 <_main>:
-#define VECT_TRAP_1 1
-#define VECT_TRAP_2 2
+#define VECT_TRAP_4 4
+#endif
 
 void main(void)
 {
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX - 1 );
-ffe04058:	75 70 07                      	mvtipl	#7
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX - 1 );
+ffe04058:	75 70 08                      	mvtipl	#8
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffe0405b:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffe0405e:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffe04061:	75 60 02                      	int #2
+#if defined(__BANK)
+    R_BSP_INT( VECT( TRAP, 3 ) );
+    R_BSP_INT( VECT( TRAP, 4 ) );
+#endif
 
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX );
-ffe04064:	75 70 08                      	mvtipl	#8
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX );
+ffe04064:	75 70 09                      	mvtipl	#9
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffe04067:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffe0406a:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffe0406d:	75 60 02                      	int #2
+#if defined(__BANK)
+    R_BSP_INT( VECT( TRAP, 3 ) );
+    R_BSP_INT( VECT( TRAP, 4 ) );
+#endif
 
-    R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX + 1 );
-ffe04070:	75 70 09                      	mvtipl	#9
+    R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX + 1 );
+ffe04070:	75 70 0a                      	mvtipl	#10
     R_BSP_INT( VECT( TRAP, 0 ) );
 ffe04073:	75 60 00                      	int #0
     R_BSP_INT( VECT( TRAP, 1 ) );
 ffe04076:	75 60 01                      	int #1
     R_BSP_INT( VECT( TRAP, 2 ) );
 ffe04079:	75 60 02                      	int #2
-    R_BSP_INT( VECT( TRAP, 0 ) );
-    R_BSP_INT( VECT( TRAP, 1 ) );
-    R_BSP_INT( VECT( TRAP, 2 ) );
+    R_BSP_INT( VECT( TRAP, 3 ) );
+    R_BSP_INT( VECT( TRAP, 4 ) );
+#endif
 #endif
 
     R_BSP_NOP();
 ffe0407c:	03                            	nop
 ffe0407d:	fc 13 00                      	nop	; max	r0, r0
+#if defined(__RXV3)
+    fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
+    fp_Check_Not_Using_DSQRT_FSQRT = &Check_Not_Using_DSQRT_FSQRT;
+#endif
 
     for(;;);
 ffe04080:	2e 00                         	bra.b	ffe04080 <_Reset_Vector+0xffe04084>
@@ -13572,9 +13584,9 @@ ffe04088:	7e a1                         	push.l	r1
 ffe0408a:	fd 6a 01                      	mvfc	psw, r1
 ffe0408d:	69 81                         	shlr	#24, r1
 ffe0408f:	64 f1                         	and	#15, r1
-ffe04091:	61 81                         	cmp	#8, r1
+ffe04091:	61 91                         	cmp	#9, r1
 ffe04093:	22 05                         	bc.b	ffe04098 <_Reset_Vector+0xffe0409c>
-ffe04095:	75 70 08                      	mvtipl	#8
+ffe04095:	75 70 09                      	mvtipl	#9
 ffe04098:	7f a8                         	setpsw	i
 ffe0409a:	7e b1                         	pop	r1
 ffe0409c:	2e 02                         	bra.b	ffe0409e <_Reset_Vector+0xffe040a2>
@@ -13629,9 +13641,9 @@ ffe040f6:	7e a1                         	push.l	r1
 ffe040f8:	fd 6a 01                      	mvfc	psw, r1
 ffe040fb:	69 81                         	shlr	#24, r1
 ffe040fd:	64 f1                         	and	#15, r1
-ffe040ff:	61 81                         	cmp	#8, r1
+ffe040ff:	61 91                         	cmp	#9, r1
 ffe04101:	22 05                         	bc.b	ffe04106 <_Reset_Vector+0xffe0410a>
-ffe04103:	75 70 08                      	mvtipl	#8
+ffe04103:	75 70 09                      	mvtipl	#9
 ffe04106:	7f a8                         	setpsw	i
 ffe04108:	7e b1                         	pop	r1
 ffe0410a:	2e 02                         	bra.b	ffe0410c <_Reset_Vector+0xffe04110>
@@ -13679,9 +13691,9 @@ ffe04156:	7e a1                         	push.l	r1
 ffe04158:	fd 6a 01                      	mvfc	psw, r1
 ffe0415b:	69 81                         	shlr	#24, r1
 ffe0415d:	64 f1                         	and	#15, r1
-ffe0415f:	61 81                         	cmp	#8, r1
+ffe0415f:	61 91                         	cmp	#9, r1
 ffe04161:	22 05                         	bc.b	ffe04166 <_Reset_Vector+0xffe0416a>
-ffe04163:	75 70 08                      	mvtipl	#8
+ffe04163:	75 70 09                      	mvtipl	#9
 ffe04166:	7f a8                         	setpsw	i
 ffe04168:	7e b1                         	pop	r1
 ffe0416a:	2e 02                         	bra.b	ffe0416c <_Reset_Vector+0xffe04170>
@@ -13732,9 +13744,9 @@ ffe041b8:	7e a1                         	push.l	r1
 ffe041ba:	fd 6a 01                      	mvfc	psw, r1
 ffe041bd:	69 81                         	shlr	#24, r1
 ffe041bf:	64 f1                         	and	#15, r1
-ffe041c1:	61 81                         	cmp	#8, r1
+ffe041c1:	61 91                         	cmp	#9, r1
 ffe041c3:	22 05                         	bc.b	ffe041c8 <_Reset_Vector+0xffe041cc>
-ffe041c5:	75 70 08                      	mvtipl	#8
+ffe041c5:	75 70 09                      	mvtipl	#9
 ffe041c8:	7f a8                         	setpsw	i
 ffe041ca:	7e b1                         	pop	r1
 ffe041cc:	2e 02                         	bra.b	ffe041ce <_Reset_Vector+0xffe041d2>
@@ -14477,9 +14489,9 @@ ffe04778:	7e a1                         	push.l	r1
 ffe0477a:	fd 6a 01                      	mvfc	psw, r1
 ffe0477d:	69 81                         	shlr	#24, r1
 ffe0477f:	64 f1                         	and	#15, r1
-ffe04781:	61 81                         	cmp	#8, r1
+ffe04781:	61 91                         	cmp	#9, r1
 ffe04783:	22 05                         	bc.b	ffe04788 <_Reset_Vector+0xffe0478c>
-ffe04785:	75 70 08                      	mvtipl	#8
+ffe04785:	75 70 09                      	mvtipl	#9
 ffe04788:	7f a8                         	setpsw	i
 ffe0478a:	7e b1                         	pop	r1
 ffe0478c:	2e 02                         	bra.b	ffe0478e <_Reset_Vector+0xffe04792>
@@ -15101,9 +15113,9 @@ ffe04c48:	7e a1                         	push.l	r1
 ffe04c4a:	fd 6a 01                      	mvfc	psw, r1
 ffe04c4d:	69 81                         	shlr	#24, r1
 ffe04c4f:	64 f1                         	and	#15, r1
-ffe04c51:	61 81                         	cmp	#8, r1
+ffe04c51:	61 91                         	cmp	#9, r1
 ffe04c53:	22 05                         	bc.b	ffe04c58 <_Reset_Vector+0xffe04c5c>
-ffe04c55:	75 70 08                      	mvtipl	#8
+ffe04c55:	75 70 09                      	mvtipl	#9
 ffe04c58:	7f a8                         	setpsw	i
 ffe04c5a:	7e b1                         	pop	r1
 ffe04c5c:	2e 02                         	bra.b	ffe04c5e <_Reset_Vector+0xffe04c62>
@@ -15174,9 +15186,9 @@ ffe04cc8:	7e a1                         	push.l	r1
 ffe04cca:	fd 6a 01                      	mvfc	psw, r1
 ffe04ccd:	69 81                         	shlr	#24, r1
 ffe04ccf:	64 f1                         	and	#15, r1
-ffe04cd1:	61 81                         	cmp	#8, r1
+ffe04cd1:	61 91                         	cmp	#9, r1
 ffe04cd3:	22 05                         	bc.b	ffe04cd8 <_Reset_Vector+0xffe04cdc>
-ffe04cd5:	75 70 08                      	mvtipl	#8
+ffe04cd5:	75 70 09                      	mvtipl	#9
 ffe04cd8:	7f a8                         	setpsw	i
 ffe04cda:	7e b1                         	pop	r1
 ffe04cdc:	2e 02                         	bra.b	ffe04cde <_Reset_Vector+0xffe04ce2>
@@ -15462,9 +15474,9 @@ ffe04ef8:	7e a1                         	push.l	r1
 ffe04efa:	fd 6a 01                      	mvfc	psw, r1
 ffe04efd:	69 81                         	shlr	#24, r1
 ffe04eff:	64 f1                         	and	#15, r1
-ffe04f01:	61 81                         	cmp	#8, r1
+ffe04f01:	61 91                         	cmp	#9, r1
 ffe04f03:	22 05                         	bc.b	ffe04f08 <_Reset_Vector+0xffe04f0c>
-ffe04f05:	75 70 08                      	mvtipl	#8
+ffe04f05:	75 70 09                      	mvtipl	#9
 ffe04f08:	7f a8                         	setpsw	i
 ffe04f0a:	7e b1                         	pop	r1
 ffe04f0c:	2e 02                         	bra.b	ffe04f0e <_Reset_Vector+0xffe04f12>
@@ -15628,9 +15640,9 @@ ffe05030:	7e a1                         	push.l	r1
 ffe05032:	fd 6a 01                      	mvfc	psw, r1
 ffe05035:	69 81                         	shlr	#24, r1
 ffe05037:	64 f1                         	and	#15, r1
-ffe05039:	61 81                         	cmp	#8, r1
+ffe05039:	61 91                         	cmp	#9, r1
 ffe0503b:	22 05                         	bc.b	ffe05040 <_Reset_Vector+0xffe05044>
-ffe0503d:	75 70 08                      	mvtipl	#8
+ffe0503d:	75 70 09                      	mvtipl	#9
 ffe05040:	7f a8                         	setpsw	i
 ffe05042:	7e b1                         	pop	r1
 ffe05044:	2e 02                         	bra.b	ffe05046 <_Reset_Vector+0xffe0504a>
@@ -15739,9 +15751,9 @@ ffe050f0:	7e a1                         	push.l	r1
 ffe050f2:	fd 6a 01                      	mvfc	psw, r1
 ffe050f5:	69 81                         	shlr	#24, r1
 ffe050f7:	64 f1                         	and	#15, r1
-ffe050f9:	61 81                         	cmp	#8, r1
+ffe050f9:	61 91                         	cmp	#9, r1
 ffe050fb:	22 05                         	bc.b	ffe05100 <_Reset_Vector+0xffe05104>
-ffe050fd:	75 70 08                      	mvtipl	#8
+ffe050fd:	75 70 09                      	mvtipl	#9
 ffe05100:	7f a8                         	setpsw	i
 ffe05102:	7e b1                         	pop	r1
 ffe05104:	2e 02                         	bra.b	ffe05106 <_Reset_Vector+0xffe0510a>
@@ -15825,9 +15837,9 @@ ffe05188:	7e a1                         	push.l	r1
 ffe0518a:	fd 6a 01                      	mvfc	psw, r1
 ffe0518d:	69 81                         	shlr	#24, r1
 ffe0518f:	64 f1                         	and	#15, r1
-ffe05191:	61 81                         	cmp	#8, r1
+ffe05191:	61 91                         	cmp	#9, r1
 ffe05193:	22 05                         	bc.b	ffe05198 <_Reset_Vector+0xffe0519c>
-ffe05195:	75 70 08                      	mvtipl	#8
+ffe05195:	75 70 09                      	mvtipl	#9
 ffe05198:	7f a8                         	setpsw	i
 ffe0519a:	7e b1                         	pop	r1
 ffe0519c:	2e 02                         	bra.b	ffe0519e <_Reset_Vector+0xffe051a2>
@@ -16016,9 +16028,9 @@ ffe052c8:	7e a1                         	push.l	r1
 ffe052ca:	fd 6a 01                      	mvfc	psw, r1
 ffe052cd:	69 81                         	shlr	#24, r1
 ffe052cf:	64 f1                         	and	#15, r1
-ffe052d1:	61 81                         	cmp	#8, r1
+ffe052d1:	61 91                         	cmp	#9, r1
 ffe052d3:	22 05                         	bc.b	ffe052d8 <_Reset_Vector+0xffe052dc>
-ffe052d5:	75 70 08                      	mvtipl	#8
+ffe052d5:	75 70 09                      	mvtipl	#9
 ffe052d8:	7f a8                         	setpsw	i
 ffe052da:	7e b1                         	pop	r1
 ffe052dc:	2e 02                         	bra.b	ffe052de <_Reset_Vector+0xffe052e2>
@@ -16213,9 +16225,9 @@ ffe05478:	7e a1                         	push.l	r1
 ffe0547a:	fd 6a 01                      	mvfc	psw, r1
 ffe0547d:	69 81                         	shlr	#24, r1
 ffe0547f:	64 f1                         	and	#15, r1
-ffe05481:	61 81                         	cmp	#8, r1
+ffe05481:	61 91                         	cmp	#9, r1
 ffe05483:	22 05                         	bc.b	ffe05488 <_Reset_Vector+0xffe0548c>
-ffe05485:	75 70 08                      	mvtipl	#8
+ffe05485:	75 70 09                      	mvtipl	#9
 ffe05488:	7f a8                         	setpsw	i
 ffe0548a:	7e b1                         	pop	r1
 ffe0548c:	2e 02                         	bra.b	ffe0548e <_Reset_Vector+0xffe05492>
@@ -16595,7 +16607,8 @@ ffe05706:	6f de                         	popm	r13-r14
 ffe05708:	7f 95                         	rte
 
 ffe0570a <__trap0_isr>:
-}
+#endif
+#endif
 
 uint32_t debug = 0x5a5a5a5a;
 
@@ -16604,9 +16617,9 @@ ffe0570a:	7e a1                         	push.l	r1
 ffe0570c:	fd 6a 01                      	mvfc	psw, r1
 ffe0570f:	69 81                         	shlr	#24, r1
 ffe05711:	64 f1                         	and	#15, r1
-ffe05713:	61 81                         	cmp	#8, r1
+ffe05713:	61 91                         	cmp	#9, r1
 ffe05715:	22 05                         	bc.b	ffe0571a <_Reset_Vector+0xffe0571e>
-ffe05717:	75 70 08                      	mvtipl	#8
+ffe05717:	75 70 09                      	mvtipl	#9
 ffe0571a:	7f a8                         	setpsw	i
 ffe0571c:	7e b1                         	pop	r1
 ffe0571e:	2e 02                         	bra.b	ffe05720 <_Reset_Vector+0xffe05724>
@@ -16624,7 +16637,7 @@ ffe05730:	6e 56                         	pushm	r5-r6
 ffe05732:	fd 1f 85                      	mvfachi	#0, a1, r5
 ffe05735:	fd 1f b6                      	mvfacgu	#0, a1, r6
 ffe05738:	6e 56                         	pushm	r5-r6
-    debug = 0;
+    debug = 0; _acc_();
 ffe0573a:	fb 52 20 00 00 00             	mov.l	#32, r5
 ffe05740:	f8 56 00                      	mov.l	#0, [r5]
 }
@@ -16644,16 +16657,16 @@ ffe0575f <_trap1_isr>:
 
 void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
 /**/
-#define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
+#define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
 /**/
 void trap1_isr(void)
 ffe0575f:	7e a1                         	push.l	r1
 ffe05761:	fd 6a 01                      	mvfc	psw, r1
 ffe05764:	69 81                         	shlr	#24, r1
 ffe05766:	64 f1                         	and	#15, r1
-ffe05768:	61 81                         	cmp	#8, r1
+ffe05768:	61 91                         	cmp	#9, r1
 ffe0576a:	22 05                         	bc.b	ffe0576f <_Reset_Vector+0xffe05773>
-ffe0576c:	75 70 08                      	mvtipl	#8
+ffe0576c:	75 70 09                      	mvtipl	#9
 ffe0576f:	7f a8                         	setpsw	i
 ffe05771:	7e b1                         	pop	r1
 ffe05773:	2e 02                         	bra.b	ffe05775 <_Reset_Vector+0xffe05779>
@@ -16670,7 +16683,7 @@ ffe05785:	6e 56                         	pushm	r5-r6
 ffe05787:	fd 1f 85                      	mvfachi	#0, a1, r5
 ffe0578a:	fd 1f b6                      	mvfacgu	#0, a1, r6
 ffe0578d:	6e 56                         	pushm	r5-r6
-    debug = 1;
+    debug = 1; _acc_();
 ffe0578f:	fb 52 20 00 00 00             	mov.l	#32, r5
 ffe05795:	f8 56 01                      	mov.l	#1, [r5]
 }
@@ -16708,7 +16721,7 @@ ffe057c8:	6e 56                         	pushm	r5-r6
 ffe057ca:	fd 1f 85                      	mvfachi	#0, a1, r5
 ffe057cd:	fd 1f b6                      	mvfacgu	#0, a1, r6
 ffe057d0:	6e 56                         	pushm	r5-r6
-    debug = 2;
+    debug = 2; _acc_();
 ffe057d2:	fb 52 20 00 00 00             	mov.l	#32, r5
 ffe057d8:	f8 56 02                      	mov.l	#2, [r5]
 }

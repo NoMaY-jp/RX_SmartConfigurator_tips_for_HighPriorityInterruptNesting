@@ -1,8 +1,8 @@
-* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Fri Dec 23 10:15:18 2022
+* RX FAMILY ASSEMBLER V3.04.00.01 [10 Sep 2021] *  SOURCE LIST  Thu Jan 05 16:10:49 2023
 
 LOC.     OBJ.              0XMDA SOURCE STATEMENT
 
-                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  23-Dec-2022 10:15:15
+                                 ;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  05-Jan-2023 16:10:47
                                  
                                  ;*** CPU TYPE ***
                                  
@@ -57,128 +57,160 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
                                  		.STACK	_main=4
                                  ;       1 #include "r_smc_entry.h"
                                  ;       2 
-                                 ;       3 void main(void);
-                                 ;       4 void Check_Using_DSQRT_FSQRT(void);
-                                 ;       5 void Check_Not_Using_DSQRT_FSQRT(void);
-                                 ;       6 void (*fp_Check_Using_DSQRT_FSQRT)(void);
-                                 ;       7 void (*fp_Check_Not_Using_DSQRT_FSQRT)(void);
-                                 ;       8 
-                                 ;       9 #define VECT_TRAP_0 0
-                                 ;      10 #define VECT_TRAP_1 1
-                                 ;      11 #define VECT_TRAP_2 2
-                                 ;      12 #define VECT_TRAP_3 3
-                                 ;      13 #define VECT_TRAP_4 4
+                                 ;       3 #if defined(__RXV3) && !defined(BSP_BOARD_GENERIC_RX66T)
+                                 ;       4 #define __BANK 1
+                                 ;       5 #endif
+                                 ;       6 
+                                 ;       7 void main(void);
+                                 ;       8 #if defined(__RXV3)
+                                 ;       9 void Check_Using_DSQRT_FSQRT(void);
+                                 ;      10 void Check_Not_Using_DSQRT_FSQRT(void);
+                                 ;      11 void (*fp_Check_Using_DSQRT_FSQRT)(void);
+                                 ;      12 void (*fp_Check_Not_Using_DSQRT_FSQRT)(void);
+                                 ;      13 #endif
                                  ;      14 
-                                 ;      15 void main(void)
-                                 ;      16 {
-                                 ;      17     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX - 1 );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",17
-00000000 757007                  		MVTIPL #07H
-                                 ;      18     R_BSP_INT( VECT( TRAP, 0 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",18
-00000003 756000                  		INT #00H
-                                 ;      19     R_BSP_INT( VECT( TRAP, 1 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",19
-00000006 756001                  		INT #01H
-                                 ;      20     R_BSP_INT( VECT( TRAP, 2 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",20
-00000009 756002                  		INT #02H
-                                 ;      21     R_BSP_INT( VECT( TRAP, 3 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",21
-0000000C 756003                  		INT #03H
-                                 ;      22     R_BSP_INT( VECT( TRAP, 4 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",22
-0000000F 756004                  		INT #04H
-                                 ;      23 
-                                 ;      24     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",24
-00000012 757008                  		MVTIPL #08H
-                                 ;      25     R_BSP_INT( VECT( TRAP, 0 ) );
+                                 ;      15 #define VECT_TRAP_0 0
+                                 ;      16 #define VECT_TRAP_1 1
+                                 ;      17 #define VECT_TRAP_2 2
+                                 ;      18 #if defined(__BANK)
+                                 ;      19 #define VECT_TRAP_3 3
+                                 ;      20 #define VECT_TRAP_4 4
+                                 ;      21 #endif
+                                 ;      22 
+                                 ;      23 void main(void)
+                                 ;      24 {
+                                 ;      25     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX - 1 );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",25
-00000015 756000                  		INT #00H
-                                 ;      26     R_BSP_INT( VECT( TRAP, 1 ) );
+00000000 757008                  		MVTIPL #08H
+                                 ;      26     R_BSP_INT( VECT( TRAP, 0 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",26
-00000018 756001                  		INT #01H
-                                 ;      27     R_BSP_INT( VECT( TRAP, 2 ) );
+00000003 756000                  		INT #00H
+                                 ;      27     R_BSP_INT( VECT( TRAP, 1 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",27
-0000001B 756002                  		INT #02H
-                                 ;      28     R_BSP_INT( VECT( TRAP, 3 ) );
+00000006 756001                  		INT #01H
+                                 ;      28     R_BSP_INT( VECT( TRAP, 2 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",28
-0000001E 756003                  		INT #03H
-                                 ;      29     R_BSP_INT( VECT( TRAP, 4 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",29
-00000021 756004                  		INT #04H
-                                 ;      30 
-                                 ;      31     R_BSP_SET_IPL( MY_BSP_CFG_FIT_UNNESTED_IPL_MAX + 1 );
+00000009 756002                  		INT #02H
+                                 ;      29 #if defined(__BANK)
+                                 ;      30     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",30
+0000000C 756003                  		INT #03H
+                                 ;      31     R_BSP_INT( VECT( TRAP, 4 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",31
-00000024 757009                  		MVTIPL #09H
-                                 ;      32     R_BSP_INT( VECT( TRAP, 0 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",32
-00000027 756000                  		INT #00H
-                                 ;      33     R_BSP_INT( VECT( TRAP, 1 ) );
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",33
-0000002A 756001                  		INT #01H
-                                 ;      34     R_BSP_INT( VECT( TRAP, 2 ) );
+0000000F 756004                  		INT #04H
+                                 ;      32 #endif
+                                 ;      33 
+                                 ;      34     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",34
-0000002D 756002                  		INT #02H
-                                 ;      35     R_BSP_INT( VECT( TRAP, 3 ) );
+00000012 757009                  		MVTIPL #09H
+                                 ;      35     R_BSP_INT( VECT( TRAP, 0 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",35
-00000030 756003                  		INT #03H
-                                 ;      36     R_BSP_INT( VECT( TRAP, 4 ) );
+00000015 756000                  		INT #00H
+                                 ;      36     R_BSP_INT( VECT( TRAP, 1 ) );
                                  		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",36
+00000018 756001                  		INT #01H
+                                 ;      37     R_BSP_INT( VECT( TRAP, 2 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",37
+0000001B 756002                  		INT #02H
+                                 ;      38 #if defined(__BANK)
+                                 ;      39     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",39
+0000001E 756003                  		INT #03H
+                                 ;      40     R_BSP_INT( VECT( TRAP, 4 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",40
+00000021 756004                  		INT #04H
+                                 ;      41 #endif
+                                 ;      42 
+                                 ;      43     R_BSP_SET_IPL( MY_BSP_CFG_UNNESTED_IPL_MAX + 1 );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",43
+00000024 75700A                  		MVTIPL #0AH
+                                 ;      44     R_BSP_INT( VECT( TRAP, 0 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",44
+00000027 756000                  		INT #00H
+                                 ;      45     R_BSP_INT( VECT( TRAP, 1 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",45
+0000002A 756001                  		INT #01H
+                                 ;      46     R_BSP_INT( VECT( TRAP, 2 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",46
+0000002D 756002                  		INT #02H
+                                 ;      47 #if defined(__BANK)
+                                 ;      48     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",48
+00000030 756003                  		INT #03H
+                                 ;      49     R_BSP_INT( VECT( TRAP, 4 ) );
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",49
 00000033 756004                  		INT #04H
-                                 ;      37 
-                                 ;      38 #if 0 /* later */
-                                 ;      39     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
-                                 ;      40     R_BSP_INT( VECT( TRAP, 0 ) );
-                                 ;      41     R_BSP_INT( VECT( TRAP, 1 ) );
-                                 ;      42     R_BSP_INT( VECT( TRAP, 2 ) );
-                                 ;      43     R_BSP_INT( VECT( TRAP, 3 ) );
-                                 ;      44     R_BSP_INT( VECT( TRAP, 4 ) );
-                                 ;      45 
-                                 ;      46     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
-                                 ;      47     R_BSP_INT( VECT( TRAP, 0 ) );
-                                 ;      48     R_BSP_INT( VECT( TRAP, 1 ) );
-                                 ;      49     R_BSP_INT( VECT( TRAP, 2 ) );
-                                 ;      50     R_BSP_INT( VECT( TRAP, 3 ) );
-                                 ;      51     R_BSP_INT( VECT( TRAP, 4 ) );
-                                 ;      52 
-                                 ;      53     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
+                                 ;      50 #endif
+                                 ;      51 
+                                 ;      52 #if 0 /* later */
+                                 ;      53     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX - 1 );
                                  ;      54     R_BSP_INT( VECT( TRAP, 0 ) );
                                  ;      55     R_BSP_INT( VECT( TRAP, 1 ) );
                                  ;      56     R_BSP_INT( VECT( TRAP, 2 ) );
-                                 ;      57     R_BSP_INT( VECT( TRAP, 3 ) );
-                                 ;      58     R_BSP_INT( VECT( TRAP, 4 ) );
-                                 ;      59 #endif
-                                 ;      60 
-                                 ;      61     R_BSP_NOP();
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",61
+                                 ;      57 #if defined(__BANK)
+                                 ;      58     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 ;      59     R_BSP_INT( VECT( TRAP, 4 ) );
+                                 ;      60 #endif
+                                 ;      61 
+                                 ;      62     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX );
+                                 ;      63     R_BSP_INT( VECT( TRAP, 0 ) );
+                                 ;      64     R_BSP_INT( VECT( TRAP, 1 ) );
+                                 ;      65     R_BSP_INT( VECT( TRAP, 2 ) );
+                                 ;      66 #if defined(__BANK)
+                                 ;      67     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 ;      68     R_BSP_INT( VECT( TRAP, 4 ) );
+                                 ;      69 #endif
+                                 ;      70 
+                                 ;      71     R_BSP_SET_IPL( BSP_CFG_FIT_IPL_MAX + 1 );
+                                 ;      72     R_BSP_INT( VECT( TRAP, 0 ) );
+                                 ;      73     R_BSP_INT( VECT( TRAP, 1 ) );
+                                 ;      74     R_BSP_INT( VECT( TRAP, 2 ) );
+                                 ;      75 #if defined(__BANK)
+                                 ;      76     R_BSP_INT( VECT( TRAP, 3 ) );
+                                 ;      77     R_BSP_INT( VECT( TRAP, 4 ) );
+                                 ;      78 #endif
+                                 ;      79 #endif
+                                 ;      80 
+                                 ;      81     R_BSP_NOP();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",81
 00000036 03                      		NOP
-                                 ;      62 
-                                 ;      63     fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",63
+                                 ;      82 
+                                 ;      83 #if defined(__RXV3)
+                                 ;      84     fp_Check_Using_DSQRT_FSQRT = &Check_Using_DSQRT_FSQRT;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",84
 00000037 FBF2rrrrrrrr            		MOV.L #_fp_Check_Using_DSQRT_FSQRT, R15
 0000003D FBE2rrrrrrrr            		MOV.L #_Check_Using_DSQRT_FSQRT, R14
 00000043 E3FE                    		MOV.L R14, [R15]
-                                 ;      64     fp_Check_Not_Using_DSQRT_FSQRT = &Check_Not_Using_DSQRT_FSQRT;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",64
+                                 ;      85     fp_Check_Not_Using_DSQRT_FSQRT = &Check_Not_Using_DSQRT_FSQRT;
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",85
 00000045 FBF2rrrrrrrr            		MOV.L #_fp_Check_Not_Using_DSQRT_FSQRT, R15
 0000004B FBE2rrrrrrrr            		MOV.L #_Check_Not_Using_DSQRT_FSQRT, R14
 00000051 E3FE                    		MOV.L R14, [R15]
 00000053                         L11:	; bb1
-                                 ;      65 
-                                 ;      66     for(;;);
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",66
+                                 ;      86 #endif
+                                 ;      87 
+                                 ;      88     for(;;);
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",88
 00000053 2Err                 B  		BRA L11
 00000055                         __$_trap0_isr:
                                  		.STACK	__$_trap0_isr=8
                                  		.RVECTOR	0,__$_trap0_isr
-                                 ;      67 }
-                                 ;      68 
-                                 ;      69 uint32_t debug = 0x5a5a5a5a;
-                                 ;      70 
-                                 ;      71 R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",71
+                                 ;      89 }
+                                 ;      90 
+                                 ;      91 #if defined(__CCRX__)
+                                 ;      92 #pragma inline_asm _acc_
+                                 ;      93 static void _acc_(void){/* Nothing is enough for debugging with the `-save_acc` compiler option. */}
+                                 ;      94 #else
+                                 ;      95 #define _acc_() do{}while(0)/* This is enough as of today. */
+                                 ;      96 #if 0
+                                 ;      97 static void _acc_(void){/* T.B.D. */}
+                                 ;      98 #endif
+                                 ;      99 #endif
+                                 ;     100 
+                                 ;     101 uint32_t debug = 0x5a5a5a5a;
+                                 ;     102 
+                                 ;     103 R_BSP_PRAGMA_STATIC_INTERRUPT(trap0_isr, VECT(TRAP, 0))
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",103
 00000055 FD76E00F                		SAVE #0FH
                                  		._LINE_TOP  inline_asm
 00000059 7EA1                    PUSH.L R1 
@@ -187,14 +219,14 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 0000005B FD6A01                  MVFC PSW, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
-0000005E FC5A110810              BFMOVZ # 24, # 0, # 4, R1, R1 
+0000005E FC5A110810              BFMOVZ # (24), # (0), # (4), R1, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
                                  		._LINE_END  inline_asm
-00000063 6171                    		CMP #07H, R1
+00000063 6181                    		CMP #08H, R1
 00000065 24rr                    		BGTU L14
 00000067                         L13:	; if_then_bb
-00000067 757008                  		MVTIPL #08H
+00000067 757009                  		MVTIPL #09H
 0000006A                         L14:	; if_break_bb
                                  		._LINE_TOP  inline_asm
 0000006A 7FA8                    SETPSW I 
@@ -203,7 +235,7 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 0000006C FD6A01                  MVFC PSW, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
-0000006F FC5A110810              BFMOVZ # 24, # 0, # 4, R1, R1 
+0000006F FC5A110810              BFMOVZ # (24), # (0), # (4), R1, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
 00000074 FD76C100                SAVE R1 
@@ -225,25 +257,27 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 00000089 7F95                    		RTE
 0000008B                         __$trap0_isr:
                                  		.STACK	__$trap0_isr=4
-                                 ;      72 R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
-                                 ;      73 {
-                                 ;      74     debug = 0;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",74
+                                 ;     104 R_BSP_ATTRIB_STATIC_INTERRUPT void trap0_isr(void)
+                                 ;     105 {
+                                 ;     106     debug = 0; _acc_();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",106
 0000008B FBE2rrrrrrrr            		MOV.L #_debug, R14
 00000091 F8E600                  		MOV.L #00000000H, [R14]
+                                 		._LINE_TOP  inline_asm
+                                 		._LINE_END  inline_asm
 00000094 02                      		RTS
 00000095                         __$_trap1_isr:
                                  		.STACK	__$_trap1_isr=8
                                  		.RVECTOR	1,__$_trap1_isr
-                                 ;      75 }
-                                 ;      76 
-                                 ;      77 #if defined(__CCRX__) /*----------------------------------------------------*/
-                                 ;      78 
-                                 ;      79 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-                                 ;      80 /**/
-                                 ;      81 #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
-                                 ;      82 static void trap1_isr(void)
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",82
+                                 ;     107 }
+                                 ;     108 
+                                 ;     109 #if defined(__CCRX__) /*----------------------------------------------------*/
+                                 ;     110 
+                                 ;     111 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+                                 ;     112 /**/
+                                 ;     113 #pragma interrupt trap1_isr(vect = VECT(TRAP, 1))
+                                 ;     114 static void trap1_isr(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",114
 00000095 FD76E00F                		SAVE #0FH
                                  		._LINE_TOP  inline_asm
 00000099 7EA1                    PUSH.L R1 
@@ -252,14 +286,14 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 0000009B FD6A01                  MVFC PSW, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
-0000009E FC5A110810              BFMOVZ # 24, # 0, # 4, R1, R1 
+0000009E FC5A110810              BFMOVZ # (24), # (0), # (4), R1, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
                                  		._LINE_END  inline_asm
-000000A3 6171                    		CMP #07H, R1
+000000A3 6181                    		CMP #08H, R1
 000000A5 24rr                    		BGTU L18
 000000A7                         L17:	; if_then_bb
-000000A7 757008                  		MVTIPL #08H
+000000A7 757009                  		MVTIPL #09H
 000000AA                         L18:	; if_break_bb
                                  		._LINE_TOP  inline_asm
 000000AA 7FA8                    SETPSW I 
@@ -268,7 +302,7 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 000000AC FD6A01                  MVFC PSW, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
-000000AF FC5A110810              BFMOVZ # 24, # 0, # 4, R1, R1 
+000000AF FC5A110810              BFMOVZ # (24), # (0), # (4), R1, R1 
                                  		._LINE_END  inline_asm
                                  		._LINE_TOP  inline_asm
 000000B4 FD76C100                SAVE R1 
@@ -290,143 +324,190 @@ LOC.     OBJ.              0XMDA SOURCE STATEMENT
 000000C9 7F95                    		RTE
 000000CB                         __$trap1_isr:
                                  		.STACK	__$trap1_isr=4
-                                 ;      83 {
-                                 ;      84     debug = 1;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",84
+                                 ;     115 {
+                                 ;     116     debug = 1; _acc_();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",116
 000000CB FBE2rrrrrrrr            		MOV.L #_debug, R14
 000000D1 F8E601                  		MOV.L #00000001H, [R14]
+                                 		._LINE_TOP  inline_asm
+                                 		._LINE_END  inline_asm
 000000D4 02                      		RTS
 000000D5                         __$trap2_isr:
-                                 		.STACK	__$trap2_isr=12
+                                 		.STACK	__$trap2_isr=60
                                  		.RVECTOR	2,__$trap2_isr
-                                 ;      85 }
-                                 ;      86 
-                                 ;      87 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-                                 ;      88 /**/
-                                 ;      89 #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
-                                 ;      90 static void trap2_isr(void)
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",90
+                                 ;     117 }
+                                 ;     118 
+                                 ;     119 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+                                 ;     120 /**/
+                                 ;     121 #pragma interrupt trap2_isr(vect = VECT(TRAP, 2))
+                                 ;     122 static void trap2_isr(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",122
 000000D5 7FA8                    		SETPSW I
-000000D7 7EA1                    		PUSH.L R1
-                                 ;      91 {
-                                 ;      92     debug = 2;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",92
-000000D9 FB12rrrrrrrr            		MOV.L #_debug, R1
-000000DF F81602                  		MOV.L #00000002H, [R1]
-000000E2 7EB1                    		POP R1
-000000E4 7F95                    		RTE
-000000E6                         __$trap3_isr:
+000000D7 6EEF                    		PUSHM R14-R15
+000000D9 6E45                    		PUSHM R4-R5
+000000DB 7EA3                    		PUSH.L R3
+000000DD FD1FB3                  		MVFACGU #00H, A1, R3
+000000E0 7EA2                    		PUSH.L R2
+000000E2 FD1F82                  		MVFACHI #00H, A1, R2
+000000E5 7EA1                    		PUSH.L R1
+000000E7 FD1F91                  		MVFACLO #00H, A1, R1
+000000EA 7EA3                    		PUSH.L R3
+000000EC FD1F33                  		MVFACGU #00H, A0, R3
+000000EF 7EA2                    		PUSH.L R2
+000000F1 FD1F02                  		MVFACHI #00H, A0, R2
+000000F4 7EA1                    		PUSH.L R1
+000000F6 FD1F11                  		MVFACLO #00H, A0, R1
+000000F9 6E13                    		PUSHM R1-R3
+                                 ;     123 {
+                                 ;     124     debug = 2; _acc_();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",124
+000000FB FB12rrrrrrrr            		MOV.L #_debug, R1
+00000101 F81602                  		MOV.L #00000002H, [R1]
+                                 		._LINE_TOP  inline_asm
+                                 		._LINE_END  inline_asm
+00000104 7EB1                    		POP R1
+00000106 7EB2                    		POP R2
+00000108 7EB3                    		POP R3
+0000010A FD1711                  		MVTACLO R1, A0
+0000010D FD1702                  		MVTACHI R2, A0
+00000110 7EB1                    		POP R1
+00000112 FD1733                  		MVTACGU R3, A0
+00000115 7EB2                    		POP R2
+00000117 7EB3                    		POP R3
+00000119 FD1791                  		MVTACLO R1, A1
+0000011C FD1782                  		MVTACHI R2, A1
+0000011F FD17B3                  		MVTACGU R3, A1
+00000122 6F15                    		POPM R1-R5
+00000124 6FEF                    		POPM R14-R15
+00000126 7F95                    		RTE
+00000128                         __$trap3_isr:
                                  		.STACK	__$trap3_isr=8
                                  		.RVECTOR	3,__$trap3_isr
-                                 ;      93 }
-                                 ;      94 
-                                 ;      95 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
-                                 ;      96 /**/
-                                 ;      97 #pragma interrupt trap3_isr(vect = VECT(TRAP, 3))
-                                 ;      98 static void trap3_isr(void)
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",98
-000000E6 FD76E00F                		SAVE #0FH
-                                 ;      99 {
-                                 ;     100     debug = 3;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",100
-000000EA FB12rrrrrrrr            		MOV.L #_debug, R1
-000000F0 F81603                  		MOV.L #00000003H, [R1]
-000000F3 FD76F00F                		RSTR #0FH
-000000F7 7F95                    		RTE
-000000F9                         __$trap4_isr:
+                                 ;     125 }
+                                 ;     126 
+                                 ;     127 #if defined(__BANK)
+                                 ;     128 
+                                 ;     129 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+                                 ;     130 /**/
+                                 ;     131 #pragma interrupt trap3_isr(vect = VECT(TRAP, 3))
+                                 ;     132 static void trap3_isr(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",132
+00000128 FD76E00F                		SAVE #0FH
+                                 ;     133 {
+                                 ;     134     debug = 3; _acc_();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",134
+0000012C FB12rrrrrrrr            		MOV.L #_debug, R1
+00000132 F81603                  		MOV.L #00000003H, [R1]
+                                 		._LINE_TOP  inline_asm
+                                 		._LINE_END  inline_asm
+00000135 FD76F00F                		RSTR #0FH
+00000139 7F95                    		RTE
+0000013B                         __$trap4_isr:
                                  		.STACK	__$trap4_isr=8
                                  		.RVECTOR	4,__$trap4_isr
-                                 ;     101 }
-                                 ;     102 
-                                 ;     103 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
-                                 ;     104 /**/
-                                 ;     105 #pragma interrupt trap4_isr(vect = VECT(TRAP, 4))
-                                 ;     106 static void trap4_isr(void)
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",106
-000000F9 7FA8                    		SETPSW I
-000000FB FD76E00F                		SAVE #0FH
-                                 ;     107 {
-                                 ;     108     debug = 4;
-                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",108
-000000FF FB12rrrrrrrr            		MOV.L #_debug, R1
-00000105 F81604                  		MOV.L #00000004H, [R1]
-00000108 FD76F00F                		RSTR #0FH
-0000010C 7F95                    		RTE
-                                 ;     109 }
-                                 ;     110 
-                                 ;     111 #elif defined(__GNUC__) /*--------------------------------------------------*/
-                                 ;     112 
-                                 ;     113 void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
-                                 ;     114 /**/
-                                 ;     115 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
-                                 ;     116 /**/
-                                 ;     117 void trap1_isr(void)
-                                 ;     118 {
-                                 ;     119     debug = 1;
-                                 ;     120 }
-                                 ;     121 
-                                 ;     122 void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
-                                 ;     123 /**/
-                                 ;     124 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-                                 ;     125 /**/
-                                 ;     126 void trap2_isr(void)
-                                 ;     127 {
-                                 ;     128     debug = 2;
-                                 ;     129 }
-                                 ;     130 
-                                 ;     131 void trap3_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 3))));
-                                 ;     132 /**/
-                                 ;     133 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
-                                 ;     134 /**/
-                                 ;     135 void trap3_isr(void)
-                                 ;     136 {
-                                 ;     137     debug = 3;
-                                 ;     138 }
-                                 ;     139 
-                                 ;     140 void trap4_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 4))));
-                                 ;     141 /**/
-                                 ;     142 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
-                                 ;     143 /**/
-                                 ;     144 void trap4_isr(void)
-                                 ;     145 {
-                                 ;     146     debug = 4;
-                                 ;     147 }
+                                 ;     135 }
+                                 ;     136 
+                                 ;     137 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+                                 ;     138 /**/
+                                 ;     139 #pragma interrupt trap4_isr(vect = VECT(TRAP, 4))
+                                 ;     140 static void trap4_isr(void)
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",140
+0000013B 7FA8                    		SETPSW I
+0000013D FD76E00F                		SAVE #0FH
+                                 ;     141 {
+                                 ;     142     debug = 4; _acc_();
+                                 		.LINE  "C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_RegBankSave_CCRX\src\main.c",142
+00000141 FB12rrrrrrrr            		MOV.L #_debug, R1
+00000147 F81604                  		MOV.L #00000004H, [R1]
+                                 		._LINE_TOP  inline_asm
+                                 		._LINE_END  inline_asm
+0000014A FD76F00F                		RSTR #0FH
+0000014E 7F95                    		RTE
+                                 ;     143 }
+                                 ;     144 
+                                 ;     145 #endif
+                                 ;     146 
+                                 ;     147 #elif defined(__GNUC__) /*--------------------------------------------------*/
                                  ;     148 
-                                 ;     149 #elif defined(__ICCRX__) /*-------------------------------------------------*/
-                                 ;     150 
-                                 ;     151 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_FIT_IPL_MAX_EI(trap1_isr, __VA_ARGS__)
+                                 ;     149 void trap1_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 1))));
+                                 ;     150 /**/
+                                 ;     151 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
                                  ;     152 /**/
-                                 ;     153 #pragma vector = VECT(TRAP, 1)
-                                 ;     154 __interrupt static void trap1_isr(void) // Remark[Pe082]: storage class is not first
-                                 ;     155 {
-                                 ;     156     debug = 1;
-                                 ;     157 }
-                                 ;     158 
-                                 ;     159 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
-                                 ;     160 /**/
-                                 ;     161 #pragma vector = VECT(TRAP, 2)
-                                 ;     162 __interrupt static void trap2_isr(void) // Remark[Pe082]: storage class is not first
+                                 ;     153 void trap1_isr(void)
+                                 ;     154 {
+                                 ;     155     debug = 1; _acc_();
+                                 ;     156 }
+                                 ;     157 
+                                 ;     158 void trap2_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 2))));
+                                 ;     159 /**/
+                                 ;     160 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+                                 ;     161 /**/
+                                 ;     162 void trap2_isr(void)
                                  ;     163 {
-                                 ;     164     debug = 2;
+                                 ;     164     debug = 2; _acc_();
                                  ;     165 }
                                  ;     166 
-                                 ;     167 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
-                                 ;     168 /**/
-                                 ;     169 #pragma vector = VECT(TRAP, 3)
-                                 ;     170 __interrupt static void trap3_isr(void) // Remark[Pe082]: storage class is not first
-                                 ;     171 {
-                                 ;     172     debug = 3;
-                                 ;     173 }
-                                 ;     174 
-                                 ;     175 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
-                                 ;     176 /**/
-                                 ;     177 #pragma vector = VECT(TRAP, 4)
-                                 ;     178 __interrupt static void trap4_isr(void) // Remark[Pe082]: storage class is not first
-                                 ;     179 {
-                                 ;     180     debug = 4;
-                                 ;     181 }
-                                 ;     182 
-                                 ;     183 #endif /*-------------------------------------------------------------------*/
+                                 ;     167 #if defined(__BANK)
+                                 ;     168 
+                                 ;     169 void trap3_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 3))));
+                                 ;     170 /**/
+                                 ;     171 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+                                 ;     172 /**/
+                                 ;     173 void trap3_isr(void)
+                                 ;     174 {
+                                 ;     175     debug = 3; _acc_();
+                                 ;     176 }
+                                 ;     177 
+                                 ;     178 void trap4_isr(void) __attribute__ ((interrupt(".rvectors", VECT(TRAP, 4))));
+                                 ;     179 /**/
+                                 ;     180 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+                                 ;     181 /**/
+                                 ;     182 void trap4_isr(void)
+                                 ;     183 {
+                                 ;     184     debug = 4; _acc_();
+                                 ;     185 }
+                                 ;     186 
+                                 ;     187 #endif
+                                 ;     188 
+                                 ;     189 #elif defined(__ICCRX__) /*-------------------------------------------------*/
+                                 ;     190 
+                                 ;     191 #define trap1_isr(...) R_CG_ATTRIB_INTERRUPT_EHI(trap1_isr, __VA_ARGS__)
+                                 ;     192 /**/
+                                 ;     193 #pragma vector = VECT(TRAP, 1)
+                                 ;     194 __interrupt static void trap1_isr(void) // Remark[Pe082]: storage class is not first
+                                 ;     195 {
+                                 ;     196     debug = 1; _acc_();
+                                 ;     197 }
+                                 ;     198 
+                                 ;     199 #define trap2_isr(...) R_CG_ATTRIB_INTERRUPT_EI(trap2_isr, __VA_ARGS__)
+                                 ;     200 /**/
+                                 ;     201 #pragma vector = VECT(TRAP, 2)
+                                 ;     202 __interrupt static void trap2_isr(void) // Remark[Pe082]: storage class is not first
+                                 ;     203 {
+                                 ;     204     debug = 2; _acc_();
+                                 ;     205 }
+                                 ;     206 
+                                 ;     207 #if defined(__BANK)
+                                 ;     208 
+                                 ;     209 #define trap3_isr(...) R_CG_ATTRIB_INTERRUPT_BANK(trap3_isr, 15, __VA_ARGS__)
+                                 ;     210 /**/
+                                 ;     211 #pragma vector = VECT(TRAP, 3)
+                                 ;     212 __interrupt static void trap3_isr(void) // Remark[Pe082]: storage class is not first
+                                 ;     213 {
+                                 ;     214     debug = 3; _acc_();
+                                 ;     215 }
+                                 ;     216 
+                                 ;     217 #define trap4_isr(...) R_CG_ATTRIB_INTERRUPT_BANK_EI(trap4_isr, 15, __VA_ARGS__)
+                                 ;     218 /**/
+                                 ;     219 #pragma vector = VECT(TRAP, 4)
+                                 ;     220 __interrupt static void trap4_isr(void) // Remark[Pe082]: storage class is not first
+                                 ;     221 {
+                                 ;     222     debug = 4; _acc_();
+                                 ;     223 }
+                                 ;     224 
+                                 ;     225 #endif
+                                 ;     226 
+                                 ;     227 #endif /*-------------------------------------------------------------------*/
                                  		.SECTION	D,ROMDATA,ALIGN=4
 00000000                         _debug:
 00000000 5A5A5A5A                		.lword	5A5A5A5AH
@@ -441,12 +522,12 @@ Information List
 
 TOTAL ERROR(S)    00000
 TOTAL WARNING(S)  00000
-TOTAL LINE(S)     00434   LINES
+TOTAL LINE(S)     00515   LINES
 
 Section List
 
 Attr         Size               Name
-CODE     0000000270(0000010EH)  P
+CODE     0000000336(00000150H)  P
 ROMDATA  0000000004(00000004H)  D
 DATA     0000000008(00000008H)  B
 
@@ -456,7 +537,7 @@ Cpu Type
 
 Command Parameter
 
--subcommand=C:\Temp\DevTools\$ccrx56D248E\$ccrx\main.src.cmd
+-subcommand=C:\Temp\DevTools\$ccrx67BBC2B\$ccrx\main.src.cmd
     -nologo
     -isa=rxv3
     -fpu

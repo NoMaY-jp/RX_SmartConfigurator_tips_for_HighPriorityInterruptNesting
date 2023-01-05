@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      23/Dec/2022  10:19:01
+# IAR C/C++ Compiler V4.20.1.5803/W32 for Renesas RX      05/Jan/2023  16:13:22
 # Copyright 2009-2020 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for Renesas RX, 64K KickStart Edition 4.20
 #
@@ -85,14 +85,14 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      22          static double Check_Using_DSQRT(double x)
      23          {
    \                     _Check_Using_DSQRT:
-   \   000000 75 B0 00     DPUSHM.D  DR0,DR0
+   \   000000 75 B0 00     DPUSHM.D  DR0,DR0       ;  N
      24              return sqrt(x);  // DSQRT is used here directly.
-   \   000003 FD 77 81 00  DMOV.L    R1,DRL0
-   \   000007 FD 77 82 02  DMOV.L    R2,DRH0
-   \   00000B 76 90 0D 00  DSQRT     DR0,DR0
-   \   00000F FD 75 81 00  DMOV.L    DRL0,R1
-   \   000013 FD 75 82 02  DMOV.L    DRH0,R2
-   \   000017 75 B8 00     DPOPM.D   DR0,DR0
+   \   000003 FD 77 81 00  DMOV.L    R1,DRL0       ;  N
+   \   000007 FD 77 82 02  DMOV.L    R2,DRH0       ;  N
+   \   00000B 76 90 0D 00  DSQRT     DR0,DR0       ;  N
+   \   00000F FD 75 81 00  DMOV.L    DRL0,R1       ;  N
+   \   000013 FD 75 82 02  DMOV.L    DRH0,R2       ;  N
+   \   000017 75 B8 00     DPOPM.D   DR0,DR0       ;  N
    \   00001A 02           RTS
      25          }
      26          
@@ -103,7 +103,7 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      29          {
      30              return sqrtf(x); // FSQRT is used here directly.
    \                     _Check_Using_FSQRT:
-   \   000000 FC A3 11     FSQRT     R1,R1
+   \   000000 FC A3 11     FSQRT     R1,R1 ;  N
    \   000003 02           RTS
      31          }
      32          
@@ -160,23 +160,23 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      59          void Check_Using_DSQRT_FSQRT(void)
      60          {
    \                     _Check_Using_DSQRT_FSQRT:
-   \   000000 7E A6        PUSH.L    R6
+   \   000000 7E A6        PUSH.L    R6    ;  N
      61              ((double (*)(double))m_debug_Check_Using_DSQRT)(4.0);
-   \   000002 FB 6E        MOV.L     #_m_debug_Check_Using_DSQRT:24,R6
+   \   000002 FB 6E        MOV.L     #_m_debug_Check_Using_DSQRT:24,R6     ;  N 
 
    \          ..'....
-   \   000007 EC 63        MOV.L     [R6],R3
-   \   000009 66 01        MOV.L     #0x0,R1
-   \   00000B FB 22 00 00  MOV.L     #0x40100000,R2
+   \   000007 EC 63        MOV.L     [R6],R3       ;  N
+   \   000009 66 01        MOV.L     #0x0,R1       ;  N
+   \   00000B FB 22 00 00  MOV.L     #0x40100000,R2        ;  N 
 
    \          10 40
-   \   000011 7F 13        JSR       R3
+   \   000011 7F 13        JSR       R3    ;  N
      62              ((float (*)(float))m_debug_Check_Using_FSQRT)(4.0);
-   \   000013 A8 6C        MOV.L     0x4[R6],R4
-   \   000015 FB 12 00 00  MOV.L     #0x40800000,R1
+   \   000013 A8 6C        MOV.L     0x4[R6],R4    ;  N
+   \   000015 FB 12 00 00  MOV.L     #0x40800000,R1        ;  N 
 
    \          80 40
-   \   00001B 7F 14        JSR       R4
+   \   00001B 7F 14        JSR       R4    ;  N
      63          }
    \   00001D 3F 66 01     RTSD      #0x4,R6-R6
      64          
@@ -200,158 +200,158 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
      70          
      71              d3  = d1 + d2 +  3.0;
    \                     _Check_DPUSHM_DPOPM:
-   \   000000 FB 1E        MOV.L     #_d1:24,R1
+   \   000000 FB 1E        MOV.L     #_d1:24,R1    ;  N 
 
    \          ..'....
-   \   000005 75 B0 0F     DPUSHM.D  DR0,DR15
-   \   000008 FC C9 18 02  DMOV.D    0x8[R1],DR2
+   \   000005 75 B0 0F     DPUSHM.D  DR0,DR15      ;  N
+   \   000008 FC C9 18 02  DMOV.D    0x8[R1],DR2   ;  N 
 
    \          20
-   \   00000D FC C8 18 30  DMOV.D    [R1],DR3
-   \   000011 FC C8 18 00  DMOV.D    [R1],DR0
-   \   000015 F9 03 43 00  DMOV.D    #0x40080000,DRH4
+   \   00000D FC C8 18 30  DMOV.D    [R1],DR3      ;  N
+   \   000011 FC C8 18 00  DMOV.D    [R1],DR0      ;  N
+   \   000015 F9 03 43 00  DMOV.D    #0x40080000,DRH4      ;  N 
 
    \          00 08 40
      72              d4  = d1 - d2 +  4.0;
-   \   00001C F9 03 53 00  DMOV.D    #0x40100000,DRH5
+   \   00001C F9 03 53 00  DMOV.D    #0x40100000,DRH5      ;  N 
 
    \          00 10 40
-   \   000023 76 90 20 33  DADD      DR3,DR2,DR3
-   \   000027 76 90 01 22  DSUB      DR2,DR0,DR2
-   \   00002B 76 90 40 43  DADD      DR3,DR4,DR4
-   \   00002F 76 90 50 52  DADD      DR2,DR5,DR5
+   \   000023 76 90 20 33  DADD      DR3,DR2,DR3   ;  N
+   \   000027 76 90 01 22  DSUB      DR2,DR0,DR2   ;  N
+   \   00002B 76 90 40 43  DADD      DR3,DR4,DR4   ;  N
+   \   00002F 76 90 50 52  DADD      DR2,DR5,DR5   ;  N
      73              d5  = d1 + d2 +  5.0;
-   \   000033 F9 03 63 00  DMOV.D    #0x40140000,DRH6
+   \   000033 F9 03 63 00  DMOV.D    #0x40140000,DRH6      ;  N 
 
    \          00 14 40
      74              d6  = d1 - d2 +  6.0;
-   \   00003A F9 03 73 00  DMOV.D    #0x40180000,DRH7
+   \   00003A F9 03 73 00  DMOV.D    #0x40180000,DRH7      ;  N 
 
    \          00 18 40
-   \   000041 F9 03 93 00  DMOV.D    #0x40200000,DRH9
+   \   000041 F9 03 93 00  DMOV.D    #0x40200000,DRH9      ;  N 
 
    \          00 20 40
-   \   000048 F9 03 B3 00  DMOV.D    #0x40240000,DRH11
+   \   000048 F9 03 B3 00  DMOV.D    #0x40240000,DRH11     ;  N 
 
    \          00 24 40
-   \   00004F F9 03 D3 00  DMOV.D    #0x40280000,DRH13
+   \   00004F F9 03 D3 00  DMOV.D    #0x40280000,DRH13     ;  N 
 
    \          00 28 40
-   \   000056 F9 03 F3 00  DMOV.D    #0x402c0000,DRH15
+   \   000056 F9 03 F3 00  DMOV.D    #0x402c0000,DRH15     ;  N 
 
    \          00 2C 40
-   \   00005D F9 03 03 00  DMOV.D    #0x40300000,DRH0
+   \   00005D F9 03 03 00  DMOV.D    #0x40300000,DRH0      ;  N 
 
    \          00 30 40
-   \   000064 76 90 60 63  DADD      DR3,DR6,DR6
-   \   000068 76 90 70 72  DADD      DR2,DR7,DR7
+   \   000064 76 90 60 63  DADD      DR3,DR6,DR6   ;  N
+   \   000068 76 90 70 72  DADD      DR2,DR7,DR7   ;  N
      75              d7  = d1 + d2 +  7.0;
      76              d8  = d1 - d2 +  8.0;
-   \   00006C 76 90 90 92  DADD      DR2,DR9,DR9
+   \   00006C 76 90 90 92  DADD      DR2,DR9,DR9   ;  N
      77              d9  = d1 + d2 +  9.0;
      78              d10 = d1 - d2 + 10.0;
-   \   000070 76 90 B0 B2  DADD      DR2,DR11,DR11
+   \   000070 76 90 B0 B2  DADD      DR2,DR11,DR11 ;  N
      79              d11 = d1 + d2 + 11.0;
      80              d12 = d1 - d2 + 12.0;
-   \   000074 76 90 D0 D2  DADD      DR2,DR13,DR13
+   \   000074 76 90 D0 D2  DADD      DR2,DR13,DR13 ;  N
      81              d13 = d1 + d2 + 13.0;
      82              d14 = d1 - d2 + 14.0;
-   \   000078 76 90 F0 F2  DADD      DR2,DR15,DR15
+   \   000078 76 90 F0 F2  DADD      DR2,DR15,DR15 ;  N
      83              d15 = d1 + d2 + 15.0;
      84              d16 = d1 - d2 + 16.0;
-   \   00007C 76 90 00 22  DADD      DR2,DR0,DR2
+   \   00007C 76 90 00 22  DADD      DR2,DR0,DR2   ;  N
      85          
      86              dA = d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + d15 + d16;
-   \   000080 76 90 50 04  DADD      DR4,DR5,DR0
-   \   000084 F9 03 83 00  DMOV.D    #0x401c0000,DRH8
+   \   000080 76 90 50 04  DADD      DR4,DR5,DR0   ;  N
+   \   000084 F9 03 83 00  DMOV.D    #0x401c0000,DRH8      ;  N 
 
    \          00 1C 40
-   \   00008B 76 90 60 00  DADD      DR0,DR6,DR0
-   \   00008F 76 90 80 83  DADD      DR3,DR8,DR8
-   \   000093 76 90 70 00  DADD      DR0,DR7,DR0
-   \   000097 F9 03 A3 00  DMOV.D    #0x40220000,DRH10
+   \   00008B 76 90 60 00  DADD      DR0,DR6,DR0   ;  N
+   \   00008F 76 90 80 83  DADD      DR3,DR8,DR8   ;  N
+   \   000093 76 90 70 00  DADD      DR0,DR7,DR0   ;  N
+   \   000097 F9 03 A3 00  DMOV.D    #0x40220000,DRH10     ;  N 
 
    \          00 22 40
-   \   00009E 76 90 80 00  DADD      DR0,DR8,DR0
-   \   0000A2 76 90 A0 A3  DADD      DR3,DR10,DR10
-   \   0000A6 76 90 90 00  DADD      DR0,DR9,DR0
-   \   0000AA F9 03 C3 00  DMOV.D    #0x40260000,DRH12
+   \   00009E 76 90 80 00  DADD      DR0,DR8,DR0   ;  N
+   \   0000A2 76 90 A0 A3  DADD      DR3,DR10,DR10 ;  N
+   \   0000A6 76 90 90 00  DADD      DR0,DR9,DR0   ;  N
+   \   0000AA F9 03 C3 00  DMOV.D    #0x40260000,DRH12     ;  N 
 
    \          00 26 40
-   \   0000B1 76 90 A0 00  DADD      DR0,DR10,DR0
-   \   0000B5 76 90 C0 C3  DADD      DR3,DR12,DR12
-   \   0000B9 76 90 B0 00  DADD      DR0,DR11,DR0
-   \   0000BD F9 03 E3 00  DMOV.D    #0x402a0000,DRH14
+   \   0000B1 76 90 A0 00  DADD      DR0,DR10,DR0  ;  N
+   \   0000B5 76 90 C0 C3  DADD      DR3,DR12,DR12 ;  N
+   \   0000B9 76 90 B0 00  DADD      DR0,DR11,DR0  ;  N
+   \   0000BD F9 03 E3 00  DMOV.D    #0x402a0000,DRH14     ;  N 
 
    \          00 2A 40
-   \   0000C4 76 90 C0 00  DADD      DR0,DR12,DR0
-   \   0000C8 76 90 E0 E3  DADD      DR3,DR14,DR14
-   \   0000CC 76 90 D0 00  DADD      DR0,DR13,DR0
-   \   0000D0 F9 03 13 00  DMOV.D    #0x402e0000,DRH1
+   \   0000C4 76 90 C0 00  DADD      DR0,DR12,DR0  ;  N
+   \   0000C8 76 90 E0 E3  DADD      DR3,DR14,DR14 ;  N
+   \   0000CC 76 90 D0 00  DADD      DR0,DR13,DR0  ;  N
+   \   0000D0 F9 03 13 00  DMOV.D    #0x402e0000,DRH1      ;  N 
 
    \          00 2E 40
-   \   0000D7 76 90 E0 00  DADD      DR0,DR14,DR0
-   \   0000DB 76 90 10 33  DADD      DR3,DR1,DR3
-   \   0000DF 76 90 F0 00  DADD      DR0,DR15,DR0
-   \   0000E3 76 90 30 00  DADD      DR0,DR3,DR0
-   \   0000E7 FB 1E        MOV.L     #_dA:24,R1
+   \   0000D7 76 90 E0 00  DADD      DR0,DR14,DR0  ;  N
+   \   0000DB 76 90 10 33  DADD      DR3,DR1,DR3   ;  N
+   \   0000DF 76 90 F0 00  DADD      DR0,DR15,DR0  ;  N
+   \   0000E3 76 90 30 00  DADD      DR0,DR3,DR0   ;  N
+   \   0000E7 FB 1E        MOV.L     #_dA:24,R1    ;  N 
 
    \          ..'....
-   \   0000EC 76 90 20 00  DADD      DR0,DR2,DR0
-   \   0000F0 FC 78 18 00  DMOV.D    DR0,[R1]
+   \   0000EC 76 90 20 00  DADD      DR0,DR2,DR0   ;  N
+   \   0000F0 FC 78 18 00  DMOV.D    DR0,[R1]      ;  N
      87              dB = d3 * d4 * d5 * d6 * d7 * d8 * d9 * d10 * d11 * d12 * d13 * d14 * d15 * d16;
-   \   0000F4 76 90 52 04  DMUL      DR4,DR5,DR0
-   \   0000F8 76 90 62 00  DMUL      DR0,DR6,DR0
-   \   0000FC 76 90 72 00  DMUL      DR0,DR7,DR0
-   \   000100 76 90 82 00  DMUL      DR0,DR8,DR0
-   \   000104 76 90 92 00  DMUL      DR0,DR9,DR0
-   \   000108 76 90 A2 00  DMUL      DR0,DR10,DR0
-   \   00010C 76 90 B2 00  DMUL      DR0,DR11,DR0
-   \   000110 76 90 C2 00  DMUL      DR0,DR12,DR0
-   \   000114 76 90 D2 00  DMUL      DR0,DR13,DR0
-   \   000118 76 90 E2 00  DMUL      DR0,DR14,DR0
-   \   00011C 76 90 F2 00  DMUL      DR0,DR15,DR0
-   \   000120 76 90 32 00  DMUL      DR0,DR3,DR0
-   \   000124 76 90 22 00  DMUL      DR0,DR2,DR0
-   \   000128 FC 79 18 02  DMOV.D    DR0,0x8[R1]
+   \   0000F4 76 90 52 04  DMUL      DR4,DR5,DR0   ;  N
+   \   0000F8 76 90 62 00  DMUL      DR0,DR6,DR0   ;  N
+   \   0000FC 76 90 72 00  DMUL      DR0,DR7,DR0   ;  N
+   \   000100 76 90 82 00  DMUL      DR0,DR8,DR0   ;  N
+   \   000104 76 90 92 00  DMUL      DR0,DR9,DR0   ;  N
+   \   000108 76 90 A2 00  DMUL      DR0,DR10,DR0  ;  N
+   \   00010C 76 90 B2 00  DMUL      DR0,DR11,DR0  ;  N
+   \   000110 76 90 C2 00  DMUL      DR0,DR12,DR0  ;  N
+   \   000114 76 90 D2 00  DMUL      DR0,DR13,DR0  ;  N
+   \   000118 76 90 E2 00  DMUL      DR0,DR14,DR0  ;  N
+   \   00011C 76 90 F2 00  DMUL      DR0,DR15,DR0  ;  N
+   \   000120 76 90 32 00  DMUL      DR0,DR3,DR0   ;  N
+   \   000124 76 90 22 00  DMUL      DR0,DR2,DR0   ;  N
+   \   000128 FC 79 18 02  DMOV.D    DR0,0x8[R1]   ;  N 
 
    \          00
      88              dC = d3 - d4 - d5 - d6 - d7 - d8 - d9 - d10 - d11 - d12 - d13 - d14 - d15 - d16;
-   \   00012D 76 90 41 05  DSUB      DR5,DR4,DR0
+   \   00012D 76 90 41 05  DSUB      DR5,DR4,DR0   ;  N
      89              dD = d3 / d4 / d5 / d6 / d7 / d8 / d9 / d10 / d11 / d12 / d13 / d14 / d15 / d16;
-   \   000131 76 90 45 45  DDIV      DR5,DR4,DR4
-   \   000135 76 90 01 06  DSUB      DR6,DR0,DR0
-   \   000139 76 90 45 46  DDIV      DR6,DR4,DR4
-   \   00013D 76 90 01 07  DSUB      DR7,DR0,DR0
-   \   000141 76 90 45 47  DDIV      DR7,DR4,DR4
-   \   000145 76 90 01 08  DSUB      DR8,DR0,DR0
-   \   000149 76 90 45 48  DDIV      DR8,DR4,DR4
-   \   00014D 76 90 01 09  DSUB      DR9,DR0,DR0
-   \   000151 76 90 45 49  DDIV      DR9,DR4,DR4
-   \   000155 76 90 01 0A  DSUB      DR10,DR0,DR0
-   \   000159 76 90 45 4A  DDIV      DR10,DR4,DR4
-   \   00015D 76 90 01 0B  DSUB      DR11,DR0,DR0
-   \   000161 76 90 45 4B  DDIV      DR11,DR4,DR4
-   \   000165 76 90 01 0C  DSUB      DR12,DR0,DR0
-   \   000169 76 90 45 4C  DDIV      DR12,DR4,DR4
-   \   00016D 76 90 01 0D  DSUB      DR13,DR0,DR0
-   \   000171 76 90 45 4D  DDIV      DR13,DR4,DR4
-   \   000175 76 90 01 0E  DSUB      DR14,DR0,DR0
-   \   000179 76 90 45 4E  DDIV      DR14,DR4,DR4
-   \   00017D 76 90 01 0F  DSUB      DR15,DR0,DR0
-   \   000181 76 90 45 4F  DDIV      DR15,DR4,DR4
-   \   000185 76 90 01 03  DSUB      DR3,DR0,DR0
-   \   000189 76 90 45 33  DDIV      DR3,DR4,DR3
-   \   00018D 76 90 01 02  DSUB      DR2,DR0,DR0
-   \   000191 76 90 35 22  DDIV      DR2,DR3,DR2
-   \   000195 FC 79 18 04  DMOV.D    DR0,0x10[R1]
+   \   000131 76 90 45 45  DDIV      DR5,DR4,DR4   ;  N
+   \   000135 76 90 01 06  DSUB      DR6,DR0,DR0   ;  N
+   \   000139 76 90 45 46  DDIV      DR6,DR4,DR4   ;  N
+   \   00013D 76 90 01 07  DSUB      DR7,DR0,DR0   ;  N
+   \   000141 76 90 45 47  DDIV      DR7,DR4,DR4   ;  N
+   \   000145 76 90 01 08  DSUB      DR8,DR0,DR0   ;  N
+   \   000149 76 90 45 48  DDIV      DR8,DR4,DR4   ;  N
+   \   00014D 76 90 01 09  DSUB      DR9,DR0,DR0   ;  N
+   \   000151 76 90 45 49  DDIV      DR9,DR4,DR4   ;  N
+   \   000155 76 90 01 0A  DSUB      DR10,DR0,DR0  ;  N
+   \   000159 76 90 45 4A  DDIV      DR10,DR4,DR4  ;  N
+   \   00015D 76 90 01 0B  DSUB      DR11,DR0,DR0  ;  N
+   \   000161 76 90 45 4B  DDIV      DR11,DR4,DR4  ;  N
+   \   000165 76 90 01 0C  DSUB      DR12,DR0,DR0  ;  N
+   \   000169 76 90 45 4C  DDIV      DR12,DR4,DR4  ;  N
+   \   00016D 76 90 01 0D  DSUB      DR13,DR0,DR0  ;  N
+   \   000171 76 90 45 4D  DDIV      DR13,DR4,DR4  ;  N
+   \   000175 76 90 01 0E  DSUB      DR14,DR0,DR0  ;  N
+   \   000179 76 90 45 4E  DDIV      DR14,DR4,DR4  ;  N
+   \   00017D 76 90 01 0F  DSUB      DR15,DR0,DR0  ;  N
+   \   000181 76 90 45 4F  DDIV      DR15,DR4,DR4  ;  N
+   \   000185 76 90 01 03  DSUB      DR3,DR0,DR0   ;  N
+   \   000189 76 90 45 33  DDIV      DR3,DR4,DR3   ;  N
+   \   00018D 76 90 01 02  DSUB      DR2,DR0,DR0   ;  N
+   \   000191 76 90 35 22  DDIV      DR2,DR3,DR2   ;  N
+   \   000195 FC 79 18 04  DMOV.D    DR0,0x10[R1]  ;  N 
 
    \          00
-   \   00019A FC 79 18 06  DMOV.D    DR2,0x18[R1]
+   \   00019A FC 79 18 06  DMOV.D    DR2,0x18[R1]  ;  N 
 
    \          20
      90          }
-   \   00019F 75 B8 0F     DPOPM.D   DR0,DR15
+   \   00019F 75 B8 0F     DPOPM.D   DR0,DR15      ;  N
    \   0001A2 02           RTS
      91          
 
@@ -368,11 +368,11 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \   000000              REQUIRE __iar_init_tfu
      96          {
      97              return sinf(x);
-   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2   ;  N 
 
    \          08
-   \   000005 A0 29        MOV.L     R1,0x4[R2]
-   \   000007 A8 29        MOV.L     0x4[R2],R1
+   \   000005 A0 29        MOV.L     R1,0x4[R2]    ;  N
+   \   000007 A8 29        MOV.L     0x4[R2],R1    ;  N
    \   000009 02           RTS
      98          }
      99          
@@ -384,11 +384,11 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \   000000              REQUIRE __iar_init_tfu
     102          {
     103              return cosf(x);
-   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2
+   \   000000 FB 2E 10 14  MOV.L     #0x81410,R2   ;  N 
 
    \          08
-   \   000005 A0 29        MOV.L     R1,0x4[R2]
-   \   000007 EC 21        MOV.L     [R2],R1
+   \   000005 A0 29        MOV.L     R1,0x4[R2]    ;  N
+   \   000007 EC 21        MOV.L     [R2],R1       ;  N
    \   000009 02           RTS
     104          }
     105          
@@ -400,12 +400,12 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \   000000              REQUIRE __iar_init_tfu
     108          {
     109              return atan2f(y, x);
-   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3   ;  N 
 
    \          08
-   \   000005 A0 B2        MOV.L     R2,0x8[R3]
-   \   000007 A0 B9        MOV.L     R1,0xc[R3]
-   \   000009 A8 B9        MOV.L     0xc[R3],R1
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]    ;  N
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]    ;  N
+   \   000009 A8 B9        MOV.L     0xc[R3],R1    ;  N
    \   00000B 02           RTS
     110          }
     111          
@@ -417,13 +417,13 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \   000000              REQUIRE __iar_init_tfu
     114          {
     115              return hypotf(x, y);
-   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3
+   \   000000 FB 3E 10 14  MOV.L     #0x81410,R3   ;  N 
 
    \          08
-   \   000005 A0 B2        MOV.L     R2,0x8[R3]
-   \   000007 A0 B9        MOV.L     R1,0xc[R3]
-   \   000009 A8 B1        MOV.L     0x8[R3],R1
-   \   00000B FD 72 31 EE  FMUL      #0x3f1b74ee,R1
+   \   000005 A0 B2        MOV.L     R2,0x8[R3]    ;  N
+   \   000007 A0 B9        MOV.L     R1,0xc[R3]    ;  N
+   \   000009 A8 B1        MOV.L     0x8[R3],R1    ;  N
+   \   00000B FD 72 31 EE  FMUL      #0x3f1b74ee,R1        ;  N 
 
    \          74 1B 3F
    \   000012 02           RTS
@@ -436,7 +436,7 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
     120          {
     121              return asinf(x);
    \                     _Check_TFU_asinf:
-   \   000000 04 ..'....   BRA.A     _asinf
+   \   000000 04 ..'....   BRA.A     _asinf        ;  N
     122          }
     123          
     124          static float Check_TFU_acosf(float x);
@@ -446,7 +446,7 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
     126          {
     127              return acosf(x);
    \                     _Check_TFU_acosf:
-   \   000000 04 ..'....   BRA.A     _acosf
+   \   000000 04 ..'....   BRA.A     _acosf        ;  N
     128          }
     129          
     130          static float Check_TFU_atanf(float x);
@@ -456,7 +456,7 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
     132          {
     133              return atanf(x);
    \                     _Check_TFU_atanf:
-   \   000000 04 ..'....   BRA.A     _atanf
+   \   000000 04 ..'....   BRA.A     _atanf        ;  N
     134          }
     135          
     136          static float Check_TFU_tanf(float x);
@@ -466,7 +466,7 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
     138          {
     139              return tanf(x);
    \                     _Check_TFU_tanf:
-   \   000000 04 ..'....   BRA.A     _tanf
+   \   000000 04 ..'....   BRA.A     _tanf ;  N
     140          }
     141          
 
@@ -519,33 +519,33 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \   000000              REQUIRE __iar_init_tfu
     154          {
     155              v2->X = - sinf(t) * v1->Y + cosf(t) * v1->X;
-   \   000000 FB 5E 10 14  MOV.L     #0x81410,R5
+   \   000000 FB 5E 10 14  MOV.L     #0x81410,R5   ;  N 
 
    \          08
-   \   000005 A0 59        MOV.L     R1,0x4[R5]
-   \   000007 A8 5C        MOV.L     0x4[R5],R4
-   \   000009 A0 59        MOV.L     R1,0x4[R5]
-   \   00000B EC 5E        MOV.L     [R5],R14
-   \   00000D EC 25        MOV.L     [R2],R5
-   \   00000F FC 8F E5     FMUL      R14,R5
-   \   000012 ED 2E 01     MOV.L     0x4[R2],R14
-   \   000015 FC 8F E4     FMUL      R14,R4
-   \   000018 FF 84 45     FSUB      R4,R5,R4
+   \   000005 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   000007 A8 5C        MOV.L     0x4[R5],R4    ;  N
+   \   000009 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   00000B EC 5E        MOV.L     [R5],R14      ;  N
+   \   00000D EC 25        MOV.L     [R2],R5       ;  N
+   \   00000F FC 8F E5     FMUL      R14,R5        ;  N
+   \   000012 ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   000015 FC 8F E4     FMUL      R14,R4        ;  N
+   \   000018 FF 84 45     FSUB      R4,R5,R4      ;  N
     156              v2->Y =   sinf(t) * v1->X + cosf(t) * v1->Y;
-   \   00001B FB 5E 10 14  MOV.L     #0x81410,R5
+   \   00001B FB 5E 10 14  MOV.L     #0x81410,R5   ;  N 
 
    \          08
-   \   000020 E3 34        MOV.L     R4,[R3]
-   \   000022 A0 59        MOV.L     R1,0x4[R5]
-   \   000024 A8 5C        MOV.L     0x4[R5],R4
-   \   000026 EC 2F        MOV.L     [R2],R15
-   \   000028 FC 8F 4F     FMUL      R4,R15
-   \   00002B A0 59        MOV.L     R1,0x4[R5]
-   \   00002D EC 51        MOV.L     [R5],R1
-   \   00002F A8 2D        MOV.L     0x4[R2],R5
-   \   000031 FC 8F 51     FMUL      R5,R1
-   \   000034 FC 8B F1     FADD      R15,R1
-   \   000037 A0 39        MOV.L     R1,0x4[R3]
+   \   000020 E3 34        MOV.L     R4,[R3]       ;  N
+   \   000022 A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   000024 A8 5C        MOV.L     0x4[R5],R4    ;  N
+   \   000026 EC 2F        MOV.L     [R2],R15      ;  N
+   \   000028 FC 8F 4F     FMUL      R4,R15        ;  N
+   \   00002B A0 59        MOV.L     R1,0x4[R5]    ;  N
+   \   00002D EC 51        MOV.L     [R5],R1       ;  N
+   \   00002F A8 2D        MOV.L     0x4[R2],R5    ;  N
+   \   000031 FC 8F 51     FMUL      R5,R1 ;  N
+   \   000034 FC 8B F1     FADD      R15,R1        ;  N
+   \   000037 A0 39        MOV.L     R1,0x4[R3]    ;  N
     157          }
    \   000039 02           RTS
     158          
@@ -560,17 +560,17 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
    \                     _rot_2:
    \   000000              REQUIRE __iar_init_tfu
     165          {
-   \   000000 60 80        SUB       #0x8,SP
+   \   000000 60 80        SUB       #0x8,SP       ;  N
     166              float sinf_t, cosf_t;
     167          
     168          #if defined(__CCRX__)
     169              __sincosf(t, &sinf_t, &cosf_t);
     170          #elif defined(__ICCRX__)
     171              __sincosf(t, &sinf_t, &cosf_t);
-   \   000002 FB 4E 10 14  MOV.L     #0x81410,R4
+   \   000002 FB 4E 10 14  MOV.L     #0x81410,R4   ;  N 
 
    \          08
-   \   000007 A0 49        MOV.L     R1,0x4[R4]
+   \   000007 A0 49        MOV.L     R1,0x4[R4]    ;  N
    \   000009 A8 49        MOV.L     0x4[R4],R1
    \   00000B A0 09        MOV.L     R1,0x4[SP]
    \   00000D EC 44        MOV.L     [R4],R4
@@ -580,23 +580,23 @@ C:\Renesas\GitHubDesktop\workspaces\workspace_e2v202210\RXv3_RegBankSave\RXv3_Re
     175          
     176              v2->X = - sinf_t * v1->Y + cosf_t * v1->X;
    \   00000F E3 04        MOV.L     R4,[SP]
-   \   000011 EC 01        MOV.L     [SP],R1
-   \   000013 EC 24        MOV.L     [R2],R4
-   \   000015 ED 2E 01     MOV.L     0x4[R2],R14
-   \   000018 A8 0D        MOV.L     0x4[SP],R5
-   \   00001A FC 8F 14     FMUL      R1,R4
-   \   00001D FC 8F 5E     FMUL      R5,R14
-   \   000020 FF 8E E4     FSUB      R14,R4,R14
-   \   000023 E3 3E        MOV.L     R14,[R3]
+   \   000011 EC 01        MOV.L     [SP],R1       ;  N
+   \   000013 EC 24        MOV.L     [R2],R4       ;  N
+   \   000015 ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   000018 A8 0D        MOV.L     0x4[SP],R5    ;  N
+   \   00001A FC 8F 14     FMUL      R1,R4 ;  N
+   \   00001D FC 8F 5E     FMUL      R5,R14        ;  N
+   \   000020 FF 8E E4     FSUB      R14,R4,R14    ;  N
+   \   000023 E3 3E        MOV.L     R14,[R3]      ;  N
     177              v2->Y =   sinf_t * v1->X + cosf_t * v1->Y;
-   \   000025 A8 09        MOV.L     0x4[SP],R1
-   \   000027 EC 24        MOV.L     [R2],R4
-   \   000029 EC 05        MOV.L     [SP],R5
-   \   00002B ED 2E 01     MOV.L     0x4[R2],R14
-   \   00002E FC 8F 14     FMUL      R1,R4
-   \   000031 FF B2 E5     FMUL      R14,R5,R2
-   \   000034 FC 8B 42     FADD      R4,R2
-   \   000037 A0 3A        MOV.L     R2,0x4[R3]
+   \   000025 A8 09        MOV.L     0x4[SP],R1    ;  N
+   \   000027 EC 24        MOV.L     [R2],R4       ;  N
+   \   000029 EC 05        MOV.L     [SP],R5       ;  N
+   \   00002B ED 2E 01     MOV.L     0x4[R2],R14   ;  N
+   \   00002E FC 8F 14     FMUL      R1,R4 ;  N
+   \   000031 FF B2 E5     FMUL      R14,R5,R2     ;  N
+   \   000034 FC 8B 42     FADD      R4,R2 ;  N
+   \   000037 A0 3A        MOV.L     R2,0x4[R3]    ;  N
     178          }
    \   000039 67 02        RTSD      #0x8
 

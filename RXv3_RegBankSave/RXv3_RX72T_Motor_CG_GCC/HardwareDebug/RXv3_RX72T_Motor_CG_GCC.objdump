@@ -3747,9 +3747,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_bl0_handler_isr, VECT(ICU,GROUPBL0))
 fff81180:	7e a1                         	push.l	r1
 fff81182:	fd 6a 01                      	mvfc	psw, r1
 fff81185:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-fff8118a:	61 81                         	cmp	#8, r1
+fff8118a:	61 91                         	cmp	#9, r1
 fff8118c:	22 05                         	bc.b	fff81191 <_Reset_Vector+0xfff81195>
-fff8118e:	75 70 08                      	mvtipl	#8
+fff8118e:	75 70 09                      	mvtipl	#9
 fff81191:	7f a8                         	setpsw	i
 fff81193:	fd 6a 01                      	mvfc	psw, r1
 fff81196:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -4149,9 +4149,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_bl1_handler_isr, VECT(ICU,GROUPBL1))
 fff81498:	7e a1                         	push.l	r1
 fff8149a:	fd 6a 01                      	mvfc	psw, r1
 fff8149d:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-fff814a2:	61 81                         	cmp	#8, r1
+fff814a2:	61 91                         	cmp	#9, r1
 fff814a4:	22 05                         	bc.b	fff814a9 <_Reset_Vector+0xfff814ad>
-fff814a6:	75 70 08                      	mvtipl	#8
+fff814a6:	75 70 09                      	mvtipl	#9
 fff814a9:	7f a8                         	setpsw	i
 fff814ab:	fd 6a 01                      	mvfc	psw, r1
 fff814ae:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -4671,9 +4671,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_al0_handler_isr, VECT(ICU,GROUPAL0))
 fff818a0:	7e a1                         	push.l	r1
 fff818a2:	fd 6a 01                      	mvfc	psw, r1
 fff818a5:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-fff818aa:	61 81                         	cmp	#8, r1
+fff818aa:	61 91                         	cmp	#9, r1
 fff818ac:	22 05                         	bc.b	fff818b1 <_Reset_Vector+0xfff818b5>
-fff818ae:	75 70 08                      	mvtipl	#8
+fff818ae:	75 70 09                      	mvtipl	#9
 fff818b1:	7f a8                         	setpsw	i
 fff818b3:	fd 6a 01                      	mvfc	psw, r1
 fff818b6:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
@@ -4785,9 +4785,9 @@ R_BSP_PRAGMA_STATIC_INTERRUPT(group_be0_handler_isr, VECT(ICU,GROUPBE0))
 fff81970:	7e a1                         	push.l	r1
 fff81972:	fd 6a 01                      	mvfc	psw, r1
 fff81975:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
-fff8197a:	61 81                         	cmp	#8, r1
+fff8197a:	61 91                         	cmp	#9, r1
 fff8197c:	22 05                         	bc.b	fff81981 <_Reset_Vector+0xfff81985>
-fff8197e:	75 70 08                      	mvtipl	#8
+fff8197e:	75 70 09                      	mvtipl	#9
 fff81981:	7f a8                         	setpsw	i
 fff81983:	fd 6a 01                      	mvfc	psw, r1
 fff81986:	fc 5a 11 08 10                	bfmovz	#24, #0, #4, r1, r1
